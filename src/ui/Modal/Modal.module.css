@@ -1,0 +1,35 @@
+/* .animation {
+  left: 50%;
+  top: 50%;
+  transform: translate(-500%, -50%);
+  animation: moving 1s infinite;
+}
+@keyframes moving {
+  0% {
+    transform: translate(-500%, -50%) rotate(75deg);
+  }
+  12.5% {
+    transform: translate(-425%, -50%) rotate(150deg);
+  }
+  25% {
+    transform: translate(-350%, -50%) rotate(225deg);
+  }
+  37.5% {
+    transform: translate(-275%, -50%) rotate(300deg);
+  }
+  50% {
+    transform: translate(-200%, -50%) rotate(375deg);
+  }
+  62.5% {
+    transform: translate(-125%, -50%) rotate(450deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(500deg);
+  }
+  87.5% {
+    transform: translate(0%, -50%) rotate(575deg);
+  }
+  100% {
+    transform: translate(75%, -50%) rotate(650deg);
+  }
+} */
