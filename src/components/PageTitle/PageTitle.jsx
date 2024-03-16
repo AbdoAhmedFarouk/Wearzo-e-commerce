@@ -1,12 +1,18 @@
 import { NavLink } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+
 import Container from '../Container/Container';
 
-// eslint-disable-next-line react/prop-types
+PageTitle.propTypes = {
+  text: PropTypes.string,
+};
+
 function PageTitle({ text }) {
+  const slicedTitle = text?.slice(0, 25);
   return (
     <div
       className="mb-[30px] bg-fifthColor py-[14.5px]
-    text-primaryColor"
+      text-primaryColor"
     >
       <Container
         styles="text-center md:flex md:items-center
@@ -14,15 +20,14 @@ function PageTitle({ text }) {
       >
         <h2
           className="text-sm font-medium uppercase leading-5
-        md:text-base md:leading-5"
+          md:text-base md:leading-5"
         >
-          {text}
+          {slicedTitle}
         </h2>
 
         <ul
           className="flex items-center justify-center
-        gap-6 text-sm capitalize
-        md:justify-between md:gap-4"
+          gap-6 text-sm capitalize md:justify-between md:gap-4"
         >
           <li
             className="relative before:absolute before:-right-4
@@ -34,11 +39,7 @@ function PageTitle({ text }) {
             </NavLink>
           </li>
 
-          <li>
-            <a className="hover:text-thirdColor" href="#">
-              {text}
-            </a>
-          </li>
+          <li className="cursor-default">{slicedTitle}</li>
         </ul>
       </Container>
     </div>

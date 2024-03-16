@@ -43,13 +43,13 @@ function ForgotPasswordPage() {
 
                 <ShopNowBtn
                   styles="border-none py-2.5 text-sm
-                    bg-primaryColor px-5 md:px-[30px] uppercase
-                    text-white outline-0 hover:bg-thirdColor
-                    duration-300 w-full sm:w-fit mt-2.5 sm:mt-0"
+                  bg-primaryColor px-5 md:px-[30px] uppercase
+                  text-white outline-0 hover:bg-thirdColor
+                  duration-300 w-full sm:w-fit mt-2.5 sm:mt-0"
                   type="button"
                   text={
                     <>
-                      <span className="hidden xs:block">send reset link</span>
+                      <span className="hidden xs:inline">send reset link</span>
                       <span className="xs:hidden">send</span>
                     </>
                   }

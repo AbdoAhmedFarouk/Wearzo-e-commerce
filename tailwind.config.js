@@ -2,31 +2,35 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    screens: {
-      xxxxs: '288px',
-
-      xxxs: '376px',
-
-      xxs: '481px',
-
-      xs: '576px',
-
-      sm: '768px',
-
-      md: '992px',
-
-      lg: '1200px',
-
-      xl: '1341px',
-
-      '2xl': '1441px',
-    },
-
     fontFamily: {
       sans: 'Jost, sans-serif',
     },
 
     extend: {
+      gridTemplateColumns: {
+        16: 'minmax(250px, 19.271%) 1fr',
+      },
+
+      screens: {
+        xxxxs: '288px',
+
+        xxxs: '376px',
+
+        xxs: '481px',
+
+        xs: '576px',
+
+        sm: '768px',
+
+        md: '992px',
+
+        lg: '1200px',
+
+        xl: '1341px',
+
+        '2xl': '1441px',
+      },
+
       keyframes: {
         fadeInUp: {
           '0%': {

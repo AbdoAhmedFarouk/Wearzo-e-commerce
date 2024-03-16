@@ -1,4 +1,5 @@
-// eslint-disable-next-line react/prop-types
+import { PropTypes } from 'prop-types';
+
 function PromoBannerBox({ children, mainImg, width, parentStyles }) {
   return (
     <div className={`relative ${parentStyles ? parentStyles : ''}`}>
@@ -10,5 +11,12 @@ function PromoBannerBox({ children, mainImg, width, parentStyles }) {
     </div>
   );
 }
+
+PromoBannerBox.propTypes = {
+  children: PropTypes.node,
+  mainImg: PropTypes.object,
+  width: PropTypes.string,
+  parentStyles: PropTypes.string,
+};
 
 export default PromoBannerBox;

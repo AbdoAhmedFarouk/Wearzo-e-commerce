@@ -1,23 +1,43 @@
 import { useRecoilState } from 'recoil';
 import { isAboutSideProductMenuOpen } from '../../atoms/isOpen';
 import { useIsOpen } from '../../hooks/useIsOpen';
+import { aboutSideMenuProductsInAboutPage } from '../../atoms/products';
+import { isAboutSideMenuProductsInAboutPageLoading } from '../../atoms/isLoading';
+import { aboutSideMenuProductsErrorInAboutPage } from '../../atoms/error';
+import useLimitProductsUseEffect from '../../hooks/useLimitProductsUseEffect';
 
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
-import SideProductBox from '../../components/SideProductBox/SideProductBox';
 import MobileMenuHeader from '../../components/MobileMenuHeader/MobileMenuHeader';
 
 import AboutImg from '../../assets/cms-img.jpg';
+import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function AboutPage() {
   const [isAbSideProductListMenuOpen, setIsAbSideProductListMenuOpen] =
     useRecoilState(isAboutSideProductMenuOpen);
 
+  const [aboutSideMenuProducts, setAboutSideMenuProducts] = useRecoilState(
+    aboutSideMenuProductsInAboutPage,
+  );
+
+  const [isAboutSideMenuProductsLoading, setIsAboutSideMenuProductsLoading] =
+    useRecoilState(isAboutSideMenuProductsInAboutPageLoading);
+
+  const [aboutSideMenuProductsError, setAboutSideMenuProductsError] =
+    useRecoilState(aboutSideMenuProductsErrorInAboutPage);
+
   const openSideProductListFn = useIsOpen(
     isAbSideProductListMenuOpen,
     setIsAbSideProductListMenuOpen,
+  );
+
+  useLimitProductsUseEffect(
+    setAboutSideMenuProducts,
+    setIsAboutSideMenuProductsLoading,
+    setAboutSideMenuProductsError,
   );
 
   return (
@@ -25,8 +45,8 @@ function AboutPage() {
       <PageTitle text="about us" />
 
       <div>
-        <Container styles="grid grid-cols-1 md:grid-cols-12 gap-[30px]">
-          <div className="md:col-span-3">
+        <Container styles="grid grid-cols-1 md:grid-cols-16 gap-[30px]">
+          <div>
             <MobileMenuHeader
               styles="flex items-center justify-between
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
@@ -43,46 +63,19 @@ function AboutPage() {
               </h3>
             </MobileMenuHeader>
 
-            <div
-              className="hidden bg-white p-[15px]
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              md:block md:p-5 2xl:px-5 2xl:py-[30px]"
-            >
-              <SideProductBox styles="mb-[30px]" />
-              <SideProductBox styles="mb-[30px]" />
-              <SideProductBox />
-            </div>
-
-            {isAbSideProductListMenuOpen ? (
-              <div
-                className="visible h-[389.75px]
-              overflow-hidden bg-white p-[15px] opacity-100
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              duration-700 md:hidden"
-              >
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox />
-              </div>
-            ) : (
-              <div
-                className="invisible h-0
-              overflow-hidden bg-white p-[15px] opacity-0
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              duration-700 md:hidden"
-              >
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox />
-              </div>
-            )}
+            <SideProductBoxContainer
+              productsState={aboutSideMenuProducts}
+              isLoading={isAboutSideMenuProductsLoading}
+              errorState={aboutSideMenuProductsError}
+              isListMenuOpen={isAbSideProductListMenuOpen}
+            />
 
             <SideBarBanner />
           </div>
 
           <div
             className={`border border-fourthColor p-2
-            duration-700 xxs:p-[15px] md:col-span-9 md:text-justify ${
+            duration-700 xxs:p-[15px] md:text-justify ${
               isAbSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
             }`}
           >

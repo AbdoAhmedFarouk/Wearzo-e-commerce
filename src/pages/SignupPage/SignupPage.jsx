@@ -273,7 +273,7 @@ function SignupPage() {
                 </div>
               </div>
 
-              <div className="ms-auto w-fit">
+              <div className="text-right">
                 <ShopNowBtn
                   text="save"
                   styles="border-none hover:bg-thirdColor

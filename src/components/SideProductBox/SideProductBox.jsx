@@ -1,48 +1,55 @@
-import ProductHoveringSubImg from '../ProductHoveringSubImg/ProductHoveringSubImg';
+import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+
 import RatingStars from '../RatingStars/RatingStars';
 
-import productImg from '../../assets/productImg.jpg';
+// const defaultStyles = ``;
 
-// eslint-disable-next-line react/prop-types
-function SideProductBox({ styles }) {
+SideProductBox.propTypes = {
+  product: PropTypes.object,
+  styles: PropTypes.string,
+};
+
+function SideProductBox({ product }) {
   return (
-    <div
-      className={`group/box relative flex
-      items-center overflow-hidden ${styles ? styles : ''}`}
-    >
-      <div
-        className="relative mr-5 w-20 cursor-pointer
-        overflow-hidden md:mr-[7%] md:w-[30%]"
-      >
-        <img className="w-full" src={productImg} alt={productImg} />
-
-        <ProductHoveringSubImg />
+    <div className="text-center sm:flex sm:text-left">
+      <div className="m-auto w-fit sm:m-0 sm:me-5">
+        <Link to={`/product/${product?.id}`} className="h-full">
+          <img
+            className="h-full w-[75px] object-contain"
+            src={product?.image}
+            alt={product?.image}
+          />
+        </Link>
       </div>
 
-      <div className="flex-1">
-        <RatingStars
-          styles="lg:mb-2 flex items-center
-          text-eighthColor lg:h-6 lg:text-base
-          text-sm mb-1.5"
-        />
-
-        <div className="font-medium text-primaryColor">
-          <h3
-            className="text-sm capitalize leading-5 lg:text-base
-            lg:leading-5"
+      <div
+        className="mt-4 font-medium text-primaryColor
+        sm:m-0 sm:flex-1 sm:space-y-2"
+      >
+        <h3 className="mb-1 text-xs capitalize leading-5 sm:m-0 sm:text-base">
+          <Link
+            to={`/product/${product?.id}`}
+            className="hover:text-thirdColor"
+            href="#"
           >
-            <a className="hover:text-thirdColor" href="#">
-              bodycon dress
-            </a>
-          </h3>
+            {product?.title}
+          </Link>
+        </h3>
 
-          <span
-            className="mt-1.5 inline-block cursor-default text-sm
-            leading-5 lg:mt-[9px] lg:text-base"
-          >
-            €16.64
-          </span>
+        <div className="m-auto w-fit sm:m-0 sm:w-full">
+          <RatingStars
+            styles="flex items-center text-eighthColor
+            sm:h-6 sm:text-base text-sm"
+          />
         </div>
+
+        <span
+          className="inline-block cursor-default text-sm
+          leading-5 sm:mt-[9px] sm:text-base"
+        >
+          {product?.price}
+        </span>
       </div>
     </div>
   );

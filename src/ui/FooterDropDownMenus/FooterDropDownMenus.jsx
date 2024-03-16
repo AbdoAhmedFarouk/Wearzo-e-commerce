@@ -1,4 +1,11 @@
-// eslint-disable-next-line react/prop-types
+import { PropTypes } from 'prop-types';
+
+FooterDropDownMenus.propTypes = {
+  styles: PropTypes.string,
+  children: PropTypes.node,
+  isOpen: PropTypes.bool,
+};
+
 function FooterDropDownMenus({ isOpen, children, styles }) {
   return (
     <>

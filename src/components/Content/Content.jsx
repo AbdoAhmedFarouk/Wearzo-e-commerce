@@ -1,11 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { toggleIndex } from '../../atoms/toggleSlider';
-
 import { useSlidersTimer } from '../../hooks/useSlidersTimer';
 
-import { SliderData } from '../../assets/SliderData';
+import NavigationBullets from '../NavigationBullets/NavigationBullets';
 
-import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
+import { SliderData } from '../../assets/SliderData';
 
 const delay = 10000;
 
@@ -15,7 +15,10 @@ function Content() {
   useSlidersTimer(index, setIndex, delay, SliderData.length);
 
   return (
-    <div className="relative flex-1 overflow-hidden text-primaryColor">
+    <div
+      className="relative h-full w-full overflow-hidden
+      text-primaryColor"
+    >
       <div
         className={`${
           index === 0 ? 'left-[7%] text-left' : 'right-[7%] text-right'
@@ -46,15 +49,24 @@ function Content() {
           <p className="translate-y-[50px] animate-[fadeInUp_0.5s_0.7s_both]">
             {index === 0 ? 'winter' : 'new season'}
           </p>
+
           <p className="translate-y-[50px] animate-[fadeInUp_0.5s_0.7s_both]">
             {index === 0 ? 'trendy collection' : 'fashion collection'}
           </p>
         </div>
 
-        <ShopNowBtn
-          text="shop now"
-          animation="translate-y-[50px] animate-[fadeInUp_0.5s_0.9s_both]"
-        />
+        <button>
+          <Link
+            className='className="inline-block lg:text-sm" translate-y-[50px]
+          animate-[fadeInUp_0.5s_0.9s_both] border-0 bg-primaryColor px-2 py-[5px] text-[8px] font-normal
+          uppercase leading-none text-white outline-0 duration-300 ease-in-out
+          hover:bg-thirdColor xxxs:px-3 xxxs:py-[5px] xxxs:text-[10px] xxxs:leading-[16px] xs:px-5
+          xs:py-2 xs:text-xs lg:px-[30px] lg:py-2.5'
+            to="specials"
+          >
+            shop now
+          </Link>
+        </button>
       </div>
 
       <div className="relative h-full w-full">
@@ -73,22 +85,14 @@ function Content() {
           ))}
         </div>
 
-        <div
-          className="absolute bottom-2.5 left-1/2 z-50 flex
+        <NavigationBullets
+          parentStyles="absolute bottom-2.5 left-1/2 z-50 flex
           -translate-x-1/2 space-x-3 md:bottom-5"
-        >
-          {SliderData.map((_, idx) => (
-            <span
-              key={idx}
-              className={`${
-                index === idx ? 'bg-thirdColor' : 'bg-white'
-              }  z-50 h-2.5 w-2.5 cursor-pointer duration-500`}
-              onClick={() => {
-                setIndex(idx);
-              }}
-            ></span>
-          ))}
-        </div>
+          spanStyles="z-50 duration-500"
+          bulletsArr={SliderData}
+          setState={setIndex}
+          state={index}
+        />
       </div>
     </div>
   );

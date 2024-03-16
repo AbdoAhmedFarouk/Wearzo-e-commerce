@@ -1,5 +1,5 @@
 import BlogBox from '../../components/BlogBox/BlogBox';
-import HeaderWithArrows from '../../components/HeaderWithArrows/HeaderWithArrows';
+import HeaderWithArrows from '../../components/H2Header/H2Header';
 import WrapperSection from '../../components/WrapperSection/WrapperSection';
 
 function LatestBlogWrapper() {

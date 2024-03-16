@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
   isInfoLinksFooterMenuOpen,
@@ -47,29 +48,33 @@ function FooterLinks() {
             md:mb-0 lg:text-base lg:leading-9"
           >
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="delivery">
                 delivery
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="legal-notice">
                 legal notice
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="aboutUs">
                 about us
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="secure-payment">
                 secure payment
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="contactUs">
                 contact us
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -77,29 +82,33 @@ function FooterLinks() {
         <FooterDropDownMenus isOpen={isInfoLinksOpen} styles="h-[175px]">
           <ul className="mb-[15px] text-base capitalize leading-8">
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="delivery">
                 delivery
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="legal-notice">
                 legal notice
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="aboutUs">
                 about us
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="secure-payment">
                 secure payment
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" href="contactUs">
                 contact us
-              </a>
+              </Link>
             </li>
           </ul>
         </FooterDropDownMenus>
@@ -107,15 +116,14 @@ function FooterLinks() {
 
       <div>
         <MobileMenuHeader
-          styles="flex items-center
-          justify-between md:block"
+          styles="flex items-center justify-between md:block"
           spanStyles="text-lg duration-500 md:hidden"
           isOpen={isAccLinksOpen}
           onClick={openAccLinksMenuFn}
         >
           <h6
             className="mb-2.5 text-sm font-medium
-        uppercase md:mb-[26px] md:leading-7 lg:text-base"
+            uppercase md:mb-[26px] md:leading-7 lg:text-base"
           >
             my account
           </h6>
@@ -127,25 +135,23 @@ function FooterLinks() {
             md:mb-0 lg:text-base lg:leading-9"
           >
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="specials">
                 prices drop
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
-                sitemap
-              </a>
+              <Link className="hover:text-thirdColor" to="stores">
+                stores
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
-                store
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="signin">
                 login
-              </a>
+              </Link>
             </li>
+
             <li>
               <a className="hover:text-thirdColor" href="#">
                 my account
@@ -157,25 +163,23 @@ function FooterLinks() {
         <FooterDropDownMenus isOpen={isAccLinksOpen} styles="h-40">
           <ul className="text-base capitalize leading-8">
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="specials">
                 prices drop
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
-                sitemanp
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="stores">
                 stores
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="signin">
                 login
-              </a>
+              </Link>
             </li>
+
             <li>
               <a className="hover:text-thirdColor" href="#">
                 my account

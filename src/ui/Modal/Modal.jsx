@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { isModalOpen } from '../../atoms/isModalOpen';
 
 import { useIsOpen } from '../../hooks/useIsOpen';
-import { useKey } from '../../hooks/useKey';
+import { useClick } from '../../hooks/useClick';
 import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 
 import newletter from '../../assets/newletter_popup.jpg';
@@ -21,7 +21,7 @@ const Overlay = () => {
 
   const overlayEl = useRef(null);
 
-  useKey(overlayEl, toggleModalFn);
+  useClick(overlayEl, toggleModalFn);
 
   const handleIsCheckedChange = (e) => {
     setValue(e.target.checked);

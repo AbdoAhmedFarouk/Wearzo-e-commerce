@@ -1,7 +1,8 @@
+import { PropTypes } from 'prop-types';
+
 import Container from '../Container/Container';
 import SectionTag from '../SectionTag/SectionTag';
 
-// eslint-disable-next-line react/prop-types
 function WrapperSection({ children, containerStyles, sectionStyles }) {
   return (
     <SectionTag styles={sectionStyles}>
@@ -9,5 +10,11 @@ function WrapperSection({ children, containerStyles, sectionStyles }) {
     </SectionTag>
   );
 }
+
+WrapperSection.propTypes = {
+  children: PropTypes.node,
+  containerStyles: PropTypes.string,
+  sectionStyles: PropTypes.string,
+};
 
 export default WrapperSection;

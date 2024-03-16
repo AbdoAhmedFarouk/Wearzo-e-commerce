@@ -1,6 +1,15 @@
+import { PropTypes } from 'prop-types';
+
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-// eslint-disable-next-line react/prop-types
+MobileMenuHeader.propTypes = {
+  styles: PropTypes.string,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  spanStyles: PropTypes.string,
+  isOpen: PropTypes.bool,
+};
+
 function MobileMenuHeader({ children, isOpen, onClick, styles, spanStyles }) {
   return (
     <div className={`${styles ? styles : ''}`} onClick={onClick}>

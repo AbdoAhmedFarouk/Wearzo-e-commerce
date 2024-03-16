@@ -25,21 +25,6 @@ const isBrandMenuOpen = atom({
   default: false,
 });
 
-const isShopMenuOpen = atom({
-  key: 'isShopOpen',
-  default: false,
-});
-
-const isCollectionMenuOpen = atom({
-  key: 'isCollectionOpen',
-  default: false,
-});
-
-const isCategoriesMenuOpen = atom({
-  key: 'isCategoryOpen',
-  default: false,
-});
-
 const isContactFooterMenuOpen = atom({
   key: 'isContactOpen',
   default: false,
@@ -75,15 +60,22 @@ const isBrandsSideProductMenuOpen = atom({
   default: false,
 });
 
+const isLegalSideProductMenuOpen = atom({
+  key: 'isLegalSideProductListMenuOpen',
+  default: false,
+});
+
+const isSecurePaymentSideProductMenuOpen = atom({
+  key: 'isSecureSideProductListMenuOpen',
+  default: false,
+});
+
 export {
   isCurrencyMenuOpen,
   isLanguageMenuOpen,
   isLoginMenuOpen,
   isCartMenuOpen,
   isBrandMenuOpen,
-  isShopMenuOpen,
-  isCollectionMenuOpen,
-  isCategoriesMenuOpen,
   isContactFooterMenuOpen,
   isInfoLinksFooterMenuOpen,
   isAccLinksFooterMenuOpen,
@@ -91,4 +83,6 @@ export {
   isSpecialSideProductMenuOpen,
   isDeliverySideProductMenuOpen,
   isBrandsSideProductMenuOpen,
+  isLegalSideProductMenuOpen,
+  isSecurePaymentSideProductMenuOpen
 };

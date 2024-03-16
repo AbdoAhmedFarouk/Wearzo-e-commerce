@@ -10,4 +10,9 @@ const toggleSamples = atom({
   default: 0,
 });
 
-export { toggleIndex, toggleSamples };
+const toggleProducts = atom({
+  key: 'productImgs',
+  default: 0,
+});
+
+export { toggleIndex, toggleSamples, toggleProducts };

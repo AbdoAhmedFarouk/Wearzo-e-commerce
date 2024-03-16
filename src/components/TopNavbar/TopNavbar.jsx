@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   isCurrencyMenuOpen,
@@ -5,6 +6,7 @@ import {
   isLoginMenuOpen,
   isCartMenuOpen,
 } from '../../atoms/isOpen';
+import { useClickOutSide } from '../../hooks/useClickOutside';
 
 import DropdownMenu from '../../ui/DropdownMenu/DropdownMenu';
 
@@ -16,6 +18,9 @@ function TopNavbar() {
 
   const setter = useResetRecoilState(isLoginMenuOpen);
   const setter1 = useResetRecoilState(isCartMenuOpen);
+
+  const currencyEl = useRef(null);
+  const lagnEl = useRef(null);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -31,9 +36,26 @@ function TopNavbar() {
     setter1();
   };
 
+  const setterFunction1 = () => {
+    setIsOpen(false);
+  };
+
+  const setterFunction2 = () => {
+    setIsOpen1(false);
+  };
+
+  useClickOutSide(currencyEl, setterFunction1);
+  useClickOutSide(lagnEl, setterFunction2);
+
   return (
-    <nav className="bg-primaryColor py-2 text-white xs:py-[10px] md:py-[15px]">
-      <div className="my-container flex items-center justify-center text-sm sm:justify-between">
+    <nav
+      className="bg-primaryColor py-2 text-white xs:py-[10px]
+      md:py-[15px]"
+    >
+      <div
+        className="my-container flex items-center justify-center
+        text-sm sm:justify-between"
+      >
         <div className="hidden sm:block">
           <span>Contact us 24/7: +02 010 940 13777</span>
         </div>
@@ -42,11 +64,12 @@ function TopNavbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="group relative" onClick={handleOpen}>
+          <div className="group relative" onClick={handleOpen} ref={currencyEl}>
             <span
-              className="relative flex cursor-pointer items-center gap-[5px] before:absolute
-              before:-right-[10px] before:top-0 before:h-5 before:w-[1px] before:bg-fourthColor
-              before:opacity-10 hover:text-thirdColor"
+              className={`relative flex cursor-pointer items-center gap-[5px]
+              before:absolute before:-right-[10px] before:top-0 before:h-5
+              before:w-[1px] before:bg-fourthColor before:opacity-10
+              hover:text-thirdColor ${isOpen ? 'text-thirdColor' : ''}`}
             >
               Currency: EUR <MdKeyboardArrowDown />
             </span>
@@ -72,10 +95,14 @@ function TopNavbar() {
             </DropdownMenu>
           </div>
 
-          <div className="relative" onClick={handleOpen1}>
-            <span className="flex cursor-pointer items-center gap-[5px] hover:text-thirdColor">
+          <div className="relative" onClick={handleOpen1} ref={lagnEl}>
+            <span
+              className={`flex cursor-pointer items-center gap-[5px]
+              hover:text-thirdColor ${isOpen1 ? 'text-thirdColor' : ''}`}
+            >
               Language: English <MdKeyboardArrowDown />
             </span>
+
             <DropdownMenu
               isOpen={isOpen1}
               xDirection="left-auto"

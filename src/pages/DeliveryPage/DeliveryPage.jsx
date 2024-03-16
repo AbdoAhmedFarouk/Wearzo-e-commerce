@@ -1,21 +1,42 @@
 import { useRecoilState } from 'recoil';
 import { isDeliverySideProductMenuOpen } from '../../atoms/isOpen';
+import { deliverySideMenuProductsInDeliveryPage } from '../../atoms/products';
+import { isDeliverySideMenuProductsInDeliveryPageLoading } from '../../atoms/isLoading';
+import { deliverySideMenuProductsErrorInDeliveryPage } from '../../atoms/error';
 import { useIsOpen } from '../../hooks/useIsOpen';
+import useLimitProductsUseEffect from '../../hooks/useLimitProductsUseEffect';
 
 import Container from '../../components/Container/Container';
 import MobileMenuHeader from '../../components/MobileMenuHeader/MobileMenuHeader';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
-import SideProductBox from '../../components/SideProductBox/SideProductBox';
+import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function DeliveryPage() {
   const [isDvSideProductListMenuOpen, setIsDvSideProductListMenuOpen] =
     useRecoilState(isDeliverySideProductMenuOpen);
 
+  const [
+    isDeliverySideMenuProductsLoading,
+    setIsDeliverySideMenuProductsLoading,
+  ] = useRecoilState(isDeliverySideMenuProductsInDeliveryPageLoading);
+
+  const [deliverySideMenuProductsError, setDeliverySideMenuProductsError] =
+    useRecoilState(deliverySideMenuProductsErrorInDeliveryPage);
+
+  const [deliverySideMenuProducts, setDeliverySideMenuProducts] =
+    useRecoilState(deliverySideMenuProductsInDeliveryPage);
+
   const openSideProductListFn = useIsOpen(
     isDvSideProductListMenuOpen,
     setIsDvSideProductListMenuOpen,
+  );
+
+  useLimitProductsUseEffect(
+    setDeliverySideMenuProducts,
+    setIsDeliverySideMenuProductsLoading,
+    setDeliverySideMenuProductsError,
   );
 
   return (
@@ -23,8 +44,8 @@ function DeliveryPage() {
       <PageTitle text="Delivery" />
 
       <div>
-        <Container styles="grid grid-cols-1 md:grid-cols-12 gap-[30px]">
-          <div className="md:col-span-3">
+        <Container styles="grid grid-cols-1 md:grid-cols-16 gap-[30px]">
+          <div>
             <MobileMenuHeader
               styles="flex items-center justify-between
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
@@ -41,49 +62,22 @@ function DeliveryPage() {
               </h3>
             </MobileMenuHeader>
 
-            <div
-              className="hidden bg-white p-[15px]
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              md:block md:p-5 2xl:px-5 2xl:py-[30px]"
-            >
-              <SideProductBox styles="mb-[30px]" />
-              <SideProductBox styles="mb-[30px]" />
-              <SideProductBox />
-            </div>
-
-            {isDvSideProductListMenuOpen ? (
-              <div
-                className="visible h-[389.75px]
-              overflow-hidden bg-white p-[15px] opacity-100
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              duration-700 md:hidden"
-              >
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox />
-              </div>
-            ) : (
-              <div
-                className="invisible h-0
-              overflow-hidden bg-white p-[15px] opacity-0
-              shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              duration-700 md:hidden"
-              >
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox styles="md:mb-[30px] mb-5" />
-                <SideProductBox />
-              </div>
-            )}
+            <SideProductBoxContainer
+              productsState={deliverySideMenuProducts}
+              isLoading={isDeliverySideMenuProductsLoading}
+              errorState={deliverySideMenuProductsError}
+              isListMenuOpen={isDvSideProductListMenuOpen}
+            />
 
             <SideBarBanner />
           </div>
 
           <div
             className={`h-fit border border-fourthColor
-          p-[15px] text-primaryColor duration-700 md:col-span-9
-          md:text-justify ${
-            isDvSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
-          }`}
+            p-[15px] text-primaryColor duration-700
+            md:text-justify ${
+              isDvSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+            }`}
           >
             <h2 className="mb-[15px] text-lg font-medium">
               Shipments and returns

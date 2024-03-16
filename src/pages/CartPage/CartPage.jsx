@@ -1,22 +1,27 @@
-import { NavLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
+import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
 
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import SiteInfoRules from '../../components/SiteInfoRules/SiteInfoRules';
+import CartProductItem from '../../components/CartProductItem/CartProductItem';
 
-import './cartpage.css';
-
-import cartImg from '../../assets/subbanner-1.jpg';
-
-import { FaTrash } from 'react-icons/fa';
-import { FiPlus, FiMinus } from 'react-icons/fi';
-import { PiLockKeyLight, PiMedalLight } from 'react-icons/pi';
-import { BsTruck } from 'react-icons/bs';
 import { IoIosArrowBack } from 'react-icons/io';
-import Input from '../../components/Input/Input';
 
 function CartPage() {
+  const addedProductToCart = useRecoilValue(AddedProductToCartMenu);
+
+  const totalCartItemsPrice =
+    addedProductToCart.length > 0
+      ? addedProductToCart
+          .map((item) => (item.price - item.discount) * item.quantity)
+          .reduce((total, price) => total + price)
+          .toFixed(2)
+      : 0;
+
   return (
     <SectionTag>
       <PageTitle text="cart" />
@@ -38,132 +43,57 @@ function CartPage() {
 
               <div>
                 <ul>
-                  <li className="border-b border-fourthColor py-4">
-                    <div
-                      className="grid grid-cols-1 items-center text-center
-                      sm:grid-cols-12 sm:text-start"
-                    >
-                      <div className="m-auto mb-5 sm:col-span-3 sm:mb-0">
-                        <img
-                          className="h-[100px] w-[75px]"
-                          src={cartImg}
-                          alt={cartImg}
-                        />
-                      </div>
-
-                      <div className="sm:col-span-4">
-                        <div className="text-sm font-medium capitalize">
-                          <a href="#">creper line dress</a>
-                        </div>
-
-                        <div
-                          className="mt-2 flex items-center justify-center
-                          sm:mt-[5px] sm:justify-start"
-                        >
-                          <span
-                            className="text-sm text-secondaryColor
-                            line-through"
-                          >
-                            $41.90
-                          </span>
-
-                          <span
-                            className="mx-[5px] bg-primaryColor px-2 py-[3px]
-                            text-xs leading-normal text-white"
-                          >
-                            -10%
-                          </span>
-                        </div>
-
-                        <span
-                          className="mb-5 mt-2 inline-block text-lg
-                          font-medium leading-[26px] text-primaryColor
-                          sm:m-0"
-                        >
-                          $37.71
-                        </span>
-                      </div>
-
-                      <div
-                        className="flex flex-wrap items-center
-                        justify-around sm:col-span-5"
-                      >
-                        <div className="relative">
-                          <Input
-                            styles="h-10 w-12 border border-fourthColor
-                            px-2 py-[2.8px] outline-0"
-                            type="number"
-                            placeholder="1"
-                          />
-
-                          <span
-                            className="absolute -right-5 top-0 flex
-                            h-5 w-5 cursor-pointer items-center justify-center
-                            border border-l-0 border-fourthColor"
-                          >
-                            <FiPlus />
-                          </span>
-
-                          <span
-                            className="absolute -right-5 bottom-0 flex
-                            h-5 w-5 cursor-pointer items-center justify-center
-                            border border-l-0 border-fourthColor"
-                          >
-                            <FiMinus />
-                          </span>
-                        </div>
-
-                        <span className="text-lg font-medium">$37.71</span>
-
-                        <span
-                          className="h-4 w-4 cursor-pointer
-                          hover:text-thirdColor"
-                        >
-                          <FaTrash />
-                        </span>
-                      </div>
-                    </div>
-                  </li>
+                  {addedProductToCart.length > 0 ? (
+                    addedProductToCart.map((item) => (
+                      <CartProductItem key={item.id} {...item} />
+                    ))
+                  ) : (
+                    <p className="fonme p-[15px] text-sm">
+                      There are no more items in your cart.
+                    </p>
+                  )}
                 </ul>
               </div>
             </div>
 
-            <NavLink
-              to="/"
+            <Link
               className="mt-3 flex cursor-pointer
               items-center text-sm font-medium sm:text-base"
+              to="/"
             >
               <IoIosArrowBack />
 
               <span className="ms-0.5">Continue shopping</span>
-            </NavLink>
+            </Link>
           </div>
 
           <div className="sm:col-span-4">
             <div className="border border-fourthColor">
               <div
                 className="flex items-center justify-between border-b
-              border-fourthColor p-[15px] text-sm font-medium
-              text-primaryColor"
+                border-fourthColor p-[15px] text-sm font-medium
+                text-primaryColor"
               >
-                <span>5 items</span>
+                <span>{addedProductToCart.length} items</span>
 
-                <span>$149.46</span>
+                <span>${totalCartItemsPrice}</span>
               </div>
 
               <div
                 className="flex items-center justify-between border-b
-              border-fourthColor p-[15px] text-sm font-medium
-              text-primaryColor"
+                border-fourthColor p-[15px] text-sm font-medium
+                text-primaryColor"
               >
                 <span>Total (tax incl.)</span>
 
-                <span className="text-lg leading-5">$149.46</span>
+                <span className="text-lg leading-5">
+                  ${totalCartItemsPrice}
+                </span>
               </div>
 
               <div className="p-[15px] text-center">
                 <ShopNowBtn
-                  text="proceed to checkout"
+                  text="checkout"
                   styles="py-2.5 px-[30px] bg-primaryColor
                   hover:bg-thirdColor text-white uppercase
                   text-sm duration-300 outline-0 border-0"
@@ -171,58 +101,7 @@ function CartPage() {
               </div>
             </div>
 
-            <div className="mt-[25px]">
-              <div
-                className="mb-4 text-center sm:mb-4 sm:flex
-                sm:items-center sm:text-start"
-              >
-                <div
-                  className="m-auto mb-2 w-fit text-[35px]
-                  text-thirdColor sm:m-0 sm:me-[5px]"
-                >
-                  <PiLockKeyLight />
-                </div>
-
-                <div className="text-sm">
-                  <h6>Security policy</h6>
-                  <p>(edit with the Customer Reassurance module)</p>
-                </div>
-              </div>
-
-              <div
-                className="mb-4 text-center sm:mb-4 sm:flex
-                sm:items-center sm:text-start"
-              >
-                <div
-                  className="m-auto mb-2 w-fit text-[30px]
-                  text-thirdColor sm:m-0 sm:mx-[5px]"
-                >
-                  <BsTruck />
-                </div>
-
-                <div className="text-sm">
-                  <h6>Security policy</h6>
-                  <p>(edit with the Customer Reassurance module)</p>
-                </div>
-              </div>
-
-              <div
-                className="mb-4 text-center sm:mb-4 sm:flex
-                sm:items-center sm:text-start"
-              >
-                <div
-                  className="m-auto mb-2 w-fit text-[35px]
-                  text-thirdColor sm:m-0 sm:me-[5px]"
-                >
-                  <PiMedalLight />
-                </div>
-
-                <div className="text-sm">
-                  <h6>Security policy</h6>
-                  <p>(edit with the Customer Reassurance module)</p>
-                </div>
-              </div>
-            </div>
+            <SiteInfoRules />
           </div>
         </Container>
       </div>

@@ -1,24 +1,54 @@
+import { useRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+
 import HoveringIcons from '../HoveringIcons/HoveringIcons';
-import ProductHoveringSubImg from '../ProductHoveringSubImg/ProductHoveringSubImg';
 import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
 import RatingStars from '../RatingStars/RatingStars';
 
-import productImg from '../../assets/productImg.jpg';
-
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsShuffle, BsEye } from 'react-icons/bs';
+import useAddProductToCartHandler from '../../hooks/useAddProductToCartHandler';
 
-function ProductBox() {
+ProductBox.propTypes = {
+  product: PropTypes.object,
+};
+
+function ProductBox({ product }) {
+  const [addedProductToCart, setAddedProductToCart] = useRecoilState(
+    AddedProductToCartMenu,
+  );
+
+  const productDiscountPercent =
+    product?.discount > 0 ? (product?.discount / product?.price) * 100 : null;
+
+  const existingProduct = addedProductToCart.find(
+    (item) => item.id === product.id,
+  );
+
+  const handleAddProductToCart = useAddProductToCartHandler(
+    product,
+    setAddedProductToCart,
+    existingProduct,
+  );
+
   return (
-    <div className="group/box relative overflow-hidden text-center">
+    <div className="group/box relative text-center">
       <HoveringIcons
         styles="absolute left-[5px] top-[5px] z-50 flex cursor-default
         flex-col gap-y-[7px] text-center text-[9px] uppercase leading-[9px]
         text-white md:left-2.5 md:top-2.5 md:text-xs md:leading-3"
       >
-        <span className="bg-thirdColor px-1 py-1 md:px-1.5">-10%</span>
-        <span className="bg-primaryColor px-1 py-1 md:px-1.5">new</span>
-        <span className="bg-primaryColor px-1 py-1 md:px-1.5">pack</span>
+        {product?.discount > 0 && (
+          <span className="bg-thirdColor px-1 py-1 md:px-1.5">
+            -{productDiscountPercent.toFixed()}%
+          </span>
+        )}
+
+        {product?.new && (
+          <span className="bg-primaryColor px-1 py-1 md:px-1.5">new</span>
+        )}
       </HoveringIcons>
 
       <HoveringIcons
@@ -34,13 +64,15 @@ function ProductBox() {
         >
           <AiOutlineHeart />
         </a>
-        <a
+
+        <Link
+          to={`/product/${product?.id}`}
           className="flex h-[30px] w-[30px] items-center justify-center
           duration-300 ease-in-out hover:text-thirdColor md:h-10 md:w-10 "
-          href="#"
         >
           <BsEye />
-        </a>
+        </Link>
+
         <a
           className="flex h-[30px] w-[30px] items-center justify-center
           duration-300 ease-in-out hover:text-thirdColor md:h-10
@@ -51,19 +83,27 @@ function ProductBox() {
         </a>
       </HoveringIcons>
 
-      <div className="relative cursor-pointer overflow-hidden">
-        <img className="w-full" src={productImg} alt={productImg} />
+      <div
+        className="relative h-full w-full cursor-pointer
+        overflow-hidden"
+      >
+        <Link to={`/product/${product?.id}`}>
+          <img
+            className="h-[300px] w-full object-contain
+            md:h-[180px] lg:h-[220px] 2xl:h-[220px]"
+            src={product?.image}
+            alt={product?.image}
+          />
+        </Link>
 
-        <ProductHoveringSubImg />
-
-        <div
-          className="invisible absolute -bottom-12 left-0 z-40 w-full cursor-pointer 
-        bg-primaryColor p-[5px] text-xs leading-[18px] text-white opacity-0 
-          duration-300 ease-in-out hover:bg-thirdColor group-hover/box:visible
-          group-hover/box:bottom-0 group-hover/box:opacity-100 md:p-2.5 md:text-sm"
-        >
-          <ShopNowBtn styles="uppercase" text="add to cart" />
-        </div>
+        <ShopNowBtn
+          text="add to cart"
+          styles="invisible absolute -bottom-12 left-0 z-40 duration-300
+          w-full cursor-pointer bg-primaryColor p-[5px] text-xs ease-in-out
+          leading-[30px] text-white opacity-0 group-hover/box:visible hover:bg-thirdColor
+          uppercase group-hover/box:bottom-0 group-hover/box:opacity-100"
+          onClick={handleAddProductToCart}
+        />
       </div>
 
       <div className="p-2 md:pt-2.5">
@@ -74,11 +114,21 @@ function ProductBox() {
             className="mb-1 text-sm capitalize md:mb-2
           md:text-base md:leading-[15px]"
           >
-            <a className="hover:text-thirdColor" href="#">
-              bodycon dress
-            </a>
+            <Link
+              to={`/product/${product?.id}`}
+              className="hover:text-thirdColor"
+            >
+              {product?.title.slice(0, 20)}...
+            </Link>
           </h3>
-          <span className="cursor-default">€16.64</span>
+          <span className="me-2 cursor-default">€{product?.price}</span>
+
+          <span
+            className="cursor-default text-base
+            leading-[18px] text-secondaryColor line-through"
+          >
+            {product?.discount > 0 ? '€' + product?.discount : null}
+          </span>
         </div>
       </div>
     </div>

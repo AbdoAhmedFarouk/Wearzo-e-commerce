@@ -39,8 +39,8 @@ function PromoBannerWrapper() {
 
             <p
               className="text-xs leading-none text-secondaryColor
-            xxxs:mb-[15px] xxxs:text-xs xxs:mb-5 xxs:text-sm sm:text-xl
-            md:text-sm xl:text-lg xl:leading-6 2xl:mb-[27px]"
+              xxxs:mb-[15px] xxxs:text-xs xxs:mb-5 xxs:text-sm sm:text-xl
+              md:text-sm xl:text-lg xl:leading-6 2xl:mb-[27px]"
             >
               Cum sociis natoque peibus et magnis parturien. Lorem ipsum dolor
               sit
@@ -48,11 +48,11 @@ function PromoBannerWrapper() {
 
             <p
               className="my-1.5 text-xs font-medium
-            leading-none text-primaryColor xxxs:my-0 xxxs:mb-[15px]
-            xxxs:text-sm xxxs:leading-none xxs:mb-5 xxs:text-xl
-            xxs:leading-none sm:text-2xl sm:leading-none md:text-xl
-            md:leading-none xl:text-2xl 2xl:mb-[29px] 2xl:text-3xl
-            2xl:leading-none"
+              leading-none text-primaryColor xxxs:my-0 xxxs:mb-[15px]
+              xxxs:text-sm xxxs:leading-none xxs:mb-5 xxs:text-xl
+              xxs:leading-none sm:text-2xl sm:leading-none md:text-xl
+              md:leading-none xl:text-2xl 2xl:mb-[29px] 2xl:text-3xl
+              2xl:leading-none"
             >
               $315.00
             </p>
@@ -95,22 +95,14 @@ function PromoBannerWrapper() {
             </p>
 
             <div
-              className="my-1.5 flex items-center text-xs font-medium
-            leading-none text-primaryColor xxxs:my-0 xxxs:mb-[15px]
-            xxxs:text-sm xxxs:leading-none xxs:mb-5 xxs:text-xl
-            xxs:leading-none sm:text-2xl sm:leading-none md:text-xl
-            md:leading-none xl:text-2xl 2xl:mb-[29px] 2xl:text-3xl
-            2xl:leading-none"
+              className="my-1.5 text-xs font-medium
+              leading-none text-primaryColor xxxs:my-0 xxxs:mb-[15px]
+              xxxs:text-sm xxxs:leading-none xxs:mb-5 xxs:text-xl
+              xxs:leading-none sm:text-2xl sm:leading-none md:text-xl
+              md:leading-none xl:text-2xl 2xl:mb-[29px] 2xl:text-3xl
+              2xl:leading-none"
             >
               <p>$479.00</p>
-
-              <span
-                className="ms-1 text-secondaryColor line-through
-              xxxs:ms-4 xs:ms-5 sm:ms-6 md:ms-4 lg:ms-5 xl:ms-6 2xl:ms-4
-              2xl:text-2xl"
-              >
-                $425.00
-              </span>
             </div>
 
             <ShopNowBtn text="shop now" />

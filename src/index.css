@@ -10,11 +10,25 @@
   }
 } */
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: #f7f7f7;
+  }
+  /* Handle */
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e5e5e5;
+  }
+}
+
 @layer components {
   .my-container {
     @apply m-auto px-[15px] sm:max-w-[750px] md:max-w-[970px] lg:max-w-[1170px] xl:max-w-[1300px]
     2xl:max-w-[1400px];
   }
+
   .box-hovering-effect {
     @apply relative overflow-hidden before:absolute before:left-0 before:top-0 before:h-0 before:w-0
     before:bg-black before:opacity-10 before:duration-700 before:content-['']
@@ -23,6 +37,17 @@
     after:opacity-10 after:duration-700 after:content-[''] hover:before:h-full
     hover:before:w-full hover:before:-rotate-180 hover:after:h-full hover:after:w-full hover:after:-rotate-180;
   }
+
+  .steps-active {
+    @apply text-primaryColor ease-in-out before:absolute before:bottom-0 before:left-1/2 before:h-0.5
+    before:w-full before:-translate-x-1/2 before:bg-thirdColor before:duration-300;
+  }
+
+  .links-hover-effect {
+    @apply duration-300 ease-in-out before:absolute before:bottom-0 before:left-1/2 before:h-0.5 before:w-0
+    before:-translate-x-1/2 before:bg-thirdColor before:duration-300 hover:text-primaryColor hover:before:w-full;
+  }
+
   .height-vh {
     height: calc(100dvh - 160px);
   }

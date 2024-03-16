@@ -1,25 +1,30 @@
+import { PropTypes } from 'prop-types';
+
+DropdownMenu.propTypes = {
+  isOpen: PropTypes.bool,
+  padding: PropTypes.string,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  yDirection: PropTypes.string,
+  xDirection: PropTypes.string,
+  border: PropTypes.string,
+  fontSize: PropTypes.string,
+  shadow: PropTypes.string,
+  position: PropTypes.string,
+  children: PropTypes.node,
+};
+
 function DropdownMenu({
-  // eslint-disable-next-line react/prop-types
   children,
-  // eslint-disable-next-line react/prop-types
   isOpen,
-  // eslint-disable-next-line react/prop-types
   fontSize,
-  // eslint-disable-next-line react/prop-types
   xDirection,
-  // eslint-disable-next-line react/prop-types
   yDirection,
-  // eslint-disable-next-line react/prop-types
   height,
-  // eslint-disable-next-line react/prop-types
   width,
-  // eslint-disable-next-line react/prop-types
   shadow,
-  // eslint-disable-next-line react/prop-types
   position,
-  // eslint-disable-next-line react/prop-types
   padding,
-  // eslint-disable-next-line react/prop-types
   border,
 }) {
   return (

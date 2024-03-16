@@ -5,6 +5,8 @@ import { useSlidersTimer } from '../../hooks/useSlidersTimer';
 
 import { SamplesData } from '../../assets/SamplesData';
 
+import NavigationBullets from '../NavigationBullets/NavigationBullets';
+
 const delay = 5000;
 
 function FooterTestimonials() {
@@ -55,22 +57,13 @@ function FooterTestimonials() {
         ))}
       </div>
 
-      <div
-        className="mt-[15px] flex items-center justify-center
+      <NavigationBullets
+        parentStyles="mt-[15px] flex items-center justify-center
         gap-2.5 md:mt-[22px]"
-      >
-        {SamplesData.map((_, index) => (
-          <span
-            key={index}
-            className={`${
-              sample === index ? 'bg-thirdColor' : 'bg-white'
-            } h-2.5 w-2.5 cursor-pointer hover:bg-thirdColor`}
-            onClick={() => {
-              setSample(index);
-            }}
-          ></span>
-        ))}
-      </div>
+        bulletsArr={SamplesData}
+        setState={setSample}
+        state={sample}
+      />
     </div>
   );
 }

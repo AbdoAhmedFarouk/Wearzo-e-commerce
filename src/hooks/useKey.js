@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 
-export function useKey(el, action) {
+export function useKey(key, action) {
   useEffect(() => {
-    const callback = () => {
-      window.addEventListener('click', (e) => {
-        if (e.target === el.current) action();
-      });
+    const callback = (e) => {
+      if (e.code.toLowerCase() === key.toLowerCase()) {
+        action();
+      }
     };
-    callback();
 
-    return () => window.removeEventListener('click', callback);
-  }, [el, action]);
+    document.addEventListener('keydown', callback);
+
+    return () => document.removeEventListener('keydown', callback);
+  }, [key, action]);
 }

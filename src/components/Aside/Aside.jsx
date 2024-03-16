@@ -19,8 +19,9 @@ function Aside() {
   return (
     <div
       className="hidden border-t border-fourthColor px-[20px] py-[10px]
-      text-sm text-sixColor md:block md:w-[165.79px]
-      lg:w-[207.3px] lg:py-[20px] xl:w-[232.1px] 2xl:w-[251.86px]"
+      text-sm text-sixColor md:block lg:py-[20px]"
+      // md:w-[165.79px]
+      // lg:w-[207.3px] xl:w-[232.1px] 2xl:w-[251.86px]
     >
       <div>
         <h3
