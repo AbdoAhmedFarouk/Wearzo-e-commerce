@@ -1,9 +1,10 @@
 import { useRecoilState } from 'recoil';
-import { isAboutSideProductMenuOpen } from '../../atoms/isOpen';
-import { useIsOpen } from '../../hooks/useIsOpen';
+import { isMobileAboutPageSideProductMenuOpened } from '../../atoms/isOpened';
 import { aboutSideMenuProductsInAboutPage } from '../../atoms/products';
 import { isAboutSideMenuProductsInAboutPageLoading } from '../../atoms/isLoading';
 import { aboutSideMenuProductsErrorInAboutPage } from '../../atoms/error';
+import { useIsOpen } from '../../hooks/useIsOpen';
+
 import useLimitProductsUseEffect from '../../hooks/useLimitProductsUseEffect';
 
 import Container from '../../components/Container/Container';
@@ -16,8 +17,10 @@ import AboutImg from '../../assets/cms-img.jpg';
 import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function AboutPage() {
-  const [isAbSideProductListMenuOpen, setIsAbSideProductListMenuOpen] =
-    useRecoilState(isAboutSideProductMenuOpen);
+  const [
+    isMobileAboutPageSideProductMenuOpen,
+    setIsMobileAboutPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileAboutPageSideProductMenuOpened);
 
   const [aboutSideMenuProducts, setAboutSideMenuProducts] = useRecoilState(
     aboutSideMenuProductsInAboutPage,
@@ -25,13 +28,12 @@ function AboutPage() {
 
   const [isAboutSideMenuProductsLoading, setIsAboutSideMenuProductsLoading] =
     useRecoilState(isAboutSideMenuProductsInAboutPageLoading);
-
   const [aboutSideMenuProductsError, setAboutSideMenuProductsError] =
     useRecoilState(aboutSideMenuProductsErrorInAboutPage);
 
   const openSideProductListFn = useIsOpen(
-    isAbSideProductListMenuOpen,
-    setIsAbSideProductListMenuOpen,
+    isMobileAboutPageSideProductMenuOpen,
+    setIsMobileAboutPageSideProductMenuOpen,
   );
 
   useLimitProductsUseEffect(
@@ -52,7 +54,7 @@ function AboutPage() {
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
               px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isAbSideProductListMenuOpen}
+              isOpen={isMobileAboutPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -67,7 +69,7 @@ function AboutPage() {
               productsState={aboutSideMenuProducts}
               isLoading={isAboutSideMenuProductsLoading}
               errorState={aboutSideMenuProductsError}
-              isListMenuOpen={isAbSideProductListMenuOpen}
+              isListMenuOpen={isMobileAboutPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -76,7 +78,7 @@ function AboutPage() {
           <div
             className={`border border-fourthColor p-2
             duration-700 xxs:p-[15px] md:text-justify ${
-              isAbSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+              isMobileAboutPageSideProductMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
             }`}
           >
             <div className="mb-6 max-h-[650px] overflow-hidden">

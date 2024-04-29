@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { isSpecialSideProductMenuOpen } from '../../atoms/isOpen';
+import { useIsOpen } from '../../hooks/useIsOpen';
+import { isMobileSpecialPageSideProductMenuOpened } from '../../atoms/isOpened';
 import {
   specialProductsInSpecialPage,
   specialSideMenuProductsInSpecialPage,
@@ -15,26 +16,27 @@ import {
 } from '../../atoms/error';
 import { selectSortedProductsInSpecialPage } from '../../atoms/selectSortProducts';
 import { specialProductsShownStlye } from '../../atoms/specialProductsShownStlye';
-import { useIsOpen } from '../../hooks/useIsOpen';
+
 import useLimitProductsUseEffect from '../../hooks/useLimitProductsUseEffect';
 import axios from 'axios';
 
 import Container from '../../components/Container/Container';
-import MobileMenuHeader from '../../components/MobileMenuHeader/MobileMenuHeader';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
+import MobileMenuHeader from '../../components/MobileMenuHeader/MobileMenuHeader';
+import SpecialProductsCol from '../../components/SpecialProductsCol/SpecialProductsCol';
 import ProductBoxContainer from '../../components/ProductBoxContainer/ProductBoxContainer';
 import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 import { IoGridOutline } from 'react-icons/io5';
 import { CiCircleList } from 'react-icons/ci';
 
-import SpecialProductsCol from '../../components/SpecialProductsCol/SpecialProductsCol';
-
 function SpecialPage() {
-  const [isSpSideProductListMenuOpen, setIsSpSideProductListMenuOpen] =
-    useRecoilState(isSpecialSideProductMenuOpen);
+  const [
+    isMobileSpecialPageSideProductMenuOpen,
+    setIsMobileSpecialPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileSpecialPageSideProductMenuOpened);
 
   const [specialProducts, setSpecialProducts] = useRecoilState(
     specialProductsInSpecialPage,
@@ -65,8 +67,8 @@ function SpecialPage() {
   );
 
   const openSideProductListFn = useIsOpen(
-    isSpSideProductListMenuOpen,
-    setIsSpSideProductListMenuOpen,
+    isMobileSpecialPageSideProductMenuOpen,
+    setIsMobileSpecialPageSideProductMenuOpen,
   );
 
   const handleSortSubmit = (e) => {
@@ -132,7 +134,7 @@ function SpecialPage() {
               styles="flex items-center justify-between bg-primaryColor
               xxxs:px-5 xxxs:py-[15px] text-white px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isSpSideProductListMenuOpen}
+              isOpen={isMobileSpecialPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -147,7 +149,7 @@ function SpecialPage() {
               productsState={specialSideMenuProducts}
               isLoading={isSpecialSideMenuProductsLoading}
               errorState={specialSideMenuProductsError}
-              isListMenuOpen={isSpSideProductListMenuOpen}
+              isListMenuOpen={isMobileSpecialPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -157,9 +159,11 @@ function SpecialPage() {
             <div
               className={`mb-5 grid grid-cols-1 items-center gap-2.5 bg-white p-2.5
               text-primaryColor shadow-[0_0_20px_1px_rgba(0,0,0,0.05)]
-              md:mb-[30px] md:grid-cols-[1fr_1fr] md:gap-[30px]
+              duration-300 md:mb-[30px] md:grid-cols-[1fr_1fr] md:gap-[30px]
               md:px-5 md:py-2.5 ${
-                isSpSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+                isMobileSpecialPageSideProductMenuOpen
+                  ? 'mt-0'
+                  : '-mt-10 md:mt-0'
               }`}
             >
               <div className="flex items-center justify-between md:justify-normal">

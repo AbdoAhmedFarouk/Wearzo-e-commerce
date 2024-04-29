@@ -59,10 +59,7 @@ function FeaturedProductsWrapper() {
             </a>
           </li>
 
-          <li
-            // className="ms-[15px] inline-block xxs:ms-5 xs:ms-[25px]
-            onClick={handleFeaturedNavigation}
-          >
+          <li onClick={handleFeaturedNavigation}>
             <a
               className={`hover-animation relative inline-block pb-2.5
               2xl:pb-[18px] ${
@@ -77,11 +74,7 @@ function FeaturedProductsWrapper() {
         </ul>
       </div>
 
-      {isLoading && (
-        <div className="m-auto w-fit">
-          <Loader />
-        </div>
-      )}
+      {isLoading && <Loader />}
 
       {!isLoading && !error && (
         <div

@@ -1,15 +1,15 @@
 import { useEffect, useRef } from 'react';
-import { useRecoilState } from 'recoil';
+import { PropTypes } from 'prop-types';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { searchQuery } from '../../atoms/searchQuery';
 import { searchedProductsError } from '../../atoms/error';
 import { isSearchFiledProductsLoading } from '../../atoms/isLoading';
+import { isSearchBarOpened } from '../../atoms/isSearchBarOpened';
 import { searchedProductsResult } from '../../atoms/searchedProductsResult';
-import { useKey } from '../../hooks/useKey';
-import { PropTypes } from 'prop-types';
+import { useKeyEvent } from '../../hooks/useKeyEvent';
 import axios from 'axios';
 
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
-import Input from '../../components/Input/Input';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import SideProductBox from '../../components/SideProductBox/SideProductBox';
@@ -19,10 +19,9 @@ import { IoIosSearch } from 'react-icons/io';
 
 SearchField.propTypes = {
   el: PropTypes.object,
-  setterFn: PropTypes.func,
 };
 
-function SearchField({ el, setterFn }) {
+function SearchField({ el }) {
   const [query, setQuery] = useRecoilState(searchQuery);
   const [searchedProducts, setSearchedProducts] = useRecoilState(
     searchedProductsResult,
@@ -33,9 +32,24 @@ function SearchField({ el, setterFn }) {
   const [isSearchProductsLoading, setIsSearchProductsLoading] = useRecoilState(
     isSearchFiledProductsLoading,
   );
+
+  const closeSearchBarSetterFn = useResetRecoilState(isSearchBarOpened);
+
   const searchInpEl = useRef(null);
 
   const queryLength = query.length;
+
+  const hanleSearchQuery = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleResetSearchBarState = () => {
+    closeSearchBarSetterFn();
+  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -84,17 +98,11 @@ function SearchField({ el, setterFn }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  const hanleSearchQuery = (e) => {
-    setQuery(e.target.value);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  useKey('Enter', function () {
+  useKeyEvent('Enter', function () {
     if (document.activeElement === searchInpEl.current) return;
+
     searchInpEl.current.focus();
+
     setQuery('');
   });
 
@@ -109,8 +117,8 @@ function SearchField({ el, setterFn }) {
         id="search-form"
         onSubmit={handleFormSubmit}
       >
-        <Input
-          styles="h-10 w-full border-b border-seventhColor
+        <input
+          className="h-10 w-full border-b border-seventhColor
           bg-transparent py-1.5 text-sm font-normal text-secondaryColor
           outline-0 placeholder:text-black sm:text-xl"
           placeholder={!query ? 'Search...' : null}
@@ -118,8 +126,8 @@ function SearchField({ el, setterFn }) {
           id="input-search"
           name="search-query"
           value={query}
-          onChangeHandler={(e) => hanleSearchQuery(e)}
-          elRef={searchInpEl}
+          onChange={(e) => hanleSearchQuery(e)}
+          ref={searchInpEl}
         />
 
         <ShopNowBtn
@@ -160,7 +168,7 @@ function SearchField({ el, setterFn }) {
       <span
         className="absolute right-1 top-1 cursor-pointer text-xl
         hover:text-thirdColor md:right-3 md:top-3"
-        onClick={setterFn}
+        onClick={handleResetSearchBarState}
       >
         <AiOutlineClose />
       </span>

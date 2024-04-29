@@ -2,9 +2,8 @@ import { useSetRecoilState } from 'recoil';
 import { isAllProductsLoading } from '../../atoms/isLoading';
 import { allProducts } from '../../atoms/products';
 import { allProductsError } from '../../atoms/error';
-import useUseEffect from '../../hooks/useUseEffect';
-// import axios from 'axios';
-// import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+
+import useUseEffectToFetchProducts from '../../hooks/useUseEffectToFetchProducts';
 
 import MainWrapper from '../../sections/MainWrapper/MainWrapper';
 import HomePage from '../../sections/HomePage/HomePage';
@@ -21,30 +20,7 @@ function RootLayout() {
   const setIsLoading = useSetRecoilState(isAllProductsLoading);
   const setError = useSetRecoilState(allProductsError);
 
-  // const setAddedProductToCart = useSetRecoilState(AddedProductToCartMenu);
-
-  // useEffect(() => {
-  //   async function getProducts() {
-  //     try {
-  //       setIsLoading(true);
-  //       const res = await axios.get('http://localhost:8000/products');
-  //       res.data;
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       throw new Error(error);
-  //     }
-  //   }
-
-  //   getProducts();
-  // }, [setIsLoading, setProducts]);
-
-  useUseEffect(setProducts, setIsLoading, setError);
-
-  // useEffect(() => {
-  //   const getCartProducts = async () => {};
-
-  //   getCartProducts();
-  // }, [setAddedProductToCart]);
+  useUseEffectToFetchProducts(setProducts, setIsLoading, setError);
 
   return (
     <>

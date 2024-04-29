@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isDeliverySideProductMenuOpen } from '../../atoms/isOpen';
+import { isMobileDeliveryPageSideProductMenuOpened } from '../../atoms/isOpened';
 import { deliverySideMenuProductsInDeliveryPage } from '../../atoms/products';
 import { isDeliverySideMenuProductsInDeliveryPageLoading } from '../../atoms/isLoading';
 import { deliverySideMenuProductsErrorInDeliveryPage } from '../../atoms/error';
@@ -14,8 +14,10 @@ import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
 import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function DeliveryPage() {
-  const [isDvSideProductListMenuOpen, setIsDvSideProductListMenuOpen] =
-    useRecoilState(isDeliverySideProductMenuOpen);
+  const [
+    isMobileDeliveryPageSideProductMenuOpen,
+    setIsMobileDeliveryPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileDeliveryPageSideProductMenuOpened);
 
   const [
     isDeliverySideMenuProductsLoading,
@@ -29,8 +31,8 @@ function DeliveryPage() {
     useRecoilState(deliverySideMenuProductsInDeliveryPage);
 
   const openSideProductListFn = useIsOpen(
-    isDvSideProductListMenuOpen,
-    setIsDvSideProductListMenuOpen,
+    isMobileDeliveryPageSideProductMenuOpen,
+    setIsMobileDeliveryPageSideProductMenuOpen,
   );
 
   useLimitProductsUseEffect(
@@ -51,7 +53,7 @@ function DeliveryPage() {
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
               px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isDvSideProductListMenuOpen}
+              isOpen={isMobileDeliveryPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -66,7 +68,7 @@ function DeliveryPage() {
               productsState={deliverySideMenuProducts}
               isLoading={isDeliverySideMenuProductsLoading}
               errorState={deliverySideMenuProductsError}
-              isListMenuOpen={isDvSideProductListMenuOpen}
+              isListMenuOpen={isMobileDeliveryPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -76,7 +78,9 @@ function DeliveryPage() {
             className={`h-fit border border-fourthColor
             p-[15px] text-primaryColor duration-700
             md:text-justify ${
-              isDvSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+              isMobileDeliveryPageSideProductMenuOpen
+                ? 'mt-0'
+                : '-mt-10 md:mt-0'
             }`}
           >
             <h2 className="mb-[15px] text-lg font-medium">

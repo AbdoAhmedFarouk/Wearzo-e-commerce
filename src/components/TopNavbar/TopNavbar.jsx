@@ -1,51 +1,47 @@
 import { useRef } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
-  isCurrencyMenuOpen,
-  isLanguageMenuOpen,
-  isLoginMenuOpen,
-  isCartMenuOpen,
-} from '../../atoms/isOpen';
-import { useClickOutSide } from '../../hooks/useClickOutside';
+  isCurrencyMenuOpened,
+  isLanguageMenuOpened,
+} from '../../atoms/isOpened';
+import { useIsOpen } from '../../hooks/useIsOpen';
+import { useClickOutSideEvent } from '../../hooks/useClickOutSideEvent';
+import useResetCartMenuState from '../../hooks/useResetCartMenuState';
 
 import DropdownMenu from '../../ui/DropdownMenu/DropdownMenu';
 
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 function TopNavbar() {
-  const [isOpen, setIsOpen] = useRecoilState(isCurrencyMenuOpen);
-  const [isOpen1, setIsOpen1] = useRecoilState(isLanguageMenuOpen);
+  const [isCurrencyMenuOpen, setIsCurrencyMenuOpen] =
+    useRecoilState(isCurrencyMenuOpened);
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] =
+    useRecoilState(isLanguageMenuOpened);
 
-  const setter = useResetRecoilState(isLoginMenuOpen);
-  const setter1 = useResetRecoilState(isCartMenuOpen);
+  const handleResetCartMenuState = useResetCartMenuState();
 
-  const currencyEl = useRef(null);
-  const lagnEl = useRef(null);
+  const currencyMenuEl = useRef(null);
+  const lagnMenuEl = useRef(null);
 
-  const handleOpen = () => {
-    setIsOpen(!isOpen);
-    setIsOpen1(false);
-    setter();
-    setter1();
+  const handleOpenCurrencyMenu = useIsOpen(
+    isCurrencyMenuOpen,
+    setIsCurrencyMenuOpen,
+  );
+  const handleOpenLanguageMenu = useIsOpen(
+    isLanguageMenuOpen,
+    setIsLanguageMenuOpen,
+  );
+
+  const handleResetCurrencyMenuState = () => {
+    setIsCurrencyMenuOpen(false);
   };
 
-  const handleOpen1 = () => {
-    setIsOpen1(!isOpen1);
-    setIsOpen(false);
-    setter();
-    setter1();
+  const handleResetLanguageMenuState = () => {
+    setIsLanguageMenuOpen(false);
   };
 
-  const setterFunction1 = () => {
-    setIsOpen(false);
-  };
-
-  const setterFunction2 = () => {
-    setIsOpen1(false);
-  };
-
-  useClickOutSide(currencyEl, setterFunction1);
-  useClickOutSide(lagnEl, setterFunction2);
+  useClickOutSideEvent(currencyMenuEl, handleResetCurrencyMenuState);
+  useClickOutSideEvent(lagnMenuEl, handleResetLanguageMenuState);
 
   return (
     <nav
@@ -64,18 +60,27 @@ function TopNavbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="group relative" onClick={handleOpen} ref={currencyEl}>
+          <div
+            className="group relative"
+            onClick={() => {
+              handleOpenCurrencyMenu();
+              handleResetCartMenuState();
+            }}
+            ref={currencyMenuEl}
+          >
             <span
               className={`relative flex cursor-pointer items-center gap-[5px]
               before:absolute before:-right-[10px] before:top-0 before:h-5
               before:w-[1px] before:bg-fourthColor before:opacity-10
-              hover:text-thirdColor ${isOpen ? 'text-thirdColor' : ''}`}
+              hover:text-thirdColor ${
+                isCurrencyMenuOpen ? 'text-thirdColor' : ''
+              }`}
             >
               Currency: EUR <MdKeyboardArrowDown />
             </span>
 
             <DropdownMenu
-              isOpen={isOpen}
+              isOpen={isCurrencyMenuOpen}
               xDirection="right-0"
               yDirection="xxxxs:top-[26px] top-[46px] xs:top-7 md:top-[34px]"
               height="h-[71.6px]"
@@ -87,6 +92,7 @@ function TopNavbar() {
                   € EUR
                 </a>
               </li>
+
               <li className="cursor-pointer px-[15px] hover:text-primaryColor">
                 <a className="flex py-[5px]" href="#">
                   $ USD
@@ -95,16 +101,25 @@ function TopNavbar() {
             </DropdownMenu>
           </div>
 
-          <div className="relative" onClick={handleOpen1} ref={lagnEl}>
+          <div
+            className="relative"
+            onClick={() => {
+              handleOpenLanguageMenu();
+              handleResetCartMenuState();
+            }}
+            ref={lagnMenuEl}
+          >
             <span
               className={`flex cursor-pointer items-center gap-[5px]
-              hover:text-thirdColor ${isOpen1 ? 'text-thirdColor' : ''}`}
+              hover:text-thirdColor ${
+                isLanguageMenuOpen ? 'text-thirdColor' : ''
+              }`}
             >
               Language: English <MdKeyboardArrowDown />
             </span>
 
             <DropdownMenu
-              isOpen={isOpen1}
+              isOpen={isLanguageMenuOpen}
               xDirection="left-auto"
               yDirection="xxxxs:top-[26px] top-[46px] xs:top-7 md:top-[34px]"
               height="h-[41.6px]"

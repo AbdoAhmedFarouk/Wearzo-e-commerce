@@ -2,7 +2,7 @@ import MobileMenu from '../../ui/MobileMenu/MobileMenu';
 import Navbar from '../../components/Navbar/Navbar';
 import TopNavbar from '../../components/TopNavbar/TopNavbar';
 
-function Header() {
+function HeaderWrapper() {
   return (
     <header className="relative">
       <TopNavbar />
@@ -14,4 +14,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderWrapper;

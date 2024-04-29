@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import { useRecoilState } from 'recoil';
-import { isAsideMobileOpen } from '../../atoms/aside';
-import { isBrandMenuOpen } from '../../atoms/isOpen';
 import { Link } from 'react-router-dom';
-import { useClick } from '../../hooks/useClick';
+import { useRecoilState } from 'recoil';
+import { isMobileMenuOpened } from '../../atoms/isMobileMenuOpened';
+import { isMobileBrandMenuOpened } from '../../atoms/isOpened';
+import { useClickEvent } from '../../hooks/useClickEvent';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
@@ -11,19 +11,28 @@ import DropdownMenu from '../DropdownMenu/DropdownMenu';
 import { AiOutlinePlus, AiOutlineClose, AiOutlineMinus } from 'react-icons/ai';
 
 function MobileMenu() {
-  const [isOpen, setIsOpen] = useRecoilState(isAsideMobileOpen);
-  const [isOpen1, setIsOpen1] = useRecoilState(isBrandMenuOpen);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useRecoilState(isMobileMenuOpened);
+  const [isMobileBrandMenuOpen, setIsMobileBrandMenuOpen] = useRecoilState(
+    isMobileBrandMenuOpened,
+  );
 
   const el = useRef(null);
 
-  const toggleMobileMenuFn = useIsOpen(isOpen, setIsOpen);
-  const openBrandMenu = useIsOpen(isOpen1, setIsOpen1);
+  const handleResetMobileMenuState = () => {
+    setIsMobileMenuOpen(false);
+  };
 
-  useClick(el, toggleMobileMenuFn);
+  const handleOpenMobileBrandMenu = useIsOpen(
+    isMobileBrandMenuOpen,
+    setIsMobileBrandMenuOpen,
+  );
+
+  useClickEvent(el, handleResetMobileMenuState);
 
   return (
     <>
-      {isOpen ? (
+      {isMobileMenuOpen ? (
         <>
           <div
             ref={el}
@@ -40,9 +49,10 @@ function MobileMenu() {
               px-[15px] uppercase text-white"
             >
               <span className="text-base font-medium leading-10">Menu</span>
+
               <span
                 className="cursor-pointer text-2xl font-normal hover:text-thirdColor"
-                onClick={toggleMobileMenuFn}
+                onClick={handleResetMobileMenuState}
               >
                 <AiOutlineClose />
               </span>
@@ -71,19 +81,23 @@ function MobileMenu() {
                   </Link>
                 </li>
 
-                <li onClick={openBrandMenu}>
+                <li onClick={handleOpenMobileBrandMenu}>
                   <Link
                     className="flex items-center justify-between px-5 py-1.5 hover:text-primaryColor sm:py-2"
                     to="brands"
                   >
                     all brands
                     <span className="text-lg">
-                      {isOpen1 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                      {isMobileBrandMenuOpen ? (
+                        <AiOutlineMinus />
+                      ) : (
+                        <AiOutlinePlus />
+                      )}
                     </span>
                   </Link>
 
                   <DropdownMenu
-                    isOpen={isOpen1}
+                    isOpen={isMobileBrandMenuOpen}
                     position="static"
                     padding="px-[15px]"
                     border="border-0"
@@ -151,9 +165,10 @@ function MobileMenu() {
             px-[15px] uppercase text-white"
             >
               <span className="text-base font-medium leading-10">Menu</span>
+
               <span
                 className="text-2xl font-normal"
-                onClick={toggleMobileMenuFn}
+                onClick={handleResetMobileMenuState}
               >
                 <AiOutlineClose />
               </span>
@@ -179,19 +194,23 @@ function MobileMenu() {
                   </a>
                 </li>
 
-                <li onClick={openBrandMenu}>
+                <li onClick={handleOpenMobileBrandMenu}>
                   <a
                     className="flex items-center justify-between px-5 py-1.5 hover:text-primaryColor sm:py-2"
                     href="#"
                   >
                     all brands
                     <span className="text-lg">
-                      {isOpen1 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                      {isMobileBrandMenuOpen ? (
+                        <AiOutlineMinus />
+                      ) : (
+                        <AiOutlinePlus />
+                      )}
                     </span>
                   </a>
 
                   <DropdownMenu
-                    isOpen={isOpen1}
+                    isOpen={isMobileBrandMenuOpen}
                     position="static"
                     padding="px-[15px]"
                     border="border-0"

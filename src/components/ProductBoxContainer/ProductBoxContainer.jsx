@@ -10,7 +10,6 @@ ProductBoxContainer.propTypes = {
   productsState: PropTypes.array,
   text: PropTypes.string,
   parentStyles: PropTypes.string,
-  loaderStyles: PropTypes.string,
   sliceMethodStartNum: PropTypes.number,
   sliceMethodEndNum: PropTypes.number,
   childStyles: PropTypes.string,
@@ -25,7 +24,6 @@ function ProductBoxContainer({
   text,
   parentStyles,
   childStyles,
-  loaderStyles,
   sliceMethodStartNum,
   sliceMethodEndNum,
   isHeaderShown,
@@ -34,11 +32,7 @@ function ProductBoxContainer({
     <div className={parentStyles ? parentStyles : ''}>
       {isHeaderShown && <H2Header header={text} />}
 
-      {isLoadingState && (
-        <div className={loaderStyles ? loaderStyles : ''}>
-          <Loader />
-        </div>
-      )}
+      {isLoadingState && <Loader />}
 
       {!isLoadingState && !errorMsg && (
         <div className={childStyles}>

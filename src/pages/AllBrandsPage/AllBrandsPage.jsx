@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isBrandsSideProductMenuOpen } from '../../atoms/isOpen';
+import { isMobileBrandsPageSideProductMenuOpened } from '../../atoms/isOpened';
 import { brandProductsInBrandsPage } from '../../atoms/products';
 import { isBrandsInBrandsPageProductsLoading } from '../../atoms/isLoading';
 import { brandsPageProductsError } from '../../atoms/error';
@@ -16,23 +16,23 @@ import SideProductBoxContainer from '../../components/SideProductBoxContainer/Si
 import brandImg1 from '../../assets/4.jpg';
 
 function AllBrandsPage() {
-  const [isBrSideProductListMenuOpen, setIsBrSideProductListMenuOpen] =
-    useRecoilState(isBrandsSideProductMenuOpen);
+  const [
+    isMobileBrandsPageSideProductMenuOpen,
+    setIsMobileBrandsPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileBrandsPageSideProductMenuOpened);
 
   const [brandsPageProducts, setBrandsPageProducts] = useRecoilState(
     brandProductsInBrandsPage,
   );
-
   const [isBrandsPageProductsLoading, setIsBrandsPageProductsLoading] =
     useRecoilState(isBrandsInBrandsPageProductsLoading);
-
   const [brandsProductsError, setBrandsProductsError] = useRecoilState(
     brandsPageProductsError,
   );
 
   const openSideProductListFn = useIsOpen(
-    isBrSideProductListMenuOpen,
-    setIsBrSideProductListMenuOpen,
+    isMobileBrandsPageSideProductMenuOpen,
+    setIsMobileBrandsPageSideProductMenuOpen,
   );
 
   useLimitProductsUseEffect(
@@ -53,7 +53,7 @@ function AllBrandsPage() {
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
               px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isBrSideProductListMenuOpen}
+              isOpen={isMobileBrandsPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -68,7 +68,7 @@ function AllBrandsPage() {
               productsState={brandsPageProducts}
               isLoading={isBrandsPageProductsLoading}
               errorState={brandsProductsError}
-              isListMenuOpen={isBrSideProductListMenuOpen}
+              isListMenuOpen={isMobileBrandsPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -76,7 +76,7 @@ function AllBrandsPage() {
 
           <div
             className={`duration-700 ${
-              isBrSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+              isMobileBrandsPageSideProductMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
             }`}
           >
             <div

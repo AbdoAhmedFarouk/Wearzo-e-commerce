@@ -1,8 +1,22 @@
 import { atom } from 'recoil';
 
-const isNumbers = atom({
-  key: 'isNums',
+const isPassNumbersInSigninPage = atom({
+  key: 'isSigninPagePassNums',
   default: false,
 });
 
-export default isNumbers;
+const isPassNumbersInSignupPage = atom({
+  key: 'isSignupPagePassNums',
+  default: false,
+});
+
+const isPassConfNumbersInSignupPage = atom({
+  key: 'isSignupPagePassConfNums',
+  default: false,
+});
+
+export {
+  isPassNumbersInSigninPage,
+  isPassNumbersInSignupPage,
+  isPassConfNumbersInSignupPage,
+};

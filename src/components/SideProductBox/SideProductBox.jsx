@@ -3,8 +3,6 @@ import { PropTypes } from 'prop-types';
 
 import RatingStars from '../RatingStars/RatingStars';
 
-// const defaultStyles = ``;
-
 SideProductBox.propTypes = {
   product: PropTypes.object,
   styles: PropTypes.string,

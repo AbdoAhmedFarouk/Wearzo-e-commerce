@@ -1,9 +1,11 @@
-import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import Swal from 'sweetalert2';
 
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+import useRemoveProductItemFromUserCart from '../../hooks/useRemoveProductItemFromUserCart';
+import useIncrementProductQuantity from '../../hooks/useIncrementProductQuantity';
+import useDecrementProductQuantity from '../../hooks/useDecrementProductQuantity';
+import useInputValueHandler from '../../hooks/useInputValueHandler';
+
 import Input from '../../components/Input/Input';
 import ProductDiscount from '../../components/ProductDiscount/ProductDiscount';
 
@@ -20,83 +22,24 @@ CartProductItem.propTypes = {
 };
 
 function CartProductItem({ title, img, price, quantity, id, discount }) {
-  const [addedProductToCart, setAddedProductToCart] = useRecoilState(
-    AddedProductToCartMenu,
-  );
-
   const itemPrice = discount ? (price - discount).toFixed(2) : price;
 
   const itemTotalPrice = discount
     ? ((price - discount) * quantity).toFixed(2)
     : (price * quantity).toFixed(2);
 
-  const existingProduct = addedProductToCart.find((item) => item.id === id);
   const productDiscountPercent = discount > 0 ? (discount / price) * 100 : null;
 
-  const inpValueHandler = (e) => {
-    setAddedProductToCart(
-      (prevProducts) =>
-        existingProduct &&
-        prevProducts.map((item) =>
-          item.id === id
-            ? {
-                ...item,
-                quantity: Number(e.target.value),
-              }
-            : item,
-        ),
-    );
-  };
+  const inpValueHandler = useInputValueHandler(id);
 
-  const handleIncrementProductQuantity = () => {
-    setAddedProductToCart(
-      (prevProducts) =>
-        existingProduct &&
-        prevProducts.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
-        ),
-    );
-  };
+  const handleIncrementProductQuantity = useIncrementProductQuantity(id);
 
-  const handleDecrementProductQuantity = () => {
-    setAddedProductToCart(
-      (prevProducts) =>
-        existingProduct &&
-        prevProducts.map((item) =>
-          item.id === id
-            ? {
-                ...item,
-                quantity:
-                  item.quantity === 1 ? item.quantity : item.quantity - 1,
-              }
-            : item,
-        ),
-    );
-  };
+  const handleDecrementProductQuantity = useDecrementProductQuantity(id);
 
-  const handleRemoveItem = () => {
-    Swal.fire({
-      title: `Are you sure you want to delete this product ${title} ?`,
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setAddedProductToCart((prevProducts) =>
-          prevProducts.filter((item) => item.id !== id),
-        );
-
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'The product has been deleted successfully.',
-          icon: 'success',
-        });
-      }
-    });
-  };
+  const handleRemoveProductItemFromUserCart = useRemoveProductItemFromUserCart(
+    title,
+    id,
+  );
 
   return (
     <li className="border-b border-fourthColor py-4">
@@ -174,7 +117,7 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
           <span
             className="h-4 w-4 cursor-pointer
             hover:text-thirdColor"
-            onClick={handleRemoveItem}
+            onClick={handleRemoveProductItemFromUserCart}
           >
             <FaTrash />
           </span>

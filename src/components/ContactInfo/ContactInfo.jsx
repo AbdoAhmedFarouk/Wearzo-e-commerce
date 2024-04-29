@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isContactFooterMenuOpen } from '../../atoms/isOpen';
+import { isMobileContactFooterMenuOpened } from '../../atoms/isOpened';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 import FooterDropDownMenus from '../../ui/FooterDropDownMenus/FooterDropDownMenus';
@@ -13,11 +13,13 @@ import logoImg from '../../assets/logo1.png';
 import { TfiEmail } from 'react-icons/tfi';
 
 function ContactInfo() {
-  const [isContactOpen, setIsContactOpen] = useRecoilState(
-    isContactFooterMenuOpen,
-  );
+  const [isMobileContactFooterMenuOpen, setIsMobileContactFooterMenuOpen] =
+    useRecoilState(isMobileContactFooterMenuOpened);
 
-  const openContactMenuFn = useIsOpen(isContactOpen, setIsContactOpen);
+  const handleOpenMobileFooterContactMenu = useIsOpen(
+    isMobileContactFooterMenuOpen,
+    setIsMobileContactFooterMenuOpen,
+  );
 
   return (
     <>
@@ -25,8 +27,8 @@ function ContactInfo() {
         styles="mb-2.5 flex items-center
         justify-between text-sm font-medium uppercase md:hidden"
         spanStyles="text-lg duration-500"
-        isOpen={isContactOpen}
-        onClick={openContactMenuFn}
+        isOpen={isMobileContactFooterMenuOpen}
+        onClick={handleOpenMobileFooterContactMenu}
       >
         <h6>Contact info</h6>
       </MobileMenuHeader>
@@ -81,7 +83,7 @@ function ContactInfo() {
       </div>
 
       <FooterDropDownMenus
-        isOpen={isContactOpen}
+        isOpen={isMobileContactFooterMenuOpen}
         styles="my-2.5 xxxs:h-[186.29px] h-[204.69px]"
       >
         <div className="mb-[15px] flex items-center">

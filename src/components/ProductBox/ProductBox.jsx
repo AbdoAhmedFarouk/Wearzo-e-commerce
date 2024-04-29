@@ -1,7 +1,11 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+import { currentLoggedUser } from '../../atoms/currentLoggedUser';
+import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMenu';
+import useAddProductsToGlobalCart from '../../hooks/useAddProductsToGlobalCart';
+import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
+import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
 
 import HoveringIcons from '../HoveringIcons/HoveringIcons';
 import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
@@ -9,28 +13,34 @@ import RatingStars from '../RatingStars/RatingStars';
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsShuffle, BsEye } from 'react-icons/bs';
-import useAddProductToCartHandler from '../../hooks/useAddProductToCartHandler';
 
 ProductBox.propTypes = {
   product: PropTypes.object,
 };
 
 function ProductBox({ product }) {
-  const [addedProductToCart, setAddedProductToCart] = useRecoilState(
-    AddedProductToCartMenu,
-  );
+  const [addedProductToGlobalCart, setAddedProductToGlobalCart] =
+    useRecoilState(addedProductToGlobalCartMenu);
+
+  const currentUser = useRecoilValue(currentLoggedUser);
 
   const productDiscountPercent =
     product?.discount > 0 ? (product?.discount / product?.price) * 100 : null;
 
-  const existingProduct = addedProductToCart.find(
+  const existingProductInGlobalCart = addedProductToGlobalCart.find(
     (item) => item.id === product.id,
   );
 
-  const handleAddProductToCart = useAddProductToCartHandler(
+  const handleAddProductToUserCart = useAddProductsToUserCart(product, 'cart');
+
+  const handleAddProductToUserWishlist = useAddProductsToUserWishList(product);
+
+  const handleAddProductToGlobalCart = useAddProductsToGlobalCart(
     product,
-    setAddedProductToCart,
-    existingProduct,
+    setAddedProductToGlobalCart,
+    existingProductInGlobalCart,
+    'The product has been added successfully to the global cart',
+    'The product quantity increased by one in the global cart',
   );
 
   return (
@@ -56,14 +66,15 @@ function ProductBox({ product }) {
         bg-white text-sm text-primaryColor opacity-0 duration-300
         ease-in-out group-hover/box:visible group-hover/box:top-0
         group-hover/box:opacity-100 md:text-base"
+        onClick={handleAddProductToUserWishlist}
       >
-        <a
+        <button
           className="flex h-[30px] w-[30px] items-center justify-center
-          duration-300 ease-in-out hover:text-thirdColor md:h-10 md:w-10"
-          href="#"
+          border-0 outline-0 duration-300 ease-in-out hover:text-thirdColor
+          md:h-10 md:w-10"
         >
           <AiOutlineHeart />
-        </a>
+        </button>
 
         <Link
           to={`/product/${product?.id}`}
@@ -102,7 +113,11 @@ function ProductBox({ product }) {
           w-full cursor-pointer bg-primaryColor p-[5px] text-xs ease-in-out
           leading-[30px] text-white opacity-0 group-hover/box:visible hover:bg-thirdColor
           uppercase group-hover/box:bottom-0 group-hover/box:opacity-100"
-          onClick={handleAddProductToCart}
+          onClick={
+            currentUser?.email
+              ? handleAddProductToUserCart
+              : handleAddProductToGlobalCart
+          }
         />
       </div>
 
@@ -112,7 +127,7 @@ function ProductBox({ product }) {
         <div className="font-medium text-primaryColor">
           <h3
             className="mb-1 text-sm capitalize md:mb-2
-          md:text-base md:leading-[15px]"
+            md:text-base md:leading-[15px]"
           >
             <Link
               to={`/product/${product?.id}`}
@@ -121,6 +136,7 @@ function ProductBox({ product }) {
               {product?.title.slice(0, 20)}...
             </Link>
           </h3>
+
           <span className="me-2 cursor-default">€{product?.price}</span>
 
           <span

@@ -1,45 +1,60 @@
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { currentLoggedUser } from '../../atoms/currentLoggedUser';
+
+import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMenu';
+import useRemoveProductItemFromUserCart from '../../hooks/useRemoveProductItemFromUserCart';
 import Swal from 'sweetalert2';
 
 import { AiOutlineClose } from 'react-icons/ai';
 
 MenuCartProductBox.propTypes = {
   product: PropTypes.object,
-  image: PropTypes.bool,
 };
 
 function MenuCartProductBox({ product }) {
-  const setAddedProductToCart = useSetRecoilState(AddedProductToCartMenu);
+  const currentUser = useRecoilValue(currentLoggedUser);
+
+  const setAddedProductToGlobalCart = useSetRecoilState(
+    addedProductToGlobalCartMenu,
+  );
 
   const itemTotalPrice = product?.discount
     ? ((product?.price - product?.discount) * product?.quantity).toFixed(2)
     : (product?.price * product?.quantity).toFixed(2);
 
-  const handleRemoveProductFromCartMenu = () => {
-    Swal.fire({
-      title: `Are you sure you want to delete this product ${product.title} ?`,
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setAddedProductToCart((prevProducts) =>
-          prevProducts.filter((item) => item.id !== product?.id),
-        );
+  const handleRemoveProductItemFromUserCart = useRemoveProductItemFromUserCart(
+    product.title,
+    product?.id,
+  );
 
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'The product has been deleted successfully.',
-          icon: 'success',
-        });
-      }
-    });
+  const handleRemoveProductFromCartMenu = () => {
+    if (currentUser?.email) {
+      handleRemoveProductItemFromUserCart();
+    } else {
+      Swal.fire({
+        title: `Are you sure you want to delete this product ${product.title} from the global cart ?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setAddedProductToGlobalCart((prevProducts) =>
+            prevProducts.filter((item) => item.id !== product?.id),
+          );
+
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'The product has been deleted successfully from the global cart.',
+            icon: 'success',
+          });
+        }
+      });
+    }
   };
 
   return (

@@ -13,7 +13,6 @@ Input.propTypes = {
   onChangeHandler: PropTypes.func,
   value: PropTypes.number,
   placeholder: PropTypes.string,
-  elRef: PropTypes.object,
 };
 
 function Input({
@@ -25,7 +24,6 @@ function Input({
   placeholder,
   value,
   onChangeHandler,
-  elRef,
 }) {
   return (
     <input
@@ -37,7 +35,6 @@ function Input({
       placeholder={placeholder && placeholder}
       value={value && value}
       onChange={onChangeHandler}
-      ref={elRef}
     />
   );
 }

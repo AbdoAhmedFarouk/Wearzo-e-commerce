@@ -1,6 +1,7 @@
-import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+
+import useCalcTotalCartItemsPrice from '../../hooks/useCalcTotalCartItemsPrice';
+import useCheckLoggedUser from '../../hooks/useCheckLoggedUser';
 
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -12,15 +13,9 @@ import CartProductItem from '../../components/CartProductItem/CartProductItem';
 import { IoIosArrowBack } from 'react-icons/io';
 
 function CartPage() {
-  const addedProductToCart = useRecoilValue(AddedProductToCartMenu);
+  const checkLoggedUser = useCheckLoggedUser();
 
-  const totalCartItemsPrice =
-    addedProductToCart.length > 0
-      ? addedProductToCart
-          .map((item) => (item.price - item.discount) * item.quantity)
-          .reduce((total, price) => total + price)
-          .toFixed(2)
-      : 0;
+  const totalCartItemsPrice = useCalcTotalCartItemsPrice(checkLoggedUser.cart);
 
   return (
     <SectionTag>
@@ -43,13 +38,13 @@ function CartPage() {
 
               <div>
                 <ul>
-                  {addedProductToCart.length > 0 ? (
-                    addedProductToCart.map((item) => (
+                  {checkLoggedUser?.cart.length > 0 ? (
+                    checkLoggedUser?.cart.map((item) => (
                       <CartProductItem key={item.id} {...item} />
                     ))
                   ) : (
                     <p className="fonme p-[15px] text-sm">
-                      There are no more items in your cart.
+                      There are no items your cart.
                     </p>
                   )}
                 </ul>
@@ -57,7 +52,7 @@ function CartPage() {
             </div>
 
             <Link
-              className="mt-3 flex cursor-pointer
+              className="mt-3 flex w-fit cursor-pointer
               items-center text-sm font-medium sm:text-base"
               to="/"
             >
@@ -74,7 +69,7 @@ function CartPage() {
                 border-fourthColor p-[15px] text-sm font-medium
                 text-primaryColor"
               >
-                <span>{addedProductToCart.length} items</span>
+                <span>{checkLoggedUser?.cart.length} items</span>
 
                 <span>${totalCartItemsPrice}</span>
               </div>

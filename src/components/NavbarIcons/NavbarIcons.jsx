@@ -1,52 +1,92 @@
 import { useRef } from 'react';
-import { PropTypes } from 'prop-types';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { NavLink } from 'react-router-dom';
-import { useIsOpen } from '../../hooks/useIsOpen';
-import { useClickOutSide } from '../../hooks/useClickOutside';
-import { isSearchBarOpen } from '../../atoms/isModalOpen';
-import { isAsideMobileOpen } from '../../atoms/aside';
-import { useClick } from '../../hooks/useClick';
-import { isLoginMenuOpen } from '../../atoms/isOpen';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { isMobileMenuOpened } from '../../atoms/isMobileMenuOpened';
+import { isSearchBarOpened } from '../../atoms/isSearchBarOpened';
+import { isLoginMenuOpened } from '../../atoms/isOpened';
 
+import { currentLoggedUser } from '../../atoms/currentLoggedUser';
+import { userLoggingoutErrorMessage } from '../../atoms/userLoggingoutErrorMessage';
+import { auth, logOut } from '../../firebase';
+import { useIsOpen } from '../../hooks/useIsOpen';
+import { useClickEvent } from '../../hooks/useClickEvent';
+import { useClickOutSideEvent } from '../../hooks/useClickOutSideEvent';
+
+import useCheckLoggedUser from '../../hooks/useCheckLoggedUser';
+import useResetCartMenuState from '../../hooks/useResetCartMenuState';
+
+import NavbarCartMenu from '../NavbarCartMenu/NavbarCartMenu';
 import DropdownMenu from '../../ui/DropdownMenu/DropdownMenu';
 import SearchField from '../../ui/SearchField/SearchField';
 
 import { AiOutlineUser } from 'react-icons/ai';
 import { HiMiniBars3 } from 'react-icons/hi2';
 import { IoIosSearch } from 'react-icons/io';
+import { Bounce, toast } from 'react-toastify';
 
-import NavbarCartMenu from '../NavbarCartMenu/NavbarCartMenu';
+function NavbarIcons() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useRecoilState(isMobileMenuOpened);
+  const [isSearchBarOpen, setIsSearchBarOpen] =
+    useRecoilState(isSearchBarOpened);
+  const [isLoginMenuOpen, setIsLoginMenuOpen] =
+    useRecoilState(isLoginMenuOpened);
 
-NavbarIcons.propTypes = {
-  handleOpenCartMenu: PropTypes.func,
-  handleOpenLoginMenu: PropTypes.func,
-};
+  const [userLoggingoutErrMsg, setUserLoggingoutErrMsg] = useRecoilState(
+    userLoggingoutErrorMessage,
+  );
+  const currentUser = useRecoilValue(currentLoggedUser);
 
-function NavbarIcons({ handleOpenCartMenu, handleOpenLoginMenu }) {
-  const [isOpen2, setIsOpen2] = useRecoilState(isAsideMobileOpen);
-  const [isOpen3, setIsOpen3] = useRecoilState(isSearchBarOpen);
-  const isOpen = useRecoilValue(isLoginMenuOpen);
-
-  const setter1 = useResetRecoilState(isLoginMenuOpen);
-  const setter2 = useResetRecoilState(isSearchBarOpen);
-
-  const cartSetterFn = useIsOpen(isOpen2, setIsOpen2);
-  const searchSetterFn = useIsOpen(isOpen3, setIsOpen3);
-
+  const navigate = useNavigate();
   const searchBgEl = useRef(null);
   const userEl = useRef(null);
 
-  const setterFunction1 = () => {
-    setter1();
+  const checkLoggedUser = useCheckLoggedUser();
+
+  const handleOpenMobileMenu = useIsOpen(isMobileMenuOpen, setIsMobileMenuOpen);
+  const handleOpenSearchBar = useIsOpen(isSearchBarOpen, setIsSearchBarOpen);
+  const handleOpenLoginMenu = useIsOpen(isLoginMenuOpen, setIsLoginMenuOpen);
+
+  const handleResetCartMenuState = useResetCartMenuState();
+
+  const handleResetLoginMenuState = () => {
+    setIsLoginMenuOpen(false);
   };
 
-  const setterFunction2 = () => {
-    setter2();
+  const handleResetSearchBarState = () => {
+    setIsSearchBarOpen(false);
   };
 
-  useClickOutSide(userEl, setterFunction1);
-  useClick(searchBgEl, setterFunction2);
+  const handleUserLoggingOut = async () => {
+    try {
+      setUserLoggingoutErrMsg('');
+
+      await logOut(auth);
+
+      navigate('/signin');
+    } catch {
+      setUserLoggingoutErrMsg('Failed to log out.');
+    }
+  };
+
+  const handleLogoutError = () => {
+    userLoggingoutErrMsg
+      ? toast.error('Failed to log out.', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      : handleUserLoggingOut();
+  };
+
+  useClickEvent(searchBgEl, handleResetSearchBarState);
+  useClickOutSideEvent(userEl, handleResetLoginMenuState);
 
   return (
     <div
@@ -55,51 +95,85 @@ function NavbarIcons({ handleOpenCartMenu, handleOpenLoginMenu }) {
     >
       <div
         className="cursor-pointer hover:text-thirdColor"
-        onClick={searchSetterFn}
+        onClick={() => {
+          handleOpenSearchBar();
+          handleResetCartMenuState();
+        }}
       >
         <IoIosSearch />
       </div>
 
       <div
         className={`relative cursor-pointer hover:text-thirdColor
-        ${isOpen && 'text-thirdColor'}`}
-        onClick={handleOpenLoginMenu}
+        ${isLoginMenuOpen && 'text-thirdColor'}`}
+        onClick={() => {
+          handleOpenLoginMenu();
+          handleResetCartMenuState();
+        }}
         ref={userEl}
       >
         <AiOutlineUser />
 
         <DropdownMenu
-          isOpen={isOpen}
+          isOpen={isLoginMenuOpen}
           fontSize="text-sm"
           xDirection="right-0"
           yDirection="2xl:top-[65.5px] xxxs:top-10 top-9 md:top-[55px]"
-          height="h-[59.6px]"
+          height={`${!currentUser?.email ? 'h-[59.78px]' : 'h-[83.78px]'}`}
           width="w-28 xxxs:min-w-[160px]"
           shadow="shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
         >
-          <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
-            <NavLink className="flex py-[5px]" to="signin">
-              Sign in
-            </NavLink>
-          </li>
-          <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
-            <NavLink className="flex py-[5px]" to="signup">
-              Register
-            </NavLink>
-          </li>
+          {!currentUser?.email ? (
+            <>
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <NavLink className="flex py-[5px]" to="signin">
+                  Sign in
+                </NavLink>
+              </li>
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <NavLink className="flex py-[5px]" to="signup">
+                  Register
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <NavLink className="flex py-[5px]" to="my-account">
+                  My Acount
+                </NavLink>
+              </li>
+
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <NavLink className="flex py-[5px]" to="wishList">
+                  Wishlist ({checkLoggedUser?.wishList.length})
+                </NavLink>
+              </li>
+
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <button
+                  type="button"
+                  className="flex w-full py-[5px]"
+                  onClick={handleLogoutError}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
         </DropdownMenu>
       </div>
 
-      <NavbarCartMenu handleOpenCartMenu={handleOpenCartMenu} />
+      <NavbarCartMenu />
 
       <div
         className="flex cursor-pointer hover:text-thirdColor md:hidden"
-        onClick={cartSetterFn}
+        onClick={handleOpenMobileMenu}
       >
         <HiMiniBars3 />
       </div>
 
-      {isOpen3 && <SearchField el={searchBgEl} setterFn={setter2} />}
+      {isSearchBarOpen && <SearchField el={searchBgEl} />}
     </div>
   );
 }

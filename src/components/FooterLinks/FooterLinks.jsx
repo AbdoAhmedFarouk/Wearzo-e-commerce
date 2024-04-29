@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
-  isInfoLinksFooterMenuOpen,
-  isAccLinksFooterMenuOpen,
-} from '../../atoms/isOpen';
+  isMobileInfoLinksFooterMenuOpened,
+  isMobileAccLinksFooterMenuOpened,
+} from '../../atoms/isOpened';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 import FooterDropDownMenus from '../../ui/FooterDropDownMenus/FooterDropDownMenus';
 import MobileMenuHeader from '../MobileMenuHeader/MobileMenuHeader';
 
 function FooterLinks() {
-  const [isInfoLinksOpen, setIsInfoLinksOpen] = useRecoilState(
-    isInfoLinksFooterMenuOpen,
-  );
+  const [isMobileInfoLinksFooterMenuOpen, setIsMobileInfoLinksFooterMenuOpen] =
+    useRecoilState(isMobileInfoLinksFooterMenuOpened);
+  const [isMobileAccLinksFooterMenuOpen, setIsMobileAccLinksFooterMenuOpen] =
+    useRecoilState(isMobileAccLinksFooterMenuOpened);
 
-  const [isAccLinksOpen, setIsAccLinksOpen] = useRecoilState(
-    isAccLinksFooterMenuOpen,
+  const handleOpenMobileFooterInfoLinksMenu = useIsOpen(
+    isMobileInfoLinksFooterMenuOpen,
+    setIsMobileInfoLinksFooterMenuOpen,
   );
-
-  const openInfoLinksMenuFn = useIsOpen(isInfoLinksOpen, setIsInfoLinksOpen);
-  const openAccLinksMenuFn = useIsOpen(isAccLinksOpen, setIsAccLinksOpen);
+  const handleOpenMobileFooterAccLinksMenu = useIsOpen(
+    isMobileAccLinksFooterMenuOpen,
+    setIsMobileAccLinksFooterMenuOpen,
+  );
 
   return (
     <div
@@ -31,8 +34,8 @@ function FooterLinks() {
           styles="flex items-center
           justify-between md:block"
           spanStyles="text-lg duration-500 md:hidden"
-          onClick={openInfoLinksMenuFn}
-          isOpen={isInfoLinksOpen}
+          onClick={handleOpenMobileFooterInfoLinksMenu}
+          isOpen={isMobileInfoLinksFooterMenuOpen}
         >
           <h6
             className="mb-2.5 text-sm font-medium
@@ -79,7 +82,10 @@ function FooterLinks() {
           </ul>
         </div>
 
-        <FooterDropDownMenus isOpen={isInfoLinksOpen} styles="h-[175px]">
+        <FooterDropDownMenus
+          isOpen={isMobileInfoLinksFooterMenuOpen}
+          styles="h-[175px]"
+        >
           <ul className="mb-[15px] text-base capitalize leading-8">
             <li>
               <Link className="hover:text-thirdColor" to="delivery">
@@ -118,8 +124,8 @@ function FooterLinks() {
         <MobileMenuHeader
           styles="flex items-center justify-between md:block"
           spanStyles="text-lg duration-500 md:hidden"
-          isOpen={isAccLinksOpen}
-          onClick={openAccLinksMenuFn}
+          isOpen={isMobileAccLinksFooterMenuOpen}
+          onClick={handleOpenMobileFooterAccLinksMenu}
         >
           <h6
             className="mb-2.5 text-sm font-medium
@@ -160,7 +166,10 @@ function FooterLinks() {
           </ul>
         </div>
 
-        <FooterDropDownMenus isOpen={isAccLinksOpen} styles="h-40">
+        <FooterDropDownMenus
+          isOpen={isMobileAccLinksFooterMenuOpen}
+          styles="h-40"
+        >
           <ul className="text-base capitalize leading-8">
             <li>
               <Link className="hover:text-thirdColor" to="specials">

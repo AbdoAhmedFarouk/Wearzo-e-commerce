@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { useRecoilState } from 'recoil';
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
-import useAddProductToCartHandler from '../../hooks/useAddProductToCartHandler';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentLoggedUser } from '../../atoms/currentLoggedUser';
+import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMenu';
+import useAddProductsToGlobalCart from '../../hooks/useAddProductsToGlobalCart';
+import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 
 import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
 import RatingStars from '../RatingStars/RatingStars';
@@ -15,19 +17,25 @@ SpecialProductsCol.propTypes = {
 };
 
 function SpecialProductsCol({ product }) {
-  const [addedProductToCart, setAddedProductToCart] = useRecoilState(
-    AddedProductToCartMenu,
-  );
+  const [addedProductToGlobalCart, setAddedProductToGlobalCart] =
+    useRecoilState(addedProductToGlobalCartMenu);
 
-  const existingProduct = addedProductToCart.find(
+  const currentUser = useRecoilValue(currentLoggedUser);
+
+  const existingProductInGlobalCart = addedProductToGlobalCart.find(
     (item) => item.id === product.id,
   );
 
-  const handleAddProductToCart = useAddProductToCartHandler(
+  const handleAddProductToUserCart = useAddProductsToUserCart(product);
+
+  const handleAddProductToGlobalCart = useAddProductsToGlobalCart(
     product,
-    setAddedProductToCart,
-    existingProduct,
+    setAddedProductToGlobalCart,
+    existingProductInGlobalCart,
+    'The product has been added successfully to the global cart',
+    'The product quantity increased by one in the global cart',
   );
+
   return (
     <>
       <div>
@@ -42,10 +50,9 @@ function SpecialProductsCol({ product }) {
       <div className="flex-1 pt-[5px] sm:ps-[30px]">
         <RatingStars
           styles="mb-1.5 flex items-center justify-center text-sm
-              text-eighthColor md:mb-2.5 sm:justify-start md:text-base"
+          text-eighthColor md:mb-2.5 sm:justify-start md:text-base"
           productRating={product?.rating}
         />
-
         <h3 className="mb-[13px] font-medium sm:mt-[11px]">
           <Link
             to={`/product/${product?.id}`}
@@ -65,7 +72,7 @@ function SpecialProductsCol({ product }) {
 
         <div
           className="mb-2.5 mt-[5px] leading-6 text-secondaryColor
-              sm:mb-[27px] sm:mt-[14px]"
+          sm:mb-[27px] sm:mt-[14px]"
         >
           <span>{product?.description.slice(0, 200)}...</span>
         </div>
@@ -74,24 +81,28 @@ function SpecialProductsCol({ product }) {
           <ShopNowBtn
             text="add to cart"
             styles="md:py-2.5 py-[5px] px-[15px] md:px-[30px] bg-primaryColor
-                text-white uppercase hover:bg-thirdColor md:text-sm me-[9px]
-                cursor-pointer duration-300 border-0 outline-0 text-xs leading-5"
-            onClick={handleAddProductToCart}
+            text-white uppercase hover:bg-thirdColor md:text-sm me-[9px]
+            cursor-pointer duration-300 border-0 outline-0 text-xs leading-5"
+            onClick={
+              currentUser?.email
+                ? handleAddProductToUserCart
+                : handleAddProductToGlobalCart
+            }
           />
 
           <span
             className="me-[5px] grid h-[30px] w-[30px] cursor-pointer
-                place-items-center bg-fifthColor text-center text-base duration-300
-                ease-in-out hover:bg-primaryColor hover:text-white md:h-10 md:w-10
-                md:text-lg"
+            place-items-center bg-fifthColor text-center text-base duration-300
+            ease-in-out hover:bg-primaryColor hover:text-white md:h-10 md:w-10
+            md:text-lg"
           >
             <AiOutlineHeart />
           </span>
 
           <span
             className="me-[5px] h-[30px] w-[30px] cursor-pointer bg-fifthColor 
-                text-lg duration-300 ease-in-out hover:bg-primaryColor
-                hover:text-white sm:h-10 sm:w-10"
+            text-lg duration-300 ease-in-out hover:bg-primaryColor
+            hover:text-white sm:h-10 sm:w-10"
           >
             <Link
               className="grid h-full w-full place-content-center"
@@ -103,8 +114,8 @@ function SpecialProductsCol({ product }) {
 
           <span
             className="grid h-[30px] w-[30px] cursor-pointer place-items-center
-                bg-fifthColor text-center text-lg duration-300 ease-in-out
-                hover:bg-primaryColor hover:text-white sm:h-10 sm:w-10"
+            bg-fifthColor text-center text-lg duration-300 ease-in-out
+            hover:bg-primaryColor hover:text-white sm:h-10 sm:w-10"
           >
             <BsShuffle />
           </span>

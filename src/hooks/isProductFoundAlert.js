@@ -1,11 +1,16 @@
 import Swal from 'sweetalert2';
 
-function isProductFoundAlert(existingProduct) {
+function isProductFoundAlert(
+  existingProduct,
+  addedSuccessfullyText,
+  productIncreasedText,
+  icon,
+) {
   if (existingProduct) {
     Swal.fire({
       position: 'center',
-      icon: 'success',
-      title: 'The product quantity increased by one',
+      icon: `${icon ? icon : 'success'}`,
+      title: `${productIncreasedText}`,
       showConfirmButton: false,
       timer: 3000,
     });
@@ -13,11 +18,13 @@ function isProductFoundAlert(existingProduct) {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'The product has been added successfully',
+      title: `${addedSuccessfullyText}`,
       showConfirmButton: false,
       timer: 3000,
     });
   }
+
+  return null;
 }
 
 export default isProductFoundAlert;

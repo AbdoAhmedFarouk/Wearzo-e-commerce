@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isSecurePaymentSideProductMenuOpen } from '../../atoms/isOpen';
+import { isMobileSecurePaymentPageSideProductMenuOpened } from '../../atoms/isOpened';
 import { secaurePaymentSideMenuProductsInSecaurePaymentPage } from '../../atoms/products';
 import { isSecurePaymentSideMenuProductsInSecurePaymentPageLoading } from '../../atoms/isLoading';
 import { secaurePaymentPageSideMenuProductsError } from '../../atoms/error';
@@ -14,8 +14,10 @@ import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
 import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function SecurePaymentPage() {
-  const [isSecureSideProductListMenuOpen, setIsSecureSideProductListMenuOpen] =
-    useRecoilState(isSecurePaymentSideProductMenuOpen);
+  const [
+    isMobileSecurePaymentPageSideProductMenuOpen,
+    setIsMobileSecurePaymentPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileSecurePaymentPageSideProductMenuOpened);
 
   const [
     isSecurePaymentSideMenuProductsLoading,
@@ -31,8 +33,8 @@ function SecurePaymentPage() {
     useRecoilState(secaurePaymentSideMenuProductsInSecaurePaymentPage);
 
   const openSideProductListFn = useIsOpen(
-    isSecureSideProductListMenuOpen,
-    setIsSecureSideProductListMenuOpen,
+    isMobileSecurePaymentPageSideProductMenuOpen,
+    setIsMobileSecurePaymentPageSideProductMenuOpen,
   );
 
   useLimitProductsUseEffect(
@@ -53,7 +55,7 @@ function SecurePaymentPage() {
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
               px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isSecureSideProductListMenuOpen}
+              isOpen={isMobileSecurePaymentPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -68,7 +70,7 @@ function SecurePaymentPage() {
               productsState={secaurePaymentSideMenuProducts}
               isLoading={isSecurePaymentSideMenuProductsLoading}
               errorState={secaurePaymentSideMenuProductsError}
-              isListMenuOpen={isSecureSideProductListMenuOpen}
+              isListMenuOpen={isMobileSecurePaymentPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -78,7 +80,9 @@ function SecurePaymentPage() {
             className={`h-fit border border-fourthColor
             p-[15px] text-primaryColor duration-700
             md:text-justify ${
-              isSecureSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+              isMobileSecurePaymentPageSideProductMenuOpen
+                ? 'mt-0'
+                : '-mt-10 md:mt-0'
             }`}
           >
             <h2 className="mb-[15px] text-lg font-medium capitalize">

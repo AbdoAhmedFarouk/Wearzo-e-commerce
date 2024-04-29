@@ -1,8 +1,14 @@
 import { useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { PropTypes } from 'prop-types';
+
 import clickedProduct from '../../atoms/product';
-import AddedProductToCartMenu from '../../atoms/addedProductToCartMenu';
+import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
+import useIncrementProductQuantity from '../../hooks/useIncrementProductQuantity';
+import useDecrementProductQuantity from '../../hooks/useDecrementProductQuantity';
+import useCheckLoggedUser from '../../hooks/useCheckLoggedUser';
+import useInputValueHandler from '../../hooks/useInputValueHandler';
+import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
 import Swal from 'sweetalert2';
 
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
@@ -13,80 +19,47 @@ import { FiPlus, FiMinus } from 'react-icons/fi';
 import { FaPencilAlt } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsShuffle } from 'react-icons/bs';
-import useAddProductToCartHandler from '../../hooks/useAddProductToCartHandler';
 
 ProductInfoInProductPage.propTypes = {
   urlProductId: PropTypes.string,
 };
 
 function ProductInfoInProductPage({ urlProductId }) {
-  const [addedProductToCart, setAddedProductToCart] = useRecoilState(
-    AddedProductToCartMenu,
-  );
   const chosenProduct = useRecoilValue(clickedProduct);
+
   const inpEl = useRef(null);
 
-  const existingProduct = addedProductToCart.find(
+  const checkLoggedUser = useCheckLoggedUser();
+
+  const existingProductInUserCart = checkLoggedUser.cart.find(
     (item) => item.id === +urlProductId,
   );
 
-  const isProductFound = !!existingProduct;
+  const isProductFound = !!existingProductInUserCart;
 
   const productDiscountPercent =
-    isProductFound && existingProduct?.discount > 0
-      ? (existingProduct?.discount / existingProduct?.price) * 100
+    chosenProduct?.discount > 0
+      ? (chosenProduct?.discount / chosenProduct?.price) * 100
       : null;
 
-  const itemPrice =
-    isProductFound && existingProduct?.discount
-      ? (existingProduct?.price - existingProduct?.discount).toFixed(2)
-      : existingProduct?.price;
+  const itemPrice = chosenProduct?.discount
+    ? (chosenProduct?.price - chosenProduct?.discount).toFixed(2)
+    : chosenProduct?.price;
 
-  const inpValueHandler = (e) => {
-    isProductFound &&
-      setAddedProductToCart(
-        (prevProducts) =>
-          existingProduct &&
-          prevProducts.map((item) =>
-            item.id === +urlProductId
-              ? {
-                  ...item,
-                  quantity: Number(e.target.value),
-                }
-              : item,
-          ),
-      );
-  };
+  const handleAddProductToUserWishlist =
+    useAddProductsToUserWishList(chosenProduct);
 
-  const handleIncrementProductQuantity = () => {
-    isProductFound &&
-      setAddedProductToCart(
-        (prevProducts) =>
-          existingProduct &&
-          prevProducts.map((item) =>
-            item.id === +urlProductId
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          ),
-      );
-  };
+  const inpValueHandler = useInputValueHandler(+urlProductId);
 
-  const handleDecrementProductQuantity = () => {
-    isProductFound &&
-      setAddedProductToCart(
-        (prevProducts) =>
-          existingProduct &&
-          prevProducts.map((item) =>
-            item.id === +urlProductId
-              ? {
-                  ...item,
-                  quantity:
-                    item.quantity === 1 ? item.quantity : item.quantity - 1,
-                }
-              : item,
-          ),
-      );
-  };
+  const handleIncrementProductQuantity = useIncrementProductQuantity(
+    +urlProductId,
+  );
+
+  const handleDecrementProductQuantity = useDecrementProductQuantity(
+    +urlProductId,
+  );
+
+  const handleAddProductToUserCart = useAddProductsToUserCart(chosenProduct);
 
   const isProductFoundFn = () => {
     !isProductFound &&
@@ -96,12 +69,6 @@ function ProductInfoInProductPage({ urlProductId }) {
         text: 'Something went wrong! Please try again after adding this product to your cart',
       });
   };
-
-  const handleAddProductToCart = useAddProductToCartHandler(
-    chosenProduct,
-    setAddedProductToCart,
-    existingProduct,
-  );
 
   return (
     <div className="sm:col-span-6">
@@ -131,13 +98,13 @@ function ProductInfoInProductPage({ urlProductId }) {
 
       <div className="mb-1 flex items-center ">
         <p className=" me-2 text-xl font-medium leading-5 lg:text-2xl">
-          €{isProductFound ? itemPrice : 0}
+          €{itemPrice}
         </p>
 
-        {isProductFound && existingProduct?.discount !== 0 ? (
+        {chosenProduct?.discount !== 0 ? (
           <ProductDiscount
             discountAmountInPerc={productDiscountPercent?.toFixed()}
-            discountPrice={existingProduct?.discount}
+            discountPrice={chosenProduct?.discount}
           />
         ) : null}
       </div>
@@ -178,8 +145,8 @@ function ProductInfoInProductPage({ urlProductId }) {
                 id="quantity-inp"
                 name="quantity-inp"
                 ref={inpEl}
-                value={isProductFound ? existingProduct?.quantity : 0}
-                onChange={(e) => inpValueHandler(e)}
+                value={isProductFound ? existingProductInUserCart?.quantity : 0}
+                onChange={inpValueHandler}
                 disabled={!isProductFound}
               />
 
@@ -209,7 +176,7 @@ function ProductInfoInProductPage({ urlProductId }) {
               styles="py-2.5 px-[30px] bg-primaryColor text-white uppercase
               hover:bg-thirdColor text-sm me-[7px] cursor-pointer
               duration-300 border-0 outline-0"
-              onClick={handleAddProductToCart}
+              onClick={handleAddProductToUserCart}
             />
 
             <span
@@ -217,6 +184,7 @@ function ProductInfoInProductPage({ urlProductId }) {
               items-center justify-center bg-fifthColor text-center
               text-lg duration-300 ease-in-out hover:bg-primaryColor
               hover:text-white"
+              onClick={handleAddProductToUserWishlist}
             >
               <AiOutlineHeart />
             </span>

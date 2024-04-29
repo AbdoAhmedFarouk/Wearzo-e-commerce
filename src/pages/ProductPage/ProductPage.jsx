@@ -8,7 +8,7 @@ import { relatedProductsInProductPage } from '../../atoms/products';
 import { allRelatedProductsError, chosenProductError } from '../../atoms/error';
 
 import clickedProduct from '../../atoms/product';
-import useUseEffect from '../../hooks/useUseEffect';
+import useUseEffectToFetchProducts from '../../hooks/useUseEffectToFetchProducts';
 
 import Container from '../../components/Container/Container';
 import SectionTag from '../../components/SectionTag/SectionTag';
@@ -37,14 +37,14 @@ function ProductPage() {
 
   const { id } = useParams();
 
-  useUseEffect(
+  useUseEffectToFetchProducts(
     setChosenProduct,
     setIsProductLoading,
     setTheChosenProductError,
     id,
   );
 
-  useUseEffect(
+  useUseEffectToFetchProducts(
     setRelatedProducts,
     setIsRelatedProductsLoading,
     setRelatedProductsError,

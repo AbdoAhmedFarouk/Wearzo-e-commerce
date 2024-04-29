@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 
 function ErrorPage() {
+  const navigate = useNavigate();
   return (
     <section className="flex h-full items-center dark:bg-gray-900 dark:text-gray-100 sm:p-16">
       <div className="container mx-auto my-8 flex flex-col items-center justify-center space-y-8 px-5 text-center sm:max-w-md">
@@ -36,9 +38,17 @@ function ErrorPage() {
         <p className="text-2xl font-semibold md:text-3xl">
           Sorry, we couldn&apos;t find this page.
         </p>
+
         <p className="mb-8 mt-4 dark:text-gray-400">
           But dont worry, you can find plenty of other things on our homepage.
         </p>
+
+        <ShopNowBtn
+          styles="rounded px-8 py-3 font-semibold dark:bg-violet-400 dark:text-gray-900"
+          onClick={() => navigate(-1)}
+          text="Go back"
+        />
+
         <Link
           className="rounded px-8 py-3 font-semibold dark:bg-violet-400 dark:text-gray-900"
           to="/"

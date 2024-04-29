@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useRecoilState } from 'recoil';
-import { isModalOpen } from '../../atoms/isModalOpen';
+import { isModalOpened } from '../../atoms/isModalOpened';
+import { isModalCheckboxChecked } from '../../atoms/isModalCheckboxChecked';
 
 import { useIsOpen } from '../../hooks/useIsOpen';
-import { useClick } from '../../hooks/useClick';
-import { useLocalStorageState } from '../../hooks/useLocalStorageState';
+import { useClickEvent } from '../../hooks/useClickEvent';
 
 import newletter from '../../assets/newletter_popup.jpg';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
@@ -14,28 +14,31 @@ import Input from '../../components/Input/Input';
 import { MdClose } from 'react-icons/md';
 
 const Overlay = () => {
-  const [isOpen, setIsOpen] = useRecoilState(isModalOpen);
-
-  const [value, setValue] = useLocalStorageState(false, 'checkbox');
-  const toggleModalFn = useIsOpen(isOpen, setIsOpen);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpened);
+  const [isModalChecked, setIsModalChecked] = useRecoilState(
+    isModalCheckboxChecked,
+  );
 
   const overlayEl = useRef(null);
 
-  useClick(overlayEl, toggleModalFn);
+  const handleOpenModal = useIsOpen(isModalOpen, setIsModalOpen);
 
   const handleIsCheckedChange = (e) => {
-    setValue(e.target.checked);
+    setIsModalChecked(e.target.checked);
   };
 
   useEffect(() => {
-    setIsOpen(true);
+    setIsModalOpen(true);
 
-    if (localStorage.getItem('checkbox') === 'true') setIsOpen(false);
-  }, [setIsOpen]);
+    if (localStorage.getItem('isModalCheckboxChecked') === 'true')
+      setIsModalOpen(false);
+  }, [setIsModalOpen]);
+
+  useClickEvent(overlayEl, handleOpenModal);
 
   return (
     <>
-      {isOpen && (
+      {isModalOpen && (
         <>
           <div
             className="fixed inset-0 z-[10000] bg-black opacity-80"
@@ -94,7 +97,7 @@ const Overlay = () => {
                 type="checkbox"
                 id="checkboxInp"
                 onChange={handleIsCheckedChange}
-                checked={value}
+                checked={isModalChecked}
               />
 
               <label
@@ -111,7 +114,7 @@ const Overlay = () => {
               text-center text-base duration-300 hover:bg-primaryColor xxxs:h-6
               xxxs:w-6 xxxs:text-2xl xxxs:leading-6
               md:h-[30px] md:w-[30px] md:text-3xl"
-              onClick={toggleModalFn}
+              onClick={handleOpenModal}
             >
               <MdClose />
             </div>

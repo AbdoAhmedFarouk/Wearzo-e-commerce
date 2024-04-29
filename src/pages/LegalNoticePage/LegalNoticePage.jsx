@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { isLegalSideProductMenuOpen } from '../../atoms/isOpen';
+import { isMobileLegalPageSideProductMenuOpened } from '../../atoms/isOpened';
 import { legalNoticeSideMenuProductsInLegalNoticePage } from '../../atoms/products';
 import { isLegalNoticeSideMenuProductsInLegalNoticePageLoading } from '../../atoms/isLoading';
 import { legalSideMenuProductsErrorInLegalPage } from '../../atoms/error';
@@ -14,23 +14,23 @@ import SideBarBanner from '../../components/SideBarBanner/SideBarBanner';
 import SideProductBoxContainer from '../../components/SideProductBoxContainer/SideProductBoxContainer';
 
 function LegalNoticePage() {
-  const [isLegalSideProductListMenuOpen, setIsLegalSideProductListMenuOpen] =
-    useRecoilState(isLegalSideProductMenuOpen);
+  const [
+    isMobileLegalPageSideProductMenuOpen,
+    setIsMobileLegalPageSideProductMenuOpen,
+  ] = useRecoilState(isMobileLegalPageSideProductMenuOpened);
 
   const [
     isLegalNoticeSideMenuProductsLoading,
     setIsLegalNoticeSideMenuProductsLoading,
   ] = useRecoilState(isLegalNoticeSideMenuProductsInLegalNoticePageLoading);
-
   const [legalSideMenuProductsError, setLegalSideMenuProductsError] =
     useRecoilState(legalSideMenuProductsErrorInLegalPage);
-
   const [legalNoticeSideMenuProducts, setLegalNoticeSideMenuProducts] =
     useRecoilState(legalNoticeSideMenuProductsInLegalNoticePage);
 
   const openSideProductListFn = useIsOpen(
-    isLegalSideProductListMenuOpen,
-    setIsLegalSideProductListMenuOpen,
+    isMobileLegalPageSideProductMenuOpen,
+    setIsMobileLegalPageSideProductMenuOpen,
   );
 
   useLimitProductsUseEffect(
@@ -51,7 +51,7 @@ function LegalNoticePage() {
               bg-primaryColor xxxs:px-5 xxxs:py-[15px] text-white
               px-3 py-2.5"
               spanStyles="text-lg duration-500 md:hidden"
-              isOpen={isLegalSideProductListMenuOpen}
+              isOpen={isMobileLegalPageSideProductMenuOpen}
               onClick={openSideProductListFn}
             >
               <h3
@@ -66,7 +66,7 @@ function LegalNoticePage() {
               productsState={legalNoticeSideMenuProducts}
               isLoading={isLegalNoticeSideMenuProductsLoading}
               errorState={legalSideMenuProductsError}
-              isListMenuOpen={isLegalSideProductListMenuOpen}
+              isListMenuOpen={isMobileLegalPageSideProductMenuOpen}
             />
 
             <SideBarBanner />
@@ -76,7 +76,7 @@ function LegalNoticePage() {
             className={`h-fit border border-fourthColor
             p-[15px] text-primaryColor duration-700
             md:text-justify ${
-              isLegalSideProductListMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
+              isMobileLegalPageSideProductMenuOpen ? 'mt-0' : '-mt-10 md:mt-0'
             }`}
           >
             <h2 className="mb-[15px] text-lg font-medium capitalize">legal</h2>

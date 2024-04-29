@@ -37,11 +37,7 @@ function ProductIconInProductPage({ errorMsg }) {
 
   return (
     <div className="sm:col-span-6">
-      {isProductLoading && (
-        <div className="flex h-full w-full items-center justify-center">
-          <Loader />
-        </div>
-      )}
+      {isProductLoading && <Loader />}
 
       {!isProductLoading && !errorMsg && (
         <div className="sm:flex sm:items-center">
