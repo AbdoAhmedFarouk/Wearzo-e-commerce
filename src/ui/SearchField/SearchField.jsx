@@ -9,19 +9,19 @@ import { searchedProductsResult } from '../../atoms/searchedProductsResult';
 import { useKeyEvent } from '../../hooks/useKeyEvent';
 import axios from 'axios';
 
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import SideProductBox from '../../components/SideProductBox/SideProductBox';
+import Input from '../../components/Input/Input';
 
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoIosSearch } from 'react-icons/io';
 
 SearchField.propTypes = {
-  el: PropTypes.object,
+  refEl: PropTypes.object,
 };
 
-function SearchField({ el }) {
+function SearchField({ refEl }) {
   const [query, setQuery] = useRecoilState(searchQuery);
   const [searchedProducts, setSearchedProducts] = useRecoilState(
     searchedProductsResult,
@@ -108,7 +108,7 @@ function SearchField({ el }) {
 
   return (
     <>
-      <div ref={el} className="absolute inset-0 bg-white opacity-90"></div>
+      <div ref={refEl} className="absolute inset-0 bg-white opacity-90"></div>
 
       <form
         className="absolute left-1/2 top-1/2 z-[1000] flex w-2/3
@@ -117,24 +117,22 @@ function SearchField({ el }) {
         id="search-form"
         onSubmit={handleFormSubmit}
       >
-        <input
-          className="h-10 w-full border-b border-seventhColor
+        <Input
+          styles="h-10 border-b border-seventhColor
           bg-transparent py-1.5 text-sm font-normal text-secondaryColor
-          outline-0 placeholder:text-black sm:text-xl"
+          placeholder:text-black sm:text-xl"
           placeholder={!query ? 'Search...' : null}
           type="text"
           id="input-search"
           name="search-query"
           value={query}
-          onChange={(e) => hanleSearchQuery(e)}
-          ref={searchInpEl}
+          onChangeHandler={(e) => hanleSearchQuery(e)}
+          refEl={searchInpEl}
         />
 
-        <ShopNowBtn
-          styles="absolute right-0"
-          type="submit"
-          text={<IoIosSearch />}
-        />
+        <button className="absolute right-0" type="submit">
+          {<IoIosSearch />}
+        </button>
 
         <div
           className={`scrollbar absolute left-1/2 top-[100%] z-[500] max-h-[450px]

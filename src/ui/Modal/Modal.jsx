@@ -76,9 +76,9 @@ const Overlay = () => {
               </p>
 
               <Input
-                styles="w-full border-0 bg-fifthColor p-[10px]
-                text-center text-sm font-normal text-primaryColor
-                outline-0 placeholder:text-xs xs:placeholder:text-sm"
+                styles="bg-fifthColor p-[10px]
+                text-center font-normal text-primaryColor
+                placeholder:text-xs xs:placeholder:text-sm"
                 type="email"
                 placeholder="Enter Your Email Address Here"
                 id="modalEmailInp"

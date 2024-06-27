@@ -68,7 +68,6 @@ function ProductIconInProductPage({ errorMsg }) {
                     <li
                       key={img.id}
                       className="mb-2 cursor-pointer last:mb-0"
-                      ref={imgEl}
                       onClick={() => handleChangeImgSrc(img.image)}
                     >
                       <img
@@ -97,8 +96,8 @@ function ProductIconInProductPage({ errorMsg }) {
           <div className="md:ms-[30px] md:h-[755px]">
             <img
               className="h-[200px] w-full object-contain xxs:h-[250px] sm:h-full"
-              src={chosenProduct?.image}
-              alt={chosenProduct?.image}
+              src={chosenProduct?.img}
+              alt={chosenProduct?.img}
               ref={imgEl}
             />
           </div>

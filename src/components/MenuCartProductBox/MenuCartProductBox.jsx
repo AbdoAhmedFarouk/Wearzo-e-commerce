@@ -24,14 +24,12 @@ function MenuCartProductBox({ product }) {
     ? ((product?.price - product?.discount) * product?.quantity).toFixed(2)
     : (product?.price * product?.quantity).toFixed(2);
 
-  const handleRemoveProductItemFromUserCart = useRemoveProductItemFromUserCart(
-    product.title,
-    product?.id,
-  );
+  const handleRemoveProductItemFromUserCart =
+    useRemoveProductItemFromUserCart();
 
   const handleRemoveProductFromCartMenu = () => {
     if (currentUser?.email) {
-      handleRemoveProductItemFromUserCart();
+      handleRemoveProductItemFromUserCart(product.title, product?.id);
     } else {
       Swal.fire({
         title: `Are you sure you want to delete this product ${product.title} from the global cart ?`,

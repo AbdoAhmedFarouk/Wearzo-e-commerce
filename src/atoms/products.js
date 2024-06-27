@@ -20,11 +20,6 @@ const specialSideMenuProductsInSpecialPage = atom({
   default: [],
 });
 
-const brandProductsInBrandsPage = atom({
-  key: 'brandsPageProducts',
-  default: [],
-});
-
 const aboutSideMenuProductsInAboutPage = atom({
   key: 'aboutSideMenuProducts',
   default: [],
@@ -49,7 +44,6 @@ export {
   allProducts,
   relatedProductsInProductPage,
   specialProductsInSpecialPage,
-  brandProductsInBrandsPage,
   specialSideMenuProductsInSpecialPage,
   aboutSideMenuProductsInAboutPage,
   deliverySideMenuProductsInDeliveryPage,

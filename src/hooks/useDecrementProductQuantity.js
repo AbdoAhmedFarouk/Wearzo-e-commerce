@@ -1,10 +1,7 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import loggedUsersInfo from '../atoms/currentLoggedUserInfo';
-import { currentLoggedUser } from '../atoms/currentLoggedUser';
+import useUserCart from './useUserCart';
 
 function useDecrementProductQuantity(productId) {
-  const currentUser = useRecoilValue(currentLoggedUser);
-  const setLoggedUsers = useSetRecoilState(loggedUsersInfo);
+  const { setLoggedUsers, currentUser } = useUserCart();
 
   const handleDecrementProductQuantity = () => {
     setLoggedUsers((users) => {

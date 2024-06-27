@@ -1,10 +1,7 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { currentLoggedUser } from '../atoms/currentLoggedUser';
-import loggedUsersInfo from '../atoms/currentLoggedUserInfo';
+import useUserCart from './useUserCart';
 
 function useIncrementProductQuantity(productId) {
-  const currentUser = useRecoilValue(currentLoggedUser);
-  const setLoggedUsers = useSetRecoilState(loggedUsersInfo);
+  const { setLoggedUsers, currentUser } = useUserCart();
 
   const handleIncrementProductQuantity = () => {
     setLoggedUsers((users) => {

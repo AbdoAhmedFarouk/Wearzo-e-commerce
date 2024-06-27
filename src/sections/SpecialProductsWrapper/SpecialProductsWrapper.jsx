@@ -14,6 +14,7 @@ function SpecialProductsWrapper() {
   const products = useRecoilValue(allProducts);
   const isLoading = useRecoilValue(isAllProductsLoading);
   const error = useRecoilValue(allProductsError);
+
   return (
     <WrapperSection
       sectionStyles="2xl:mt-20 sm:mt-[30px] md:mt-10 mt-5 lg:mt-[50px]"

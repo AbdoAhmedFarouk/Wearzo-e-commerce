@@ -30,10 +30,7 @@ const isSearchFiledProductsLoading = atom({
   default: false,
 });
 
-const isBrandsInBrandsPageProductsLoading = atom({
-  key: 'isBrandsPageProductsLoading',
-  default: false,
-});
+
 
 const isAboutSideMenuProductsInAboutPageLoading = atom({
   key: 'isAboutSideMenuProductsLoading',
@@ -61,7 +58,6 @@ export {
   isRelatedProductsInProductPageLoading,
   isSpecialProductsInSpecialPageLoading,
   isSearchFiledProductsLoading,
-  isBrandsInBrandsPageProductsLoading,
   isSpecialSideMenuProductsLoadingInSpecialPage,
   isAboutSideMenuProductsInAboutPageLoading,
   isDeliverySideMenuProductsInDeliveryPageLoading,

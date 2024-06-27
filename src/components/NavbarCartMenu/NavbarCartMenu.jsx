@@ -85,8 +85,8 @@ function NavbarCartMenu() {
                 <div className="flex items-center justify-center space-x-2">
                   <Link
                     className="cursor-pointer border-0 bg-primaryColor px-5
-                      py-2.5 text-sm uppercase text-white outline-0 duration-300
-                      hover:bg-thirdColor"
+                    py-2.5 text-sm uppercase text-white outline-0 duration-300
+                    hover:bg-thirdColor"
                     to="cart"
                     onClick={handleResetCartMenuState}
                   >
@@ -95,8 +95,10 @@ function NavbarCartMenu() {
 
                   <Link
                     className="cursor-pointer border-0 bg-primaryColor px-5
-                      py-2.5 text-sm uppercase text-white outline-0 duration-300
-                      hover:bg-thirdColor"
+                    py-2.5 text-sm uppercase text-white outline-0 duration-300
+                    hover:bg-thirdColor"
+                    to="checkout"
+                    onClick={handleResetCartMenuState}
                   >
                     checkout
                   </Link>
@@ -149,6 +151,7 @@ function NavbarCartMenu() {
                     className="cursor-pointer border-0 bg-primaryColor px-5
                     py-2.5 text-sm uppercase text-white outline-0 duration-300
                     hover:bg-thirdColor"
+                    to="checkout"
                   >
                     checkout
                   </Link>
@@ -204,6 +207,7 @@ function NavbarCartMenu() {
                   className="cursor-pointer border-0 bg-primaryColor px-5
                   py-2.5 text-sm uppercase text-white outline-0 duration-300
                   hover:bg-thirdColor"
+                  to="checkout"
                 >
                   checkout
                 </Link>
@@ -254,8 +258,9 @@ function NavbarCartMenu() {
 
                 <Link
                   className="cursor-pointer border-0 bg-primaryColor px-5
-                    py-2.5 text-sm uppercase text-white outline-0 duration-300
-                    hover:bg-thirdColor"
+                  py-2.5 text-sm uppercase text-white outline-0 duration-300
+                  hover:bg-thirdColor"
+                  to="checkout"
                 >
                   checkout
                 </Link>

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { currentLoggedUser } from '../atoms/currentLoggedUser';
+
+import useUserCart from './useUserCart';
 
 function useUseEffectToNavigate() {
-  const currentUser = useRecoilValue(currentLoggedUser);
   const navigate = useNavigate();
+
+  const { currentUser } = useUserCart();
 
   useEffect(() => {
     if (currentUser?.email) {

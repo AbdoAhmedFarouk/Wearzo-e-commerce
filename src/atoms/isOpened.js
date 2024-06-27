@@ -20,11 +20,6 @@ const isCartMenuOpened = atom({
   default: false,
 });
 
-const isMobileBrandMenuOpened = atom({
-  key: 'isMobileBrandMenuOpen',
-  default: false,
-});
-
 const isMobileContactFooterMenuOpened = atom({
   key: 'isMobileContactFooterMenuOpen',
   default: false,
@@ -55,10 +50,7 @@ const isMobileDeliveryPageSideProductMenuOpened = atom({
   default: false,
 });
 
-const isMobileBrandsPageSideProductMenuOpened = atom({
-  key: 'isMobileBrandsPageSideProductMenuOpen',
-  default: false,
-});
+
 
 const isMobileLegalPageSideProductMenuOpened = atom({
   key: 'isMobileLegalPageSideProductMenuOpen',
@@ -75,14 +67,12 @@ export {
   isLanguageMenuOpened,
   isLoginMenuOpened,
   isCartMenuOpened,
-  isMobileBrandMenuOpened,
   isMobileContactFooterMenuOpened,
   isMobileInfoLinksFooterMenuOpened,
   isMobileAccLinksFooterMenuOpened,
   isMobileAboutPageSideProductMenuOpened,
   isMobileSpecialPageSideProductMenuOpened,
   isMobileDeliveryPageSideProductMenuOpened,
-  isMobileBrandsPageSideProductMenuOpened,
   isMobileLegalPageSideProductMenuOpened,
   isMobileSecurePaymentPageSideProductMenuOpened,
 };

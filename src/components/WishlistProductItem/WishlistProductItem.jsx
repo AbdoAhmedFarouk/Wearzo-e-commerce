@@ -6,6 +6,8 @@ import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 
 import ProductDiscount from '../../components/ProductDiscount/ProductDiscount';
 
+import Tooltip from '../../ui/Tooltip/Tooltip';
+
 import { HiShoppingCart } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
 
@@ -21,10 +23,10 @@ function WishlistProductItem({ item }) {
   const productDiscountPercent =
     item.discount > 0 ? (item.discount / item.price) * 100 : null;
 
-  const handleAddProductToUserCart = useAddProductsToUserCart(item);
+  const handleAddProductToUserCart = useAddProductsToUserCart();
 
   const handleRemoveProductItemFromUserWishlist =
-    useRemoveProductItemFromUserWishlist(item.title, item.id);
+    useRemoveProductItemFromUserWishlist();
 
   return (
     <li className="border-b border-fourthColor py-4">
@@ -64,26 +66,36 @@ function WishlistProductItem({ item }) {
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-around sm:col-span-5">
+        <div
+          className="flex flex-col flex-wrap items-center justify-around space-y-2
+          xxxs:flex-row xxxs:space-y-0 sm:col-span-5"
+        >
           <span className="select-none text-lg font-medium sm:ms-3 lg:m-0">
             €{itemPrice}
           </span>
 
-          <div className="flex items-center space-x-10">
+          <div className="flex flex-col items-center space-y-2 xxxs:flex-row xxxs:space-y-0">
             <span
-              className="h-5 w-5 cursor-pointer text-2xl
-              hover:text-thirdColor"
-              onClick={handleAddProductToUserCart}
+              className="group/tooltip relative cursor-pointer bg-primaryColor px-[30px]
+              py-2.5 text-base leading-10 text-white duration-500 hover:bg-thirdColor
+              xxxs:me-2"
+              onClick={() => handleAddProductToUserCart(item)}
             >
               <HiShoppingCart />
+
+              <Tooltip text="add to cart" styles="w-[120%] whitespace-nowrap" />
             </span>
 
             <span
-              className="h-5 w-5 cursor-pointer text-lg
-              hover:text-thirdColor"
-              onClick={handleRemoveProductItemFromUserWishlist}
+              className="group/tooltip relative cursor-pointer bg-thirdColor px-[30px]
+              py-2.5 text-base leading-10 text-white duration-500 hover:bg-[#ac2925]"
+              onClick={() =>
+                handleRemoveProductItemFromUserWishlist(item.title, item.id)
+              }
             >
               <FaTrash />
+
+              <Tooltip text="remove" styles="w-11/12" />
             </span>
           </div>
         </div>

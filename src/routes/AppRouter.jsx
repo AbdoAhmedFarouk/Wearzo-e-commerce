@@ -2,16 +2,14 @@ import { Suspense } from 'react';
 import { lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import RootLayout from '../pages/RootLayout/RootLayout';
-import Loader from '../components/Loader/Loader';
-import ProtectedRoute from '../pages/ProtectedRoute/ProtectedRoute';
 import App from '../App';
+import RootLayout from '../pages/RootLayout/RootLayout';
+import ProtectedRoute from '../pages/ProtectedRoute/ProtectedRoute';
+import Loader from '../components/Loader/Loader';
+import EditAddressEntryPage from '../pages/EditAddressEntryPage/EditAddressEntryPage';
 
 const SpecialPage = lazy(() => import('../pages/SpecialPage/SpecialPage'));
 const AboutPage = lazy(() => import('../pages/AboutPage/AboutPage'));
-const AllBrandsPage = lazy(() =>
-  import('../pages/AllBrandsPage/AllBrandsPage'),
-);
 const DeliveryPage = lazy(() => import('../pages/DeliveryPage/DeliveryPage'));
 const BlogPage = lazy(() => import('../pages/BlogPage/BlogPage'));
 const SigninPage = lazy(() => import('../pages/SigninPage/SigninPage'));
@@ -20,9 +18,8 @@ const ForgotPasswordPage = lazy(() =>
   import('../pages/ForgotPasswordPage/ForgotPasswordPage'),
 );
 const CartPage = lazy(() => import('../pages/CartPage/CartPage'));
-const BrandName = lazy(() => import('../pages/BrandName/BrandName'));
-const AllBrandsPageWrapper = lazy(() =>
-  import('../sections/AllBrandsPageWrapper/AllBrandsPageWrapper'),
+const OutletWrapper = lazy(() =>
+  import('../components/OutletWrapper/OutletWrapper'),
 );
 const ProductPage = lazy(() => import('../pages/ProductPage/ProductPage'));
 const ErrorPage = lazy(() => import('../pages/ErrorPage/ErrorPage'));
@@ -37,7 +34,31 @@ const ContactusPage = lazy(() =>
 );
 const StoresPage = lazy(() => import('../pages/StoresPage/StoresPage'));
 const WishListPage = lazy(() => import('../pages/WishListPage/WishListPage'));
-const MyAccount = lazy(() => import('../pages/MyAccount/MyAccount'));
+const CheckoutPage = lazy(() => import('../pages/CheckoutPage/CheckoutPage'));
+const AccountPage = lazy(() => import('../pages/AccountPage/AccountPage'));
+const OrderHistoryPage = lazy(() =>
+  import('../pages/OrderHistoryPage/OrderHistoryPage'),
+);
+const ChangePasswordPage = lazy(() =>
+  import('../pages/ChangePasswordPage/ChangePasswordPage'),
+);
+const ConfirmedOrderInfo = lazy(() =>
+  import('../pages/ConfirmedOrderInfo/ConfirmedOrderInfo'),
+);
+const EditAccountInfoPage = lazy(() =>
+  import('../pages/EditAccountInfoPage/EditAccountInfoPage'),
+);
+const AddressBookEntriesPage = lazy(() =>
+  import('../pages/AddressBookEntriesPage/AddressBookEntriesPage'),
+);
+const ReturnRequestsPage = lazy(() =>
+  import('../pages/ReturnRequestsPage/ReturnRequestsPage'),
+);
+const ReturnInfoPage = lazy(() =>
+  import('../pages/ReturnInfoPage/ReturnInfoPage'),
+);
+const ComparePage = lazy(() => import('../pages/ComparePage/ComparePage'));
+const ArticlePage = lazy(() => import('../pages/ArticlePage/ArticlePage'));
 
 const router = createBrowserRouter([
   {
@@ -59,32 +80,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'brands',
-        element: (
-          <Suspense fallback={<Loader />}>
-            <AllBrandsPageWrapper />
-          </Suspense>
-        ),
-        children: [
-          {
-            index: true,
-            element: (
-              <Suspense fallback={<Loader />}>
-                <AllBrandsPage />
-              </Suspense>
-            ),
-          },
-          {
-            path: ':brandId',
-            element: (
-              <Suspense fallback={<Loader />}>
-                <BrandName />
-              </Suspense>
-            ),
-          },
-        ],
-      },
-      {
         path: 'aboutUs',
         element: (
           <Suspense fallback={<Loader />}>
@@ -101,12 +96,30 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'blog',
+        path: 'blogs',
         element: (
           <Suspense fallback={<Loader />}>
-            <BlogPage />
+            <OutletWrapper />
           </Suspense>
         ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <BlogPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'article/:id',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ArticlePage />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: 'cart',
@@ -195,14 +208,148 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-account',
+        path: 'checkout',
         element: (
           <Suspense fallback={<Loader />}>
             <ProtectedRoute>
-              <MyAccount />
+              <CheckoutPage />
             </ProtectedRoute>
           </Suspense>
         ),
+      },
+      {
+        path: 'compare',
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ProtectedRoute>
+              <ComparePage />
+            </ProtectedRoute>
+          </Suspense>
+        ),
+      },
+      {
+        path: 'account',
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ProtectedRoute>
+              <OutletWrapper />
+            </ProtectedRoute>
+          </Suspense>
+        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <AccountPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'edit-account-info',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <EditAccountInfoPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'order-history',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <OutletWrapper />
+              </Suspense>
+            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <OrderHistoryPage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'order-info/:id',
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <ConfirmedOrderInfo />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          {
+            path: 'change-password',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ChangePasswordPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'edit-address-book',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <OutletWrapper />
+              </Suspense>
+            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <AddressBookEntriesPage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'edit-address-entry/:id',
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <EditAddressEntryPage />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          {
+            path: 'return-requests',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <OutletWrapper />
+              </Suspense>
+            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <ReturnRequestsPage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'return-info/:id',
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <ReturnInfoPage />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          // {
+          //   path: 'reason-for-return',
+          //   element: (
+          //     <Suspense fallback={<Loader />}>
+          //       <ProtectedRoute>
+          //         <OutletWrapper />
+          //       </ProtectedRoute>
+          //     </Suspense>
+          //   ),
+          // },
+        ],
       },
     ],
   },

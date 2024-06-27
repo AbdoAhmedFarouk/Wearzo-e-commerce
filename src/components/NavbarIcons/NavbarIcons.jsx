@@ -139,7 +139,7 @@ function NavbarIcons() {
           ) : (
             <>
               <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
-                <NavLink className="flex py-[5px]" to="my-account">
+                <NavLink className="flex py-[5px]" to="account">
                   My Acount
                 </NavLink>
               </li>
@@ -173,7 +173,7 @@ function NavbarIcons() {
         <HiMiniBars3 />
       </div>
 
-      {isSearchBarOpen && <SearchField el={searchBgEl} />}
+      {isSearchBarOpen && <SearchField refEl={searchBgEl} />}
     </div>
   );
 }

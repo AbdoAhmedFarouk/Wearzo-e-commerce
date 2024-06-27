@@ -60,7 +60,7 @@ function DropdownMenu({
           ${
             border ? border : 'border-t-2 border-thirdColor'
           } bg-white text-secondaryColor opacity-0
-               ${shadow ? shadow : ''} duration-500 
+              ${shadow ? shadow : ''} duration-500 
               `}
         >
           <ul

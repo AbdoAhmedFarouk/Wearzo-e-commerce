@@ -37,8 +37,9 @@ function SideProductBox({ product }) {
 
         <div className="m-auto w-fit sm:m-0 sm:w-full">
           <RatingStars
-            styles="flex items-center text-eighthColor
-            sm:h-6 sm:text-base text-sm"
+            styles="flex items-center text-eighthColor sm:h-6 sm:text-base
+            text-sm"
+            ratingLength={parseInt(product.rating.rate)}
           />
         </div>
 

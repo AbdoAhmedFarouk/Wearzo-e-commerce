@@ -31,17 +31,11 @@ function ProductBox({ product }) {
     (item) => item.id === product.id,
   );
 
-  const handleAddProductToUserCart = useAddProductsToUserCart(product, 'cart');
+  const handleAddProductToUserCart = useAddProductsToUserCart();
 
-  const handleAddProductToUserWishlist = useAddProductsToUserWishList(product);
+  const handleAddProductToUserWishlist = useAddProductsToUserWishList();
 
-  const handleAddProductToGlobalCart = useAddProductsToGlobalCart(
-    product,
-    setAddedProductToGlobalCart,
-    existingProductInGlobalCart,
-    'The product has been added successfully to the global cart',
-    'The product quantity increased by one in the global cart',
-  );
+  const handleAddProductToGlobalCart = useAddProductsToGlobalCart();
 
   return (
     <div className="group/box relative text-center">
@@ -66,12 +60,14 @@ function ProductBox({ product }) {
         bg-white text-sm text-primaryColor opacity-0 duration-300
         ease-in-out group-hover/box:visible group-hover/box:top-0
         group-hover/box:opacity-100 md:text-base"
-        onClick={handleAddProductToUserWishlist}
       >
         <button
           className="flex h-[30px] w-[30px] items-center justify-center
           border-0 outline-0 duration-300 ease-in-out hover:text-thirdColor
           md:h-10 md:w-10"
+          onClick={() =>
+            currentUser?.email && handleAddProductToUserWishlist(product)
+          }
         >
           <AiOutlineHeart />
         </button>
@@ -84,14 +80,14 @@ function ProductBox({ product }) {
           <BsEye />
         </Link>
 
-        <a
+        <Link
           className="flex h-[30px] w-[30px] items-center justify-center
           duration-300 ease-in-out hover:text-thirdColor md:h-10
           md:w-10"
-          href="#"
+          to="compare"
         >
           <BsShuffle />
-        </a>
+        </Link>
       </HoveringIcons>
 
       <div
@@ -102,8 +98,8 @@ function ProductBox({ product }) {
           <img
             className="h-[300px] w-full object-contain
             md:h-[180px] lg:h-[220px] 2xl:h-[220px]"
-            src={product?.image}
-            alt={product?.image}
+            src={product?.img}
+            alt={product?.img}
           />
         </Link>
 
@@ -113,16 +109,22 @@ function ProductBox({ product }) {
           w-full cursor-pointer bg-primaryColor p-[5px] text-xs ease-in-out
           leading-[30px] text-white opacity-0 group-hover/box:visible hover:bg-thirdColor
           uppercase group-hover/box:bottom-0 group-hover/box:opacity-100"
-          onClick={
+          onClick={() =>
             currentUser?.email
-              ? handleAddProductToUserCart
-              : handleAddProductToGlobalCart
+              ? handleAddProductToUserCart(product)
+              : handleAddProductToGlobalCart(
+                  product,
+                  setAddedProductToGlobalCart,
+                  existingProductInGlobalCart,
+                  'The product has been added successfully to the global cart',
+                  'The product quantity increased by one in the global cart',
+                )
           }
         />
       </div>
 
       <div className="p-2 md:pt-2.5">
-        <RatingStars />
+        <RatingStars ratingLength={product.rating.rate} />
 
         <div className="font-medium text-primaryColor">
           <h3

@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+
 const localStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {

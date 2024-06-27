@@ -1,18 +1,18 @@
 import isProductFoundAlert from './isProductFoundAlert';
 
-function useAddProductsToGlobalCart(
-  product,
-  setAddedProductToGlobalCart,
-  isProductFound,
-  addedSuccessfullyText,
-  productIncreasedText,
-) {
-  const handleAddProductToGlobalCart = () => {
+function useAddProductsToGlobalCart() {
+  const handleAddProductToGlobalCart = (
+    product,
+    setAddedProductToGlobalCart,
+    isProductFound,
+    addedSuccessfullyText,
+    productIncreasedText,
+  ) => {
     const productObj = {
       id: product?.id,
       title: product?.title,
       price: product?.price,
-      img: product?.image,
+      img: product?.img,
       quantity: 1,
       discount: product?.discount,
     };

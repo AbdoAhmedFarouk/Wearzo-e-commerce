@@ -26,15 +26,9 @@ function SpecialProductsCol({ product }) {
     (item) => item.id === product.id,
   );
 
-  const handleAddProductToUserCart = useAddProductsToUserCart(product);
+  const handleAddProductToUserCart = useAddProductsToUserCart();
 
-  const handleAddProductToGlobalCart = useAddProductsToGlobalCart(
-    product,
-    setAddedProductToGlobalCart,
-    existingProductInGlobalCart,
-    'The product has been added successfully to the global cart',
-    'The product quantity increased by one in the global cart',
-  );
+  const handleAddProductToGlobalCart = useAddProductsToGlobalCart();
 
   return (
     <>
@@ -42,7 +36,7 @@ function SpecialProductsCol({ product }) {
         <Link to={`/product/${product?.id}`}>
           <img
             className="aspect-square h-[250px] w-[282px] object-contain"
-            src={product?.image}
+            src={product?.img}
           />
         </Link>
       </div>
@@ -51,8 +45,9 @@ function SpecialProductsCol({ product }) {
         <RatingStars
           styles="mb-1.5 flex items-center justify-center text-sm
           text-eighthColor md:mb-2.5 sm:justify-start md:text-base"
-          productRating={product?.rating}
+          ratingLength={product.rating.rate}
         />
+
         <h3 className="mb-[13px] font-medium sm:mt-[11px]">
           <Link
             to={`/product/${product?.id}`}
@@ -83,10 +78,16 @@ function SpecialProductsCol({ product }) {
             styles="md:py-2.5 py-[5px] px-[15px] md:px-[30px] bg-primaryColor
             text-white uppercase hover:bg-thirdColor md:text-sm me-[9px]
             cursor-pointer duration-300 border-0 outline-0 text-xs leading-5"
-            onClick={
+            onClick={() =>
               currentUser?.email
-                ? handleAddProductToUserCart
-                : handleAddProductToGlobalCart
+                ? handleAddProductToUserCart(product)
+                : handleAddProductToGlobalCart(
+                    product,
+                    setAddedProductToGlobalCart,
+                    existingProductInGlobalCart,
+                    'The product has been added successfully to the global cart',
+                    'The product quantity increased by one in the global cart',
+                  )
             }
           />
 

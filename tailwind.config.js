@@ -38,6 +38,7 @@ export default {
             visibility: 'hidden',
             transform: 'translateY(50px)',
           },
+
           '100%': {
             opactiy: 1,
             visibility: 'visible',

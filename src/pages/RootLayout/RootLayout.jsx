@@ -12,7 +12,6 @@ import PromoInfoWrapper from '../../sections/PromoInfoWrapper/PromoInfoWrapper';
 import NewProductsWrapper from '../../sections/NewProductsWrapper/NewProductsWrapper';
 import SpecialProductsWrapper from '../../sections/SpecialProductsWrapper/SpecialProductsWrapper';
 import LatestBlogWrapper from '../../sections/LatestBlogWrapper/LatestBlogWrapper';
-import BrandWrapper from '../../sections/BrandWrapper/BrandWrapper';
 import FeaturedProductsWrapper from '../../sections/FeaturedProductsWrapper/FeaturedProductsWrapper';
 
 function RootLayout() {
@@ -32,7 +31,6 @@ function RootLayout() {
         <FeaturedProductsWrapper />
         <SpecialProductsWrapper />
         <LatestBlogWrapper />
-        <BrandWrapper />
       </MainWrapper>
     </>
   );

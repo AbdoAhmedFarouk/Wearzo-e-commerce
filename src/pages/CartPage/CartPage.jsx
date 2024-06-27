@@ -6,7 +6,6 @@ import useCheckLoggedUser from '../../hooks/useCheckLoggedUser';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 import SiteInfoRules from '../../components/SiteInfoRules/SiteInfoRules';
 import CartProductItem from '../../components/CartProductItem/CartProductItem';
 
@@ -87,12 +86,14 @@ function CartPage() {
               </div>
 
               <div className="p-[15px] text-center">
-                <ShopNowBtn
-                  text="checkout"
-                  styles="py-2.5 px-[30px] bg-primaryColor
-                  hover:bg-thirdColor text-white uppercase
-                  text-sm duration-300 outline-0 border-0"
-                />
+                <Link
+                  to="/checkout"
+                  className="border-0 bg-primaryColor px-[30px]
+                  py-2.5 text-sm uppercase
+                  text-white outline-0 duration-300 hover:bg-thirdColor"
+                >
+                  checkout
+                </Link>
               </div>
             </div>
 

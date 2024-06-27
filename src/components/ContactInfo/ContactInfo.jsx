@@ -69,10 +69,8 @@ function ContactInfo() {
             name="email"
             id="my-email"
             type="email"
-            styles="h-11 w-full border-none ps-11
-            text-sm text-primaryColor outline-0
-            placeholder:capitalize placeholder:text-secondaryColor
-            lg:h-12 lg:py-2.5"
+            styles="h-11 border-none ps-11 text-primaryColor
+            placeholder:text-secondaryColor lg:h-12 lg:py-2.5"
             placeholder="Your email address"
           />
 
@@ -112,10 +110,8 @@ function ContactInfo() {
             name="email"
             id="my-email1"
             type="email"
-            styles="h-11 w-full border-none ps-11
-            text-sm text-primaryColor outline-0
-            placeholder:capitalize placeholder:text-secondaryColor
-            lg:h-12 lg:py-2.5"
+            styles="h-11 border-none ps-11 text-primaryColor
+            placeholder:text-secondaryColor lg:h-12 lg:py-2.5"
             placeholder="Your email address"
           />
 

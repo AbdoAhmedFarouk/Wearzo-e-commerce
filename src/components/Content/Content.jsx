@@ -58,10 +58,10 @@ function Content() {
         <button>
           <Link
             className='className="inline-block lg:text-sm" translate-y-[50px]
-          animate-[fadeInUp_0.5s_0.9s_both] border-0 bg-primaryColor px-2 py-[5px] text-[8px] font-normal
-          uppercase leading-none text-white outline-0 duration-300 ease-in-out
-          hover:bg-thirdColor xxxs:px-3 xxxs:py-[5px] xxxs:text-[10px] xxxs:leading-[16px] xs:px-5
-          xs:py-2 xs:text-xs lg:px-[30px] lg:py-2.5'
+            animate-[fadeInUp_0.5s_0.9s_both] border-0 bg-primaryColor px-2 py-[5px] text-[8px] font-normal
+            uppercase leading-none text-white outline-0 duration-300 ease-in-out
+            hover:bg-thirdColor xxxs:px-3 xxxs:py-[5px] xxxs:text-[10px] xxxs:leading-[16px] xs:px-5
+            xs:py-2 xs:text-xs lg:px-[30px] lg:py-2.5'
             to="specials"
           >
             shop now

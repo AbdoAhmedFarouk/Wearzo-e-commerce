@@ -9,9 +9,13 @@ import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import Input from '../../components/Input/Input';
 
 import { IoIosArrowBack } from 'react-icons/io';
 import { useRecoilState } from 'recoil';
+
+const inputDefaultStyles = `border-fourthColor bg-white border
+px-[15px] py-2.5 max-h-10 text-primaryColor`;
 
 function ForgotPasswordPage() {
   const [resetPasswordErrorMsg, setResetPasswordErrorMsg] = useRecoilState(
@@ -70,7 +74,7 @@ function ForgotPasswordPage() {
               receive a temporary link to reset your password.
             </p>
 
-            {resetPasswordErrorMsg && (
+            {resetPasswordErrorMsg ? (
               <p
                 className={`m-auto mb-4 w-fit rounded-[4px]
                 border-0 ${
@@ -79,18 +83,18 @@ function ForgotPasswordPage() {
               >
                 {resetPasswordErrorMsg && resetPasswordErrorMsg}
               </p>
-            )}
-
-            {resetPasswordSuccessMsg && (
-              <p
-                className={`m-auto mb-4 w-fit rounded-[4px]
+            ) : (
+              resetPasswordSuccessMsg && (
+                <p
+                  className={`m-auto mb-4 w-fit rounded-[4px]
                 border-0 ${
                   resetPasswordSuccessMsg &&
                   'bg-green-200 px-4 py-1.5 text-green-800'
                 }`}
-              >
-                {resetPasswordSuccessMsg && resetPasswordSuccessMsg}
-              </p>
+                >
+                  {resetPasswordSuccessMsg && resetPasswordSuccessMsg}
+                </p>
+              )
             )}
 
             <div className="grid grid-cols-1 items-center sm:grid-cols-4">
@@ -103,12 +107,11 @@ function ForgotPasswordPage() {
               </label>
 
               <div className="sm:col-span-3">
-                <input
-                  className="max-h-10 w-full border border-fourthColor
-                  px-[15px] py-2.5 text-primaryColor outline-0 sm:w-7/12"
+                <Input
+                  styles={`${inputDefaultStyles} sm:w-7/12`}
                   id="resetEmailInp"
                   type="email"
-                  ref={resetPasswordInp}
+                  refEl={resetPasswordInp}
                 />
 
                 <ShopNowBtn

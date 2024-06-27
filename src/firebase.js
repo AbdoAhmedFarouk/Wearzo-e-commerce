@@ -6,7 +6,9 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  updatePassword,
   onAuthStateChanged,
+  updateEmail,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -28,6 +30,8 @@ export const signIn = signInWithEmailAndPassword;
 export const signUp = createUserWithEmailAndPassword;
 export const logOut = signOut;
 export const resetPassword = sendPasswordResetEmail;
+export const updateUserPassword = updatePassword;
+export const updateUserEmail = updateEmail;
 export const authStateChange = onAuthStateChanged;
 
 export default app;

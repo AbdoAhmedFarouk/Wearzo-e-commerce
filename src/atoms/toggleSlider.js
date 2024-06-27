@@ -15,4 +15,9 @@ const toggleProducts = atom({
   default: 0,
 });
 
-export { toggleIndex, toggleSamples, toggleProducts };
+const toggleBlogBoxes = atom({
+  key: 'boxIndex',
+  default: 0,
+});
+
+export { toggleIndex, toggleSamples, toggleProducts, toggleBlogBoxes };

@@ -1,14 +1,10 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { currentLoggedUser } from '../atoms/currentLoggedUser';
-
-import loggedUsersInfo from '../atoms/currentLoggedUserInfo';
 import Swal from 'sweetalert2';
+import useUserCart from './useUserCart';
 
-function useRemoveProductItemFromUserCart(productTitle, productId) {
-  const currentUser = useRecoilValue(currentLoggedUser);
-  const setLoggedUsers = useSetRecoilState(loggedUsersInfo);
+function useRemoveProductItemFromUserCart() {
+  const { setLoggedUsers, currentUser } = useUserCart();
 
-  const handleRemoveProductItemFromUserCart = () => {
+  const handleRemoveProductItemFromUserCart = (productTitle, productId) => {
     Swal.fire({
       title: `Are you sure you want to delete this product ${productTitle} from your cart ?`,
       text: "You won't be able to revert this!",

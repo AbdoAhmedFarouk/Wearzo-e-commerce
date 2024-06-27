@@ -159,9 +159,9 @@ function FooterLinks() {
             </li>
 
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="account">
                 my account
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -190,9 +190,9 @@ function FooterLinks() {
             </li>
 
             <li>
-              <a className="hover:text-thirdColor" href="#">
+              <Link className="hover:text-thirdColor" to="account">
                 my account
-              </a>
+              </Link>
             </li>
           </ul>
         </FooterDropDownMenus>

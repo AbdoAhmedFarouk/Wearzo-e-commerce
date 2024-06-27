@@ -17,10 +17,12 @@ import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import Input from '../../components/Input/Input';
+import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
+import CustomRadioBtn from '../../components/CustomRadioBtn/CustomRadioBtn';
 
-const defaultStyles = `max-h-10 w-full border
-border-fourthColor px-[15px] py-2.5
-text-primaryColor outline-0`;
+const inputDefaultStyles = `border-fourthColor bg-white border
+px-[15px] py-2.5 max-h-10 text-primaryColor`;
 
 function SignupPage() {
   const [isSignupPagePassNums, setIsSignupPagePassNums] = useRecoilState(
@@ -37,6 +39,7 @@ function SignupPage() {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
+  const addressRef = useRef();
   const mobileRef = useRef();
   const passRef = useRef();
   const passConfirmationRef = useRef();
@@ -68,10 +71,14 @@ function SignupPage() {
       firstName: firstNameRef?.current?.value,
       lastName: lastNameRef?.current?.value,
       email: emailRef?.current?.value,
+      address: addressRef?.current?.value,
+      otherAddresses: [],
+      returnedProducts: [],
       mobile: mobileRef?.current?.value,
       password: passRef?.current?.value,
       wishList: [],
       cart: [],
+      orderedProducts: [],
     };
 
     if (
@@ -81,7 +88,7 @@ function SignupPage() {
     ) {
       return setSignupErrorMsg('Please provide a valid email address');
     } else if (passRef.current.value !== passConfirmationRef.current.value) {
-      return setSignupErrorMsg('Password do not match');
+      return setSignupErrorMsg('Passwords do not match');
     } else if (!/[A-Z]/.test(passRef?.current?.value)) {
       return setSignupErrorMsg(
         'Password must contain at least one uppercase letter.',
@@ -108,6 +115,7 @@ function SignupPage() {
       firstNameRef.current.value = '';
       lastNameRef.current.value = '';
       emailRef.current.value = '';
+      addressRef.current.value = '';
       mobileRef.current.value = '';
       passRef.current.value = '';
       passConfirmationRef.current.value = '';
@@ -147,9 +155,9 @@ function SignupPage() {
             {signupErrorMsg && (
               <p
                 className={`m-auto mb-4 w-fit rounded-[4px]
-              border-0 bg-red-200 text-red-800 ${
-                signupErrorMsg && 'px-4 py-1.5'
-              }`}
+                border-0 bg-red-200 text-red-800 ${
+                  signupErrorMsg && 'px-4 py-1.5'
+                }`}
               >
                 {signupErrorMsg && signupErrorMsg}
               </p>
@@ -159,116 +167,103 @@ function SignupPage() {
               className="text-sm text-primaryColor"
               onSubmit={handleFormSubmit}
             >
-              <div
-                className="grid grid-cols-1 items-center
-                sm:grid-cols-12"
-              >
+              <LabelAndInput
+                divStyles="sm:grid-cols-12"
+                lableStyles="col-span-3 mb-2 font-medium leading-[30px]
+                sm:mb-0"
+                inputStyles={`${inputDefaultStyles} col-span-6`}
+                htmlFor="signupFirstNameInp"
+                labelText="First Name"
+                id="signupFirstNameInp"
+                name="firstName"
+                required
+                refEl={firstNameRef}
+              />
+
+              <LabelAndInput
+                divStyles="my-6 sm:grid-cols-12"
+                lableStyles="col-span-3 mb-2 font-medium leading-[30px]
+                sm:mb-0"
+                inputStyles={`${inputDefaultStyles} col-span-6`}
+                htmlFor="signupLastNameInp"
+                labelText="Last Name"
+                id="signupLastNameInp"
+                name="lastName"
+                required
+                refEl={lastNameRef}
+              />
+
+              <LabelAndInput
+                divStyles="sm:grid-cols-12"
+                lableStyles="col-span-3 mb-2 font-medium leading-[30px]
+                sm:mb-0"
+                inputStyles={`${inputDefaultStyles} col-span-6`}
+                htmlFor="signupEmailInput"
+                labelText="Email"
+                id="signupEmailInput"
+                name="email"
+                required
+                refEl={emailRef}
+                type="email"
+              />
+
+              <LabelAndInput
+                divStyles="my-6 sm:grid-cols-12"
+                lableStyles="col-span-3 mb-2 font-medium leading-[30px]
+                sm:mb-0"
+                inputStyles={`${inputDefaultStyles} col-span-6`}
+                htmlFor="signupAddressInput"
+                labelText="Address"
+                id="signupAddressInput"
+                name="Address"
+                required
+                refEl={addressRef}
+              />
+
+              <div className="mb-6 grid grid-cols-1 items-center sm:grid-cols-12">
                 <label
                   className="col-span-3 mb-2 font-medium leading-[30px]
                   sm:mb-0"
-                  htmlFor="firstNameInp"
-                >
-                  First Name
-                </label>
-
-                <input
-                  className={`col-span-6 ${defaultStyles}`}
-                  type="text"
-                  id="firstNameInp"
-                  name="firstName"
-                  required
-                  ref={firstNameRef}
-                />
-              </div>
-
-              <div
-                className="my-6 grid grid-cols-1
-                items-center sm:grid-cols-12"
-              >
-                <label
-                  className="col-span-3 mb-2 font-medium leading-[30px]
-                  sm:mb-0"
-                  htmlFor="lastNameInp"
-                >
-                  Last Name
-                </label>
-
-                <input
-                  className={`col-span-6 ${defaultStyles}`}
-                  type="text"
-                  id="lastNameInp"
-                  name="lastName"
-                  required
-                  ref={lastNameRef}
-                />
-              </div>
-
-              <div
-                className="grid grid-cols-1 items-center
-                sm:grid-cols-12"
-              >
-                <label
-                  className="col-span-3 mb-2 font-medium leading-[30px]
-                  sm:mb-0"
-                  htmlFor="regEmailInput"
-                >
-                  Email
-                </label>
-
-                <input
-                  className={`col-span-6 ${defaultStyles}`}
-                  type="email"
-                  id="regEmailInput"
-                  name="email"
-                  required
-                  ref={emailRef}
-                />
-              </div>
-
-              <div
-                className="my-6 grid grid-cols-1 items-center
-                sm:grid-cols-12"
-              >
-                <label
-                  className="col-span-3 mb-2 font-medium leading-[30px]
-                  sm:mb-0"
-                  htmlFor="mobileNumberInp"
+                  htmlFor="signupMobileNumberInp"
                 >
                   Mobile
                 </label>
 
-                <input
-                  className={`col-span-6 ${defaultStyles}`}
-                  type="tel"
-                  id="mobileNumberInp"
-                  name="mobile"
-                  pattern="\d{3}-\d{4}-\d{4}"
-                  required
-                  ref={mobileRef}
-                />
+                <div className="col-span-6">
+                  <div className="mb-1">
+                    <Input
+                      styles={inputDefaultStyles}
+                      id="signupMobileNumberInp"
+                      type="tel"
+                      name="mobile"
+                      pattern="\d{3}-\d{4}-\d{4}"
+                      required
+                      refEl={mobileRef}
+                    />
+                  </div>
+
+                  <span>Mobile must be in this format 000 - 0000 - 0000</span>
+                </div>
               </div>
 
-              <div
-                className="mb-6 grid grid-cols-1 items-center
-                sm:grid-cols-12"
-              >
+              <div className="mb-6 grid grid-cols-1 items-center sm:grid-cols-12">
                 <label
                   className="col-span-3 mb-2 font-medium leading-[30px]
                   sm:mb-0"
-                  htmlFor="regPasswordInp"
+                  htmlFor="signupPasswordInp"
                 >
                   Password
                 </label>
 
-                <div className="col-span-6 ">
+                <div className="col-span-6">
                   <div className="mb-1 flex items-center">
-                    <input
-                      className={defaultStyles}
-                      id="regPasswordInp"
+                    <Input
+                      styles={inputDefaultStyles}
+                      id="signupPasswordInp"
                       type={isSignupPagePassNums ? 'text' : 'password'}
                       name="password"
                       required
-                      ref={passRef}
+                      refEl={passRef}
                       minLength="8"
                     />
 
@@ -287,32 +282,28 @@ function SignupPage() {
                 </div>
               </div>
 
-              <div
-                className="mb-6 grid grid-cols-1 items-center
-                sm:grid-cols-12"
-              >
+              <div className="mb-6 grid grid-cols-1 items-center sm:grid-cols-12">
                 <label
-                  className="col-span-3 mb-2 font-medium capitalize
-                  leading-[30px] sm:mb-0"
-                  htmlFor="regPasswordConfirmationInp"
+                  className="col-span-3 mb-2 font-medium capitalize leading-[30px]
+                  sm:mb-0"
+                  htmlFor="signupPasswordConfirmationInp"
                 >
                   password confirmation
                 </label>
 
                 <div className="col-span-6 flex items-center">
-                  <input
-                    className={defaultStyles}
-                    id="regPasswordConfirmationInp"
+                  <Input
+                    styles={inputDefaultStyles}
+                    id="signupPasswordConfirmationInp"
                     type={isSignupPagePassConfNums ? 'text' : 'password'}
                     name="password"
                     required
-                    ref={passConfirmationRef}
+                    refEl={passConfirmationRef}
                     minLength="8"
                   />
 
                   <ShopNowBtn
-                    styles="border-none
-                    bg-primaryColor px-4 py-2.5 text-sm
+                    styles="border-none bg-primaryColor px-4 py-2.5 text-sm
                     capitalize text-white outline-0"
                     text="Show"
                     onClick={handleShowPasswordConf}
@@ -320,28 +311,22 @@ function SignupPage() {
                 </div>
               </div>
 
-              <div className="mb-6 sm:m-auto sm:w-1/2">
-                <input
-                  id="terms-agreement"
-                  name="terms-agreement"
-                  type="radio"
-                  ref={radioInpRef}
-                  required
-                />
-
-                <label
-                  className="custom-radio-label font-medium"
-                  htmlFor="terms-agreement"
-                >
-                  I agree to the terms and conditions and the privacy policy
-                </label>
-              </div>
+              <CustomRadioBtn
+                parentStyles="mb-6 sm:m-auto sm:w-1/2"
+                id="terms-agreement"
+                name="terms-agreement"
+                labelsStyles="font-medium"
+                htmlFor="terms-agreement"
+                labelText="I agree to the terms and conditions and the privacy policy"
+                refEl={radioInpRef}
+                required
+              />
 
               <div className="text-right">
                 <ShopNowBtn
                   isDisabled={isSignupLoading}
                   type="submit"
-                  text="sign up"
+                  text={!isSignupLoading ? 'sign up' : 'Loading...'}
                   styles={`border-none bg-primaryColor px-[30px] py-2.5
                   text-sm uppercase text-white outline-0 duration-300
                   ${
@@ -350,9 +335,7 @@ function SignupPage() {
                       : 'hover:bg-thirdColor'
                   }`}
                   onClick={handleCheckingTerms}
-                >
-                  sign up
-                </ShopNowBtn>
+                />
               </div>
             </form>
           </div>

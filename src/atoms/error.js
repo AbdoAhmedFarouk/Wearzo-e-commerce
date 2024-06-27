@@ -30,11 +30,6 @@ const searchedProductsError = atom({
   default: '',
 });
 
-const brandsPageProductsError = atom({
-  key: 'brandsProductsError',
-  default: '',
-});
-
 const aboutSideMenuProductsErrorInAboutPage = atom({
   key: 'aboutSideMenuProductsError',
   default: '',
@@ -61,10 +56,9 @@ export {
   allRelatedProductsError,
   specialPageProductsError,
   searchedProductsError,
-  brandsPageProductsError,
   specialSideMenuProductsErrorInSpecialPage,
   aboutSideMenuProductsErrorInAboutPage,
   deliverySideMenuProductsErrorInDeliveryPage,
   legalSideMenuProductsErrorInLegalPage,
-  secaurePaymentPageSideMenuProductsError
+  secaurePaymentPageSideMenuProductsError,
 };

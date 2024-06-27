@@ -1,14 +1,27 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 import Container from '../Container/Container';
 
 PageTitle.propTypes = {
   text: PropTypes.string,
+  childRouteText: PropTypes.any,
+  grandChildRouteText: PropTypes.any,
+  urlRouteLink: PropTypes.string,
+  childUrlRouteLink: PropTypes.string,
+  header: PropTypes.string,
 };
 
-function PageTitle({ text }) {
+function PageTitle({
+  header,
+  text,
+  childRouteText,
+  grandChildRouteText,
+  urlRouteLink,
+  childUrlRouteLink,
+}) {
   const slicedTitle = text?.slice(0, 25);
+
   return (
     <div
       className="mb-[30px] bg-fifthColor py-[14.5px]
@@ -19,10 +32,10 @@ function PageTitle({ text }) {
         md:justify-between"
       >
         <h2
-          className="text-sm font-medium uppercase leading-5
-          md:text-base md:leading-5"
+          className="mb-2 text-sm font-medium uppercase
+          leading-5 md:mb-0 md:text-base md:leading-5"
         >
-          {slicedTitle}
+          {header ? header : slicedTitle}
         </h2>
 
         <ul
@@ -34,12 +47,52 @@ function PageTitle({ text }) {
             before:top-0 before:text-sm before:content-['/']
             md:before:-right-3"
           >
-            <NavLink className="hover:text-thirdColor" to="/">
+            <Link className="hover:text-thirdColor" to="/">
               home
-            </NavLink>
+            </Link>
           </li>
 
-          <li className="cursor-default">{slicedTitle}</li>
+          <li>
+            <Link
+              className={
+                childRouteText
+                  ? 'hover:text-thirdColor'
+                  : 'cursor-default text-thirdColor'
+              }
+              to={urlRouteLink}
+            >
+              {slicedTitle}
+            </Link>
+          </li>
+
+          {childRouteText && (
+            <li
+              className="relative before:absolute before:-left-4 before:top-0
+              before:text-sm before:content-['/'] max-[330px]:before:top-1/2
+              max-[330px]:before:-translate-y-1/2 md:before:-left-3"
+            >
+              <Link
+                className={
+                  grandChildRouteText
+                    ? 'hover:text-thirdColor'
+                    : 'cursor-default text-thirdColor'
+                }
+                to={childUrlRouteLink}
+              >
+                <span>{childRouteText}</span>
+              </Link>
+            </li>
+          )}
+
+          {grandChildRouteText && (
+            <li
+              className="relative cursor-default before:absolute before:-left-4
+              before:top-0 before:text-sm before:content-['/'] max-[330px]:before:top-1/2
+              max-[330px]:before:-translate-y-1/2 md:before:-left-3"
+            >
+              <span className="text-thirdColor">{grandChildRouteText}</span>
+            </li>
+          )}
         </ul>
       </Container>
     </div>

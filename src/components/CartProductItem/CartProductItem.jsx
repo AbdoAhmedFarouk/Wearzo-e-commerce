@@ -6,7 +6,6 @@ import useIncrementProductQuantity from '../../hooks/useIncrementProductQuantity
 import useDecrementProductQuantity from '../../hooks/useDecrementProductQuantity';
 import useInputValueHandler from '../../hooks/useInputValueHandler';
 
-import Input from '../../components/Input/Input';
 import ProductDiscount from '../../components/ProductDiscount/ProductDiscount';
 
 import { FaTrash } from 'react-icons/fa';
@@ -36,10 +35,8 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
 
   const handleDecrementProductQuantity = useDecrementProductQuantity(id);
 
-  const handleRemoveProductItemFromUserCart = useRemoveProductItemFromUserCart(
-    title,
-    id,
-  );
+  const handleRemoveProductItemFromUserCart =
+    useRemoveProductItemFromUserCart();
 
   return (
     <li className="border-b border-fourthColor py-4">
@@ -84,11 +81,11 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
           justify-around sm:col-span-5"
         >
           <div className="relative">
-            <Input
-              styles="h-10 w-12 border border-fourthColor
+            <input
+              className="h-10 w-12 border border-fourthColor
               px-2 py-[2.8px] outline-0"
               value={quantity}
-              onChangeHandler={(e) => inpValueHandler(e)}
+              onChange={(e) => inpValueHandler(e)}
             />
 
             <span
@@ -117,7 +114,7 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
           <span
             className="h-4 w-4 cursor-pointer
             hover:text-thirdColor"
-            onClick={handleRemoveProductItemFromUserCart}
+            onClick={() => handleRemoveProductItemFromUserCart(title, id)}
           >
             <FaTrash />
           </span>

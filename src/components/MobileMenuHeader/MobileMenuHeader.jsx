@@ -12,11 +12,12 @@ MobileMenuHeader.propTypes = {
 
 function MobileMenuHeader({ children, isOpen, onClick, styles, spanStyles }) {
   return (
-    <div className={`${styles ? styles : ''}`} onClick={onClick}>
+    <div className={styles ? styles : ''} onClick={onClick}>
       {children}
+
       <span
         className={`${spanStyles ? spanStyles : ''}
-          ${isOpen && '-rotate-180'}`}
+          ${isOpen ? '-rotate-180' : ''}`}
       >
         <MdKeyboardArrowDown />
       </span>

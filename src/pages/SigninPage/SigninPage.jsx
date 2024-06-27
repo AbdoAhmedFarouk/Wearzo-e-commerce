@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useIsOpen } from '../../hooks/useIsOpen';
 import { isPassNumbersInSigninPage } from '../../atoms/showPassword';
@@ -13,10 +13,11 @@ import SectionTag from '../../components/SectionTag/SectionTag';
 import Container from '../../components/Container/Container';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import Input from '../../components/Input/Input';
+import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
 
-const defaultStyles = `max-h-10 w-full border
-border-fourthColor px-[15px] py-2.5
-text-primaryColor outline-0`;
+const inputDefaultStyles = `border-fourthColor bg-white border
+px-[15px] py-2.5 max-h-10 text-primaryColor`;
 
 function SigninPage() {
   const [isSigninPagePassNums, setIsSigninPagePassNums] = useRecoilState(
@@ -68,8 +69,8 @@ function SigninPage() {
       <div>
         <Container>
           <div
-            className="m-auto w-3/4 border border-fourthColor p-[15px]
-              text-center text-primaryColor"
+            className="m-auto border border-fourthColor p-[15px] text-center
+              text-primaryColor sm:w-3/4"
           >
             <p
               className={`m-auto mb-4 w-fit rounded-[4px]
@@ -81,56 +82,42 @@ function SigninPage() {
             </p>
 
             <form onSubmit={handleFormSubmit}>
-              <div
-                className="grid grid-cols-1 items-center
-                  sm:grid-cols-10"
-              >
-                <label
-                  className="col-span-3 mb-2 text-left
-                    text-sm font-medium capitalize sm:mb-0"
-                  htmlFor="signEmailInp"
-                >
-                  Email
-                </label>
+              <LabelAndInput
+                divStyles="sm:grid-cols-10"
+                lableStyles="col-span-3 mb-2 text-left text-sm font-medium capitalize
+                sm:mb-0"
+                inputStyles={`col-span-5 ${inputDefaultStyles}`}
+                labelText="Email"
+                htmlFor="signinEmailInp"
+                id="signinEmailInp"
+                type="email"
+                name="email"
+                required
+                refEl={emailRef}
+              />
 
-                <input
-                  className="col-span-5 m-auto max-h-10 w-full
-                    border border-fourthColor px-[15px]
-                    py-2.5 text-primaryColor outline-0"
-                  id="signEmailInp"
-                  type="email"
-                  name="email"
-                  required
-                  ref={emailRef}
-                />
-              </div>
-
-              <div
-                className="my-4 grid grid-cols-1 items-center
-                  sm:grid-cols-10"
-              >
+              <div className="my-4 grid grid-cols-1 items-center sm:grid-cols-10">
                 <label
-                  className="col-span-3 mb-2 text-left
-                    text-sm font-medium capitalize sm:mb-0"
-                  htmlFor="signPasswordInp"
+                  className="col-span-3 mb-2 text-left text-sm font-medium capitalize
+                  sm:mb-0"
+                  htmlFor="signinPasswordInp"
                 >
                   Password
                 </label>
 
                 <div className="col-span-5 flex items-center">
-                  <input
-                    className={defaultStyles}
-                    id="signPasswordInp"
+                  <Input
+                    styles={inputDefaultStyles}
+                    id="signinPasswordInp"
                     type={isSigninPagePassNums ? 'text' : 'password'}
                     name="password"
                     required
-                    ref={passRef}
+                    refEl={passRef}
                   />
 
                   <ShopNowBtn
-                    styles="border-none
-                      bg-primaryColor px-4 py-2.5 text-sm
-                      capitalize text-white outline-0"
+                    styles="border-none bg-primaryColor px-4 py-2.5 text-sm capitalize
+                    text-white outline-0"
                     onClick={handleShowPassword}
                     text="Show"
                   />
@@ -138,17 +125,15 @@ function SigninPage() {
               </div>
 
               <div className="mb-[15px] text-sm">
-                <NavLink
-                  className="hover:text-thirdColor"
-                  to="/password-recovery"
-                >
+                <Link className="hover:text-thirdColor" to="/password-recovery">
                   Forgot your password?
-                </NavLink>
+                </Link>
               </div>
 
               <div className="mb-[18px]">
                 <ShopNowBtn
                   isDisabled={isSigninLoading}
+                  text={isSigninLoading ? 'Loading...' : 'sign in'}
                   styles={`border-none py-2.5 text-sm
                     bg-primaryColor px-[30px] uppercase
                     text-white outline-0 
@@ -157,19 +142,18 @@ function SigninPage() {
                         ? 'opacity-50 cursor-not-allowed'
                         : 'hover:bg-thirdColor'
                     }`}
-                  text="sign in"
                   type="submit"
                 />
               </div>
 
               <div
                 className="relative pt-[18px] text-base leading-5
-                    before:absolute before:left-0 before:top-0
-                    before:h-px before:w-full before:bg-fourthColor"
+                before:absolute before:left-0 before:top-0
+                before:h-px before:w-full before:bg-fourthColor"
               >
-                <NavLink className="hover:text-thirdColor" to="/signup">
+                <Link className="hover:text-thirdColor" to="/signup">
                   No account? Create one here
-                </NavLink>
+                </Link>
               </div>
             </form>
           </div>

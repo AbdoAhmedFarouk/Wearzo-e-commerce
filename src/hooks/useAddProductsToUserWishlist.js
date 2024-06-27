@@ -1,22 +1,19 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentLoggedUser } from '../atoms/currentLoggedUser';
-import loggedUsersInfo from '../atoms/currentLoggedUserInfo';
 import isProductFoundAlert from './isProductFoundAlert';
+import useUserCart from './useUserCart';
 
-function useAddProductsToUserWishList(product) {
-  const [loggedUsers, setLoggedUsers] = useRecoilState(loggedUsersInfo);
-  const currentUser = useRecoilValue(currentLoggedUser);
+function useAddProductsToUserWishList() {
+  const { setLoggedUsers, currentUser, checkLoggedUser } = useUserCart();
 
-  const existingProductInUserCart = loggedUsers
-    ?.find((user) => user.email === currentUser?.email)
-    ?.wishList?.find((item) => item.id === product?.id);
+  const handleAddProductToUserWishlist = (product) => {
+    const existingProductInUserCart = checkLoggedUser?.wishList?.find(
+      (item) => item.id === product?.id,
+    );
 
-  const handleAddProductToUserWishlist = () => {
     const productObj = {
       id: product?.id,
       title: product?.title,
       price: product?.price,
-      img: product?.image,
+      img: product?.img,
       discount: product?.discount,
     };
 
@@ -25,7 +22,7 @@ function useAddProductsToUserWishList(product) {
         user.email === currentUser?.email
           ? {
               ...user,
-              wishList: user.wishList.find((item) => item.id === product.id)
+              wishList: existingProductInUserCart
                 ? user.wishList.map((item) =>
                     item.id === productObj.id ? item : item,
                   )

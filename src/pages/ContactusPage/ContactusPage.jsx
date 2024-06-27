@@ -4,6 +4,9 @@ import Container from '../../components/Container/Container';
 import Input from '../../components/Input/Input';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 
+const inputDefaultStyles = `border-fourthColor bg-white border
+px-[15px] py-2.5 max-h-10 text-primaryColor`;
+
 function ContactusPage() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -33,9 +36,7 @@ function ContactusPage() {
                 </label>
 
                 <Input
-                  styles="col-span-5 m-auto max-h-10 w-full
-                  border border-fourthColor px-[15px]
-                  py-2.5 text-primaryColor outline-0"
+                  styles={`col-span-5 m-auto ${inputDefaultStyles}`}
                   id="contactEmailInp"
                   type="email"
                   name="email"
@@ -56,9 +57,9 @@ function ContactusPage() {
                 </label>
 
                 <Input
-                  styles="col-span-5 m-auto max-h-full w-full
+                  styles="col-span-5 m-auto max-h-full
                   border border-fourthColor px-[15px] text-xs
-                  py-2.5 text-primaryColor outline-0 sm:text-sm md:text-base"
+                  py-2.5 text-primaryColor sm:text-sm md:text-base"
                   id="file-attachment"
                   type="file"
                   name="file-attachmed"
