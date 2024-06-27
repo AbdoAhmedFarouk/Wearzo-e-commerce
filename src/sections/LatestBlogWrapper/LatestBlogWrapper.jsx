@@ -22,7 +22,7 @@ function LatestBlogWrapper() {
             id={blog.id}
             img={blog.image}
             title={blog.title}
-            routingURL={`/blog/article/${blog.id}`}
+            routingURL={`/blogs/article/${blog.id}`}
           />
         ))}
       </div>
