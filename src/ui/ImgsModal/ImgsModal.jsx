@@ -1,37 +1,99 @@
+import { useRef } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { isImgsCarouselOpened } from '../../atoms/isImgsCarouselOpened';
+
+import { useClickEvent } from '../../hooks/useClickEvent';
+import { useKeyEvent } from '../../hooks/useKeyEvent';
+
+import blogBoxesData from '../../assets/blogBoxesData';
+
 import { MdClose } from 'react-icons/md';
+import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
+import { currentCarouselImgSlide } from '../../atoms/currentCarouselImgSlide';
+import { carouselImgSrc } from '../../atoms/carouselImgSrc';
 
-import { PropTypes } from 'prop-types';
+function ImgsModal() {
+  const [isImgsCarouselOpen, setIsImgsCarouselOpen] =
+    useRecoilState(isImgsCarouselOpened);
+  const [currentImgSlide, setCurrentImgSlide] = useRecoilState(
+    currentCarouselImgSlide,
+  );
+  const [imgSrc, setImgSrc] = useRecoilState(carouselImgSrc);
 
-ImgsModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  overlayEl: PropTypes.any,
-  imgSrc: PropTypes.string,
-};
+  const overlayEl = useRef();
 
-function ImgsModal({ isModalOpen, overlayEl, imgSrc }) {
+  const blogTitle = blogBoxesData[currentImgSlide]?.title;
+
+  const length = blogBoxesData.length;
+
+  const photosArr = blogBoxesData.map((blog) => blog.image);
+
+  const handlePrevSlide = () => {
+    setCurrentImgSlide((prevSlide) =>
+      prevSlide === 0 ? length - 1 : prevSlide - 1,
+    );
+
+    setImgSrc(photosArr[currentImgSlide - 1 === -1 ? 4 : currentImgSlide - 1]);
+  };
+
+  const handleNextSlide = () => {
+    setCurrentImgSlide((prevSlide) =>
+      prevSlide === length - 1 ? 0 : prevSlide + 1,
+    );
+
+    setImgSrc(photosArr[currentImgSlide + 1 === 5 ? 0 : currentImgSlide + 1]);
+  };
+
+  const handleCloseImgsCarousel = () => {
+    setIsImgsCarouselOpen(false);
+  };
+
+  useKeyEvent('Escape', handleCloseImgsCarousel);
+
+  useClickEvent(overlayEl, handleCloseImgsCarousel);
+
+  if (!Array.isArray(blogBoxesData) || length <= 0) {
+    return null;
+  }
+
   return (
     <>
-      {isModalOpen && (
+      {isImgsCarouselOpen && (
         <>
           <div
             className="fixed inset-0 z-[10000] bg-black opacity-80"
+            // onClick={handleClick}
             ref={overlayEl}
-          ></div>
+          >
+            <button
+              className="absolute left-8 top-1/2 -translate-y-1/2
+              text-2xl text-white"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevSlide();
+              }}
+            >
+              <BiLeftArrow />
+            </button>
+
+            <button
+              className="absolute right-8 top-1/2 -translate-y-1/2
+              text-2xl text-white"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextSlide();
+              }}
+            >
+              <BiRightArrow />
+            </button>
+          </div>
 
           <div
-            className="fixed left-1/2 top-1/2 z-[15000]
-              w-[90%] max-w-[700px] -translate-x-1/2
-              -translate-y-1/2 bg-white p-[15px] text-center
-              text-white opacity-100 sm:p-[30px]"
+            className="fixed left-1/2 top-1/2 z-[15000] -translate-x-1/2
+            -translate-y-1/2 bg-white text-center text-white opacity-100"
           >
-            <h3
-              className="mb-[5px] text-sm font-semibold uppercase text-primaryColor
-                xs:mb-2.5 xs:text-lg sm:mb-4 sm:text-2xl"
-            >
-              SUMMER COLLECTION ON SALE NOW
-            </h3>
-
-            <div className="h-[340px] bg-cover bg-center bg-no-repeat">
+            <div className="h-[350px] bg-cover bg-center bg-no-repeat">
               <img
                 className="h-full w-full object-cover"
                 src={imgSrc}
@@ -39,15 +101,24 @@ function ImgsModal({ isModalOpen, overlayEl, imgSrc }) {
               />
             </div>
 
-            <div
-              className="absolute right-0 top-0 flex h-4 w-4
-                cursor-pointer items-center justify-center bg-thirdColor
-                text-center text-base duration-300 hover:bg-primaryColor xxxs:h-6
-                xxxs:w-6 xxxs:text-2xl xxxs:leading-6
-                md:h-[30px] md:w-[30px] md:text-3xl"
-              //   onClick={handleOpenModal}
+            <button
+              className="absolute -top-7 right-0 flex cursor-pointer text-xl
+              text-secondaryColor hover:text-white"
+              title="Close (Esc)"
+              onClick={handleCloseImgsCarousel}
             >
               <MdClose />
+            </button>
+
+            <div
+              className="absolute -bottom-7 left-0 flex w-full items-center
+              justify-between text-sm leading-[18px]"
+            >
+              <span>{blogTitle}</span>
+
+              <span>
+                {currentImgSlide + 1} of {length}
+              </span>
             </div>
           </div>
         </>

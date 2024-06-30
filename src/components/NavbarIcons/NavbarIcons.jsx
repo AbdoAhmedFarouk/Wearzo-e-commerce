@@ -1,19 +1,18 @@
 import { useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { isMobileMenuOpened } from '../../atoms/isMobileMenuOpened';
 import { isSearchBarOpened } from '../../atoms/isSearchBarOpened';
 import { isLoginMenuOpened } from '../../atoms/isOpened';
 
-import { currentLoggedUser } from '../../atoms/currentLoggedUser';
 import { userLoggingoutErrorMessage } from '../../atoms/userLoggingoutErrorMessage';
 import { auth, logOut } from '../../firebase';
 import { useIsOpen } from '../../hooks/useIsOpen';
 import { useClickEvent } from '../../hooks/useClickEvent';
 import { useClickOutSideEvent } from '../../hooks/useClickOutSideEvent';
 
-import useCheckLoggedUser from '../../hooks/useCheckLoggedUser';
 import useResetCartMenuState from '../../hooks/useResetCartMenuState';
+import useUserCart from '../../hooks/useUserCart';
 
 import NavbarCartMenu from '../NavbarCartMenu/NavbarCartMenu';
 import DropdownMenu from '../../ui/DropdownMenu/DropdownMenu';
@@ -35,13 +34,12 @@ function NavbarIcons() {
   const [userLoggingoutErrMsg, setUserLoggingoutErrMsg] = useRecoilState(
     userLoggingoutErrorMessage,
   );
-  const currentUser = useRecoilValue(currentLoggedUser);
 
   const navigate = useNavigate();
   const searchBgEl = useRef(null);
   const userEl = useRef(null);
 
-  const checkLoggedUser = useCheckLoggedUser();
+  const { currentUser, checkLoggedUser } = useUserCart();
 
   const handleOpenMobileMenu = useIsOpen(isMobileMenuOpen, setIsMobileMenuOpen);
   const handleOpenSearchBar = useIsOpen(isSearchBarOpen, setIsSearchBarOpen);

@@ -4,15 +4,18 @@ import { PropTypes } from 'prop-types';
 
 import { BsLink45Deg } from 'react-icons/bs';
 import { BiSearch } from 'react-icons/bi';
+import useOpenImgsCarousel from '../../hooks/useOpenImgsCarousel';
 
 BlogBox.propTypes = {
   img: PropTypes.string,
   title: PropTypes.string,
   routingURL: PropTypes.string,
-  onOpenImgsCarousel: PropTypes.func,
+  blogID: PropTypes.number,
 };
 
-function BlogBox({ img, title, routingURL }) {
+function BlogBox({ img, title, routingURL, blogID }) {
+  const { handleOpenImgCarousel } = useOpenImgsCarousel();
+
   return (
     <div className="group w-full overflow-hidden">
       <div className="relative">
@@ -24,17 +27,18 @@ function BlogBox({ img, title, routingURL }) {
         >
           <button
             className="flex h-[30px] w-[30px] items-center
-            justify-center text-base leading-[34px] text-primaryColor
-            hover:text-thirdColor md:h-10 md:w-10 md:text-xl
-            md:leading-10"
+            justify-center border-0 text-base leading-[34px]
+            text-primaryColor outline-0 hover:text-thirdColor md:h-10
+            md:w-10 md:text-xl md:leading-10"
+            onClick={() => handleOpenImgCarousel(blogID)}
           >
             <BiSearch />
           </button>
 
           <Link
             className="flex h-[30px] w-[30px] items-center justify-center
-            text-lg leading-[34px] text-primaryColor hover:text-thirdColor
-            md:h-10 md:w-10 md:text-xl md:leading-10"
+            border-0 text-lg leading-[34px] text-primaryColor
+            outline-0 hover:text-thirdColor md:h-10 md:w-10 md:text-xl md:leading-10"
             to={routingURL}
           >
             <BsLink45Deg />

@@ -11,5 +11,3 @@ export function useClickEvent(el, action) {
     return () => window.removeEventListener('click', callback);
   }, [el, action]);
 }
-
-

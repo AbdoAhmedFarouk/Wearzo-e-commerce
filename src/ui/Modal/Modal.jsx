@@ -6,6 +6,7 @@ import { isModalCheckboxChecked } from '../../atoms/isModalCheckboxChecked';
 
 import { useIsOpen } from '../../hooks/useIsOpen';
 import { useClickEvent } from '../../hooks/useClickEvent';
+import { useKeyEvent } from '../../hooks/useKeyEvent';
 
 import newletter from '../../assets/newletter_popup.jpg';
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
@@ -21,7 +22,7 @@ const Overlay = () => {
 
   const overlayEl = useRef(null);
 
-  const handleOpenModal = useIsOpen(isModalOpen, setIsModalOpen);
+  const handleToggleModal = useIsOpen(isModalOpen, setIsModalOpen);
 
   const handleIsCheckedChange = (e) => {
     setIsModalChecked(e.target.checked);
@@ -34,7 +35,11 @@ const Overlay = () => {
       setIsModalOpen(false);
   }, [setIsModalOpen]);
 
-  useClickEvent(overlayEl, handleOpenModal);
+  useClickEvent(overlayEl, handleToggleModal);
+
+  useKeyEvent('Escape', function () {
+    setIsModalOpen(false);
+  });
 
   return (
     <>
@@ -109,12 +114,12 @@ const Overlay = () => {
             </div>
 
             <div
-              className="absolute right-0 top-0 flex h-4 w-4
-              cursor-pointer items-center justify-center bg-thirdColor
-              text-center text-base duration-300 hover:bg-primaryColor xxxs:h-6
-              xxxs:w-6 xxxs:text-2xl xxxs:leading-6
+              className="absolute right-0 top-0 flex h-4 w-4 cursor-pointer items-center
+              justify-center bg-thirdColor text-center text-base duration-300
+              hover:bg-primaryColor xxxs:h-6 xxxs:w-6 xxxs:text-2xl xxxs:leading-6
               md:h-[30px] md:w-[30px] md:text-3xl"
-              onClick={handleOpenModal}
+              title="Close (Esc)"
+              onClick={handleToggleModal}
             >
               <MdClose />
             </div>

@@ -86,7 +86,9 @@ function ReturnRequestsPage() {
               <tfoot>
                 {!returnedProducts.length && (
                   <tr className="hover:bg-fifthColor">
-                    <td colSpan="7">You don&apos;t have any orders yet!</td>
+                    <td colSpan="7">
+                      You don&apos;t have any returned orders yet!
+                    </td>
                   </tr>
                 )}
               </tfoot>
