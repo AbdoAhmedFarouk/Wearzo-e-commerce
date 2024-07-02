@@ -62,13 +62,13 @@ function ImgsModal() {
       {isImgsCarouselOpen && (
         <>
           <div
-            className="fixed inset-0 z-[10000] bg-black opacity-80"
+            className="fixed inset-0 z-[10000] bg-black text-base opacity-80 sm:text-2xl"
             // onClick={handleClick}
             ref={overlayEl}
           >
             <button
-              className="absolute left-8 top-1/2 -translate-y-1/2
-              text-2xl text-white"
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-white
+              xxs:left-4 sm:left-8"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePrevSlide();
@@ -78,8 +78,8 @@ function ImgsModal() {
             </button>
 
             <button
-              className="absolute right-8 top-1/2 -translate-y-1/2
-              text-2xl text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white
+              xxs:right-4 sm:right-8"
               onClick={(e) => {
                 e.stopPropagation();
                 handleNextSlide();
@@ -90,10 +90,11 @@ function ImgsModal() {
           </div>
 
           <div
-            className="fixed left-1/2 top-1/2 z-[15000] -translate-x-1/2
-            -translate-y-1/2 bg-white text-center text-white opacity-100"
+            className="fixed left-1/2 top-1/2 z-[15000] w-3/4
+            -translate-x-1/2 -translate-y-1/2 bg-white text-center text-white
+            opacity-100 sm:w-4/5 md:w-fit"
           >
-            <div className="h-[350px] bg-cover bg-center bg-no-repeat">
+            <div className="bg-cover bg-center bg-no-repeat">
               <img
                 className="h-full w-full object-cover"
                 src={imgSrc}

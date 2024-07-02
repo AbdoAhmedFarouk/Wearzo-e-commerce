@@ -8,6 +8,7 @@ Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
+  readOnly: PropTypes.bool,
   onChangeHandler: PropTypes.func,
   refEl: PropTypes.object,
   minLength: PropTypes.any,
@@ -28,6 +29,7 @@ function Input({
   placeholder,
   refEl,
   pattern,
+  readOnly,
   minLength,
 }) {
   return (
@@ -43,6 +45,7 @@ function Input({
       minLength={minLength && minLength}
       ref={refEl && refEl}
       pattern={pattern && pattern}
+      readOnly={readOnly ? readOnly : false}
     />
   );
 }

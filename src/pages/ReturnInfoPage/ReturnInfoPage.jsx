@@ -5,7 +5,6 @@ import useUserCart from '../../hooks/useUserCart';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-
 function ReturnInfoPage() {
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -64,7 +63,7 @@ function ReturnInfoPage() {
           </table>
 
           <div className="text-sm md:text-base">
-            <div className="mb-5 overflow-x-auto">
+            <div className="scrollbar mb-5 overflow-x-auto">
               <h3 className="mb-2.5 text-lg font-medium capitalize leading-5">
                 product information
               </h3>
@@ -88,12 +87,12 @@ function ReturnInfoPage() {
               </table>
             </div>
 
-            <div className="overflow-x-auto ">
+            <div className=" overflow-x-auto">
               <h3 className="mb-2.5 text-lg font-medium capitalize leading-5">
                 reason for return
               </h3>
 
-              <table className="w-full max-w-full">
+              <table className="scrollbar w-full max-w-full table-fixed">
                 <thead>
                   <tr className="capitalize">
                     <th>reason</th>
@@ -103,10 +102,12 @@ function ReturnInfoPage() {
                 </thead>
 
                 <tbody>
-                  <tr>
+                  <tr className="align-top">
                     <td>{existingProduct.title}</td>
-                    <td>{existingProduct.price}</td>
-                    <td>{existingProduct.quantity}</td>
+                    <td>{existingProduct.isProductOpened ? 'Yes' : 'No'}</td>
+                    <td className="overflow-hidden whitespace-normal break-words">
+                      {existingProduct.productComment}
+                    </td>
                   </tr>
                 </tbody>
               </table>

@@ -14,6 +14,7 @@ LabelAndInput.propTypes = {
   inputStyles: PropTypes.string,
   value: PropTypes.string,
   required: PropTypes.bool,
+  readOnly: PropTypes.bool,
   onChangeHandler: PropTypes.func,
   refEl: PropTypes.object,
   minLength: PropTypes.any,
@@ -36,6 +37,7 @@ function LabelAndInput({
   lableStyles,
   minLength,
   pattern,
+  readOnly,
 }) {
   return (
     <div
@@ -59,6 +61,7 @@ function LabelAndInput({
         refEl={refEl}
         onChangeHandler={onChangeHandler}
         minLength={minLength}
+        readOnly={readOnly}
         pattern={pattern}
       />
     </div>

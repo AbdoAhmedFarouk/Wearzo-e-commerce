@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import useUserCart from '../../hooks/useUserCart';
 
 import Container from '../../components/Container/Container';
@@ -10,6 +11,8 @@ import Tooltip from '../../ui/Tooltip/Tooltip';
 
 import { FaEye } from 'react-icons/fa';
 
+const urlWord = 'account';
+
 function ReturnRequestsPage() {
   const { pathname } = useLocation();
 
@@ -17,12 +20,12 @@ function ReturnRequestsPage() {
 
   const returnedProducts = checkLoggedUser?.returnedProducts;
 
-  const parentPathName = pathname.substring(1, pathname.lastIndexOf('/'));
+  const parentPathName = pathname.substring(1, urlWord.length + 1);
 
   const navigate = useNavigate();
 
-  const handleNavigateBack = () => {
-    navigate(-1);
+  const handleNavigateToAccountPage = () => {
+    navigate('/account');
   };
 
   return (
@@ -101,7 +104,7 @@ function ReturnRequestsPage() {
             styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5
             md:px-[30px] py-[7px] px-5 text-sm border-0 outline-0 uppercase
             hover:bg-thirdColor"
-            onClick={handleNavigateBack}
+            onClick={handleNavigateToAccountPage}
           />
         </Container>
       </div>

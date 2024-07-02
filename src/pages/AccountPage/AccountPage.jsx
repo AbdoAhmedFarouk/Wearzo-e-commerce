@@ -71,8 +71,6 @@ function AccountPage() {
                   </Link>
                 </li>
 
-                {/* this one */}
-
                 <li>
                   <Link
                     className="inline-block py-[3px] hover:text-thirdColor"

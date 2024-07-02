@@ -6,7 +6,6 @@ import App from '../App';
 import RootLayout from '../pages/RootLayout/RootLayout';
 import ProtectedRoute from '../pages/ProtectedRoute/ProtectedRoute';
 import Loader from '../components/Loader/Loader';
-import EditAddressEntryPage from '../pages/EditAddressEntryPage/EditAddressEntryPage';
 
 const SpecialPage = lazy(() => import('../pages/SpecialPage/SpecialPage'));
 const AboutPage = lazy(() => import('../pages/AboutPage/AboutPage'));
@@ -59,6 +58,12 @@ const ReturnInfoPage = lazy(() =>
 );
 const ComparePage = lazy(() => import('../pages/ComparePage/ComparePage'));
 const ArticlePage = lazy(() => import('../pages/ArticlePage/ArticlePage'));
+const EditAddressEntryPage = lazy(() =>
+  import('../pages/EditAddressEntryPage/EditAddressEntryPage'),
+);
+const ReturnReasonPage = lazy(() =>
+  import('../pages/ReturnReasonPage/ReturnReasonPage'),
+);
 
 const router = createBrowserRouter([
   {
@@ -330,6 +335,14 @@ const router = createBrowserRouter([
                 ),
               },
               {
+                path: ':pathParam1/:pathParam2',
+                element: (
+                  <Suspense fallback={<Loader />}>
+                    <ReturnReasonPage />
+                  </Suspense>
+                ),
+              },
+              {
                 path: 'return-info/:id',
                 element: (
                   <Suspense fallback={<Loader />}>
@@ -339,16 +352,6 @@ const router = createBrowserRouter([
               },
             ],
           },
-          // {
-          //   path: 'reason-for-return',
-          //   element: (
-          //     <Suspense fallback={<Loader />}>
-          //       <ProtectedRoute>
-          //         <OutletWrapper />
-          //       </ProtectedRoute>
-          //     </Suspense>
-          //   ),
-          // },
         ],
       },
     ],

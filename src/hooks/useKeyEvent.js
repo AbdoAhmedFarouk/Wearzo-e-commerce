@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 export function useKeyEvent(key, action) {
   useEffect(() => {
     const callback = (e) => {
-      if (e.code.toLowerCase() === key.toLowerCase()) {
+      if (e.code?.toLowerCase() === key.toLowerCase()) {
         action();
       }
     };

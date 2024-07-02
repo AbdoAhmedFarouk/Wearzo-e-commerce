@@ -228,7 +228,6 @@ function CheckoutPage() {
         ? 'Cash On Delivery'
         : 'Cash Online',
 
-      // edit this prperty
       orderAddress: newAddressInputValue
         ? newAddressInputValue
         : checkLoggedUser?.address,

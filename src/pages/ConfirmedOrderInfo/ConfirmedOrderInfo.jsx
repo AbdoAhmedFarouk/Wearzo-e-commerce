@@ -8,12 +8,12 @@ import useProductsReturns from '../../hooks/useProductsReturns';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
+import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
 import { HiShoppingCart } from 'react-icons/hi2';
 import { IoReturnUpBackOutline } from 'react-icons/io5';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 
 function ConfirmedOrderInfo() {
   const navigate = useNavigate();
@@ -28,12 +28,6 @@ function ConfirmedOrderInfo() {
   const existingOrder = checkLoggedUser?.orderedProducts.find(
     (product) => product.orderId === id,
   );
-
-  const length = checkLoggedUser?.returnedProducts.length;
-
-  console.log(checkLoggedUser?.returnedProducts);
-
-  console.log(checkLoggedUser?.returnedProducts[length - 1].isReturnedBefore);
 
   const totalCartItemsPrice = useCalcTotalCartItemsPrice(
     existingOrder.products,
@@ -127,11 +121,11 @@ function ConfirmedOrderInfo() {
                         py-[7px] align-middle text-base leading-10 text-white duration-500
                         hover:bg-[#ac2925] md:px-[30px] md:py-2.5"
                         onClick={() =>
-                          handleProductReturn(
-                            product,
-                            existingOrder.orderId,
-                            existingOrder.dateAdded,
-                          )
+                          handleProductReturn({
+                            productToReturn: product,
+                            orderId: existingOrder.orderId,
+                            orderDate: existingOrder.dateAdded,
+                          })
                         }
                       >
                         <IoReturnUpBackOutline />

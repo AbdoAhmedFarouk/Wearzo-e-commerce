@@ -12,7 +12,9 @@ function ComparePage() {
           <div className="overflow-auto">
             <table>
               <thead>
-                <th className="capitalize">product details</th>
+                <tr>
+                  <th className="capitalize">product details</th>
+                </tr>
               </thead>
 
               <tbody>

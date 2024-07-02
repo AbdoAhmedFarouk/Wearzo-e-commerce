@@ -9,7 +9,12 @@ function useProductsReturns() {
 
   const { setLoggedUsers, currentUser, checkLoggedUser } = useUserCart();
 
-  const handleProductReturn = (productToReturn, orderId, orderDate) => {
+  const handleProductReturn = ({
+    productToReturn,
+    orderId,
+    orderDate,
+    isReturnedBefore = false,
+  }) => {
     const returnId = crypto.randomUUID();
 
     const dateObj = new Date();
@@ -18,7 +23,7 @@ function useProductsReturns() {
     const year = dateObj.getFullYear();
     const dateAdded = `${day}/${month}/${year}`;
 
-    const existingReturnedProduct = checkLoggedUser?.returnedProducts.some(
+    const existingReturnedProduct = checkLoggedUser?.returnedProducts.find(
       (product) =>
         product.orderId === orderId && product.id === productToReturn.id,
     );
@@ -40,7 +45,7 @@ function useProductsReturns() {
                       dateAdded,
                       returnId,
                       orderDate,
-                      isReturnedBefore: true,
+                      isReturnedBefore,
                     },
                   ],
             }
@@ -48,7 +53,7 @@ function useProductsReturns() {
       );
     });
 
-    if (existingReturnedProduct) {
+    if (existingReturnedProduct?.isReturnedBefore) {
       Swal.fire({
         position: 'center',
         icon: 'info',
@@ -57,7 +62,11 @@ function useProductsReturns() {
         timer: 3000,
       });
     } else {
-      navigate('/account/return-requests');
+      navigate(
+        `/account/return-requests/order_id=${orderId.slice(0, 7)}/product_id=${
+          productToReturn?.id
+        }`,
+      );
     }
   };
 

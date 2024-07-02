@@ -97,7 +97,7 @@ const Overlay = () => {
               />
             </div>
 
-            <div className="mt-5 flex items-center justify-center">
+            <div className="mt-2 flex items-center justify-center sm:mt-5">
               <input
                 type="checkbox"
                 id="checkboxInp"

@@ -13,6 +13,7 @@ import RatingStars from '../RatingStars/RatingStars';
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsShuffle, BsEye } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 
 ProductBox.propTypes = {
   product: PropTypes.object,
@@ -65,9 +66,18 @@ function ProductBox({ product }) {
           className="flex h-[30px] w-[30px] items-center justify-center
           border-0 outline-0 duration-300 ease-in-out hover:text-thirdColor
           md:h-10 md:w-10"
-          onClick={() =>
-            currentUser?.email && handleAddProductToUserWishlist(product)
-          }
+          onClick={() => {
+            currentUser?.email
+              ? handleAddProductToUserWishlist(product)
+              : Swal.fire({
+                  position: 'center',
+                  icon: 'info',
+                  title:
+                    'You can not add products to wishlist unless you have logged in.',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+          }}
         >
           <AiOutlineHeart />
         </button>

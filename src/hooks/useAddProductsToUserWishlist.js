@@ -39,6 +39,7 @@ function useAddProductsToUserWishList() {
       'info',
     );
   };
+
   return handleAddProductToUserWishlist;
 }
 
