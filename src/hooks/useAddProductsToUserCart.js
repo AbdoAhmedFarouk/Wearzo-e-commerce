@@ -17,6 +17,7 @@ function useAddProductsToUserCart() {
       quantity: 1,
       discount: product?.discount,
       review: '',
+      rate: 0,
     };
 
     setLoggedUsers((users) => {

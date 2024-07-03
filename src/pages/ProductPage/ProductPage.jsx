@@ -17,6 +17,7 @@ import ProductIconInProductPage from '../../components/ProductIconInProductPage/
 import ProductBoxContainer from '../../components/ProductBoxContainer/ProductBoxContainer';
 import ProductInfoInProductPage from '../../components/ProductInfoInProductPage/ProductInfoInProductPage';
 import ProductReviewsInProductPage from '../../components/ProductReviewsInProductPage/ProductReviewsInProductPage';
+import { useRef } from 'react';
 
 // import ErrorPage from '../ErrorPage/ErrorPage';
 
@@ -27,13 +28,15 @@ function ProductPage() {
   const [relatedProductsError, setRelatedProductsError] = useRecoilState(
     allRelatedProductsError,
   );
-
   const [relatedProducts, setRelatedProducts] = useRecoilState(
     relatedProductsInProductPage,
   );
   const [isRelatedProductsLoading, setIsRelatedProductsLoading] =
     useRecoilState(isRelatedProductsInProductPageLoading);
+
   const setIsProductLoading = useSetRecoilState(isProductInProductPageLoading);
+
+  const reviewsBtnRef = useRef();
 
   const { id } = useParams();
 
@@ -61,10 +64,16 @@ function ProductPage() {
           <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-12">
             <ProductIconInProductPage errorMsg={theChosenProductError} />
 
-            <ProductInfoInProductPage urlProductId={id} />
+            <ProductInfoInProductPage
+              urlProductId={id}
+              reviewsBtnRef={reviewsBtnRef}
+            />
           </div>
 
-          <ProductReviewsInProductPage />
+          <ProductReviewsInProductPage
+            refEl={reviewsBtnRef}
+            urlProductId={id}
+          />
 
           <div
             className="mt-5 md:mt-[30px] lg:mt-20

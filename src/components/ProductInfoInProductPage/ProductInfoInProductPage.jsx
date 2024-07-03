@@ -1,15 +1,16 @@
 import { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { PropTypes } from 'prop-types';
 
 import clickedProduct from '../../atoms/product';
+import { isProductPageLinksStepsNaved } from '../../atoms/linksNavigationSteps';
+
 import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 import useIncrementProductQuantity from '../../hooks/useIncrementProductQuantity';
 import useDecrementProductQuantity from '../../hooks/useDecrementProductQuantity';
 import useUserCart from '../../hooks/useUserCart';
 import useInputValueHandler from '../../hooks/useInputValueHandler';
 import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
-import Swal from 'sweetalert2';
 
 import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
 import SiteInfoRules from '../../components/SiteInfoRules/SiteInfoRules';
@@ -18,6 +19,8 @@ import RatingStars from '../../components/RatingStars/RatingStars';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
+import Swal from 'sweetalert2';
+
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { FaPencilAlt } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
@@ -25,10 +28,12 @@ import { BsShuffle } from 'react-icons/bs';
 
 ProductInfoInProductPage.propTypes = {
   urlProductId: PropTypes.string,
+  reviewsBtnRef: PropTypes.object,
 };
 
-function ProductInfoInProductPage({ urlProductId }) {
+function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
   const chosenProduct = useRecoilValue(clickedProduct);
+  const setStep = useSetRecoilState(isProductPageLinksStepsNaved);
 
   const inpEl = useRef(null);
 
@@ -72,6 +77,14 @@ function ProductInfoInProductPage({ urlProductId }) {
       });
   };
 
+  const scrollToReviews = () => {
+    if (reviewsBtnRef.current) {
+      reviewsBtnRef.current.scrollIntoView({ behavior: 'smooth' });
+
+      setStep(2);
+    }
+  };
+
   return (
     <div className="sm:col-span-6">
       <h1
@@ -89,7 +102,10 @@ function ProductInfoInProductPage({ urlProductId }) {
           <FaPencilAlt />
         </span>
 
-        <span className="ms-1 cursor-pointer text-secondaryColor hover:text-primaryColor">
+        <span
+          className="ms-1 cursor-pointer text-secondaryColor hover:text-primaryColor"
+          onClick={scrollToReviews}
+        >
           Write a review
         </span>
       </div>

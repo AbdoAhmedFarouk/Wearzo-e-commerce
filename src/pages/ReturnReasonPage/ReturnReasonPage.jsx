@@ -275,7 +275,7 @@ function ReturnReasonPage() {
 
                 <textarea
                   className={`${inputDefaultStyles} scrollbar col-span-9 h-64 max-h-64
-              min-h-[100px] outline-0`}
+                  min-h-[100px] outline-0`}
                   placeholder="Faulty or other details"
                   id="comment"
                   value={productComment}
