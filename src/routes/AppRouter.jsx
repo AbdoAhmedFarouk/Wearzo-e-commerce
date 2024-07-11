@@ -201,6 +201,15 @@ const router = createBrowserRouter([
             </ProtectedRoute>
           </Suspense>
         ),
+        loader: ({ params }) => {
+          if (typeof params.id !== 'string' || !/^[0-9]+$/i.test(params.id)) {
+            throw new Response('Bad Request', {
+              statusText: 'Product not found.',
+              status: 400,
+            });
+          }
+          return true;
+        },
       },
       {
         path: 'wishList',

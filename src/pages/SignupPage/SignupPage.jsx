@@ -79,6 +79,7 @@ function SignupPage() {
       wishList: [],
       cart: [],
       orderedProducts: [],
+      comparedProducts: [],
     };
 
     if (

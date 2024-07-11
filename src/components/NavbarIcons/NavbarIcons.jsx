@@ -117,7 +117,7 @@ function NavbarIcons() {
           fontSize="text-sm"
           xDirection="right-0"
           yDirection="2xl:top-[65.5px] xxxs:top-10 top-9 md:top-[55px]"
-          height={`${!currentUser?.email ? 'h-[59.78px]' : 'h-[83.78px]'}`}
+          height={`${!currentUser?.email ? 'h-[59.78px]' : 'h-[107.7px]'}`}
           width="w-28 xxxs:min-w-[160px]"
           shadow="shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
         >
@@ -145,6 +145,12 @@ function NavbarIcons() {
               <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
                 <NavLink className="flex py-[5px]" to="wishList">
                   Wishlist ({checkLoggedUser?.wishList.length})
+                </NavLink>
+              </li>
+
+              <li className="cursor-pointer px-[15px] leading-none hover:text-primaryColor">
+                <NavLink className="flex py-[5px]" to="compare">
+                  Comparison List ({checkLoggedUser?.comparedProducts.length})
                 </NavLink>
               </li>
 
