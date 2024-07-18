@@ -5,7 +5,7 @@ import { allProductsError } from '../../atoms/error';
 
 import PromoBannerBox from '../../components/PromoBannerBox/PromoBannerBox';
 import WrapperSection from '../../components/WrapperSection/WrapperSection';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import ProductBoxContainer from '../../components/ProductBoxContainer/ProductBoxContainer';
 
 import banner4 from '../../assets/banner-4.jpg';
@@ -47,7 +47,7 @@ function SpecialProductsWrapper() {
               jeans jackets
             </h1>
 
-            <ShopNowBtn text="shop now" />
+            <MainButton text="shop now" />
           </div>
         </div>
       </PromoBannerBox>

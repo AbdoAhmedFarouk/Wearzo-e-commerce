@@ -5,7 +5,8 @@ import useUserCart from '../../hooks/useUserCart';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
+import TooltipButton from '../../components/TooltipButton/TooltipButton';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
@@ -71,16 +72,18 @@ function ReturnRequestsPage() {
                     <td>{checkLoggedUser?.firstName}</td>
 
                     <td className="text-center">
-                      <Link
-                        className="group/tooltip relative inline-block cursor-pointer
-                        bg-primaryColor px-[30px] py-2.5 text-center align-middle text-base
-                        leading-10 text-white duration-500 hover:bg-thirdColor"
-                        to={`return-info/${order.returnId}`}
-                      >
-                        <FaEye />
+                      <TooltipButton>
+                        <Link
+                          className="group/tooltip relative inline-block cursor-pointer
+                          bg-primaryColor px-[30px] py-2.5 text-center align-middle text-base
+                          leading-10 text-white duration-500 hover:bg-thirdColor"
+                          to={`return-info/${order.returnId}`}
+                        >
+                          <FaEye />
 
-                        <Tooltip text="view" styles="w-[70%]" />
-                      </Link>
+                          <Tooltip text="view" styles="w-[70%]" />
+                        </Link>
+                      </TooltipButton>
                     </td>
                   </tr>
                 ))}
@@ -98,13 +101,13 @@ function ReturnRequestsPage() {
             </table>
           </div>
 
-          <ShopNowBtn
+          <MainButton
             text="continue"
             type="button"
             styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5
             md:px-[30px] py-[7px] px-5 text-sm border-0 outline-0 uppercase
             hover:bg-thirdColor"
-            onClick={handleNavigateToAccountPage}
+            onClickHandler={handleNavigateToAccountPage}
           />
         </Container>
       </div>

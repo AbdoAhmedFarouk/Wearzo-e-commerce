@@ -12,10 +12,11 @@ import useUserCart from '../../hooks/useUserCart';
 import useInputValueHandler from '../../hooks/useInputValueHandler';
 import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
 
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import SiteInfoRules from '../../components/SiteInfoRules/SiteInfoRules';
 import ProductDiscount from '../../components/ProductDiscount/ProductDiscount';
 import RatingStars from '../../components/RatingStars/RatingStars';
+import TooltipButton from '../TooltipButton/TooltipButton';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
@@ -102,12 +103,12 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
           <FaPencilAlt />
         </span>
 
-        <span
+        <button
           className="ms-1 cursor-pointer text-secondaryColor hover:text-primaryColor"
           onClick={scrollToReviews}
         >
           Write a review
-        </span>
+        </button>
       </div>
 
       <div className="mb-1 flex items-center">
@@ -169,52 +170,59 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
                 disabled={!isProductFound}
               />
 
-              <span
+              <button
                 className="absolute right-0 top-1/2 flex h-full -translate-y-1/2
                 cursor-pointer items-center justify-center px-2 hover:text-thirdColor"
                 onClick={handleIncrementProductQuantity}
               >
                 <FiPlus />
-              </span>
+              </button>
 
-              <span
+              <button
                 className="absolute left-0 top-1/2 flex h-full -translate-y-1/2
                 cursor-pointer items-center justify-center px-2 hover:text-thirdColor"
                 onClick={handleDecrementProductQuantity}
               >
                 <FiMinus />
-              </span>
+              </button>
             </div>
           </form>
 
           <div className="flex w-fit flex-wrap items-center">
-            <ShopNowBtn
+            <MainButton
               text="add to cart"
               styles="py-2.5 px-[30px] bg-primaryColor text-white uppercase
               hover:bg-thirdColor text-sm me-[7px] cursor-pointer
               duration-300 border-0 outline-0"
-              onClick={() => handleAddProductToUserCart(chosenProduct)}
+              onClickHandler={() => handleAddProductToUserCart(chosenProduct)}
             />
 
-            <span
-              className="me-[5px] flex h-10 w-10 cursor-pointer
+            <TooltipButton
+              buttonStyle="group/tooltip relative me-[5px] flex h-10 w-10 cursor-pointer
               items-center justify-center bg-fifthColor text-center
               text-lg duration-300 ease-in-out hover:bg-primaryColor
               hover:text-white"
-              onClick={() => handleAddProductToUserWishlist(chosenProduct)}
+              onClickHandler={() =>
+                handleAddProductToUserWishlist(chosenProduct)
+              }
             >
               <AiOutlineHeart />
-            </span>
 
-            <span
-              className="group/tooltip relative flex h-10 w-10 cursor-pointer items-center
+              <Tooltip text="add to wishlist" styles="w-[200%]" />
+            </TooltipButton>
+
+            <TooltipButton
+              buttonStyle="group/tooltip relative flex h-10 w-10 cursor-pointer items-center
               justify-center bg-fifthColor text-center text-lg duration-300
               ease-in-out hover:bg-primaryColor hover:text-white"
+              onClickHandler={() =>
+                handleAddProductToUserWishlist(chosenProduct)
+              }
             >
               <BsShuffle />
 
               <Tooltip text="add to compare" styles="w-[200%]" />
-            </span>
+            </TooltipButton>
           </div>
         </div>
       </div>

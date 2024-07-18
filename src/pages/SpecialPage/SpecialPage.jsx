@@ -168,7 +168,7 @@ function SpecialPage() {
             >
               <div className="flex items-center justify-between md:justify-normal">
                 <div className="flex items-center text-xl">
-                  <span
+                  <button
                     className={`me-1.5 grid h-[30px] w-[30px] place-items-center
                     bg-fifthColor leading-10 text-white hover:bg-primaryColor
                     md:h-10 md:w-10 ${
@@ -176,23 +176,19 @@ function SpecialPage() {
                     }`}
                     onClick={handleRowActiveTab}
                   >
-                    <i>
-                      <IoGridOutline />
-                    </i>
-                  </span>
+                    <IoGridOutline />
+                  </button>
 
-                  <span
-                    className={`me-1.5 grid h-[30px] w-[30px] place-items-center
+                  <button
+                    className={`grid h-[30px] w-[30px] place-items-center
                     bg-fifthColor leading-10 text-white hover:bg-primaryColor
                     md:h-10 md:w-10 ${
                       productsShownStyle === 'col' ? 'bg-primaryColor' : ''
                     }`}
                     onClick={handleColActiveTab}
                   >
-                    <i>
-                      <CiCircleList />
-                    </i>
-                  </span>
+                    <CiCircleList />
+                  </button>
                 </div>
 
                 <p className="p-0 text-sm leading-[30px] md:py-2 md:ps-[30px]">

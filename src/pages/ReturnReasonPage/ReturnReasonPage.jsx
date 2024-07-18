@@ -10,7 +10,7 @@ import useUserCart from '../../hooks/useUserCart';
 
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
 import CustomRadioBtn from '../../components/CustomRadioBtn/CustomRadioBtn';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import SectionTag from '../../components/SectionTag/SectionTag';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -287,14 +287,14 @@ function ReturnReasonPage() {
                 className="mt-5 flex flex-col-reverse gap-5 xxs:flex-row
             xxs:items-center xxs:justify-between xxs:gap-0"
               >
-                <ShopNowBtn
+                <MainButton
                   text="back"
                   styles="bg-primaryColor text-white md:py-2.5 md:px-[30px] duration-300
               py-[7px] px-5 text-sm border-0 outline-0 uppercase hover:bg-thirdColor"
-                  onClick={handleNavigateBack}
+                  onClickHandler={handleNavigateBack}
                 />
 
-                <ShopNowBtn
+                <MainButton
                   text="submit"
                   type="submit"
                   styles="bg-primaryColor text-white md:py-2.5 md:px-[30px] duration-300

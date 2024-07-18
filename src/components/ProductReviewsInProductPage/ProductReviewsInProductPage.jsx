@@ -10,7 +10,7 @@ import useClearFormFields from '../../hooks/useClearFormFields';
 import LabelAndInput from '../LabelAndInput/LabelAndInput';
 import RatingStars from '../RatingStars/RatingStars';
 import HoveringRatingStars from '../HoveringRatingStars/HoveringRatingStars';
-import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
+import MainButton from '../MainButton/MainButton';
 import useUserCart from '../../hooks/useUserCart';
 
 ProductReviewsInProductPage.propTypes = {
@@ -275,7 +275,7 @@ function ProductReviewsInProductPage({ refEl, urlProductId }) {
                 </div>
               </div>
 
-              <ShopNowBtn
+              <MainButton
                 text="continue"
                 type="submit"
                 styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5

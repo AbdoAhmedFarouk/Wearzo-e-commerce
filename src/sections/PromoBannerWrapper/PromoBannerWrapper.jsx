@@ -1,5 +1,5 @@
 import PromoBannerBox from '../../components/PromoBannerBox/PromoBannerBox';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import WrapperSection from '../../components/WrapperSection/WrapperSection';
 
 import banner1 from '../../assets/banner-1 (1).jpg';
@@ -57,7 +57,7 @@ function PromoBannerWrapper() {
               $315.00
             </p>
 
-            <ShopNowBtn text="shop now" />
+            <MainButton text="shop now" />
           </div>
         </div>
       </PromoBannerBox>
@@ -105,7 +105,7 @@ function PromoBannerWrapper() {
               <p>$479.00</p>
             </div>
 
-            <ShopNowBtn text="shop now" />
+            <MainButton text="shop now" />
           </div>
         </div>
       </PromoBannerBox>

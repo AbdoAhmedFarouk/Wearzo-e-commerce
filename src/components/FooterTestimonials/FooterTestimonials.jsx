@@ -51,6 +51,7 @@ function FooterTestimonials() {
               <span className="mb-1.5 text-base font-medium leading-5">
                 sample{sample + 1}
               </span>
+
               <span className="text-sm leading-5">customer</span>
             </div>
           </div>

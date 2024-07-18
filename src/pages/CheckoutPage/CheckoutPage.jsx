@@ -22,7 +22,7 @@ import useClearFormFields from '../../hooks/useClearFormFields';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
 import CustomRadioBtn from '../../components/CustomRadioBtn/CustomRadioBtn';
 import CheckoutDropdownPanel from '../../components/CheckoutDropdownPanel/CheckoutDropdownPanel';
@@ -415,7 +415,7 @@ function CheckoutPage() {
                     />
                   </div>
 
-                  <ShopNowBtn
+                  <MainButton
                     text="continue"
                     type="sumbit"
                     styles="ms-auto block bg-primaryColor text-white md:py-2.5
@@ -578,7 +578,7 @@ function CheckoutPage() {
                     />
                   </div>
 
-                  <ShopNowBtn
+                  <MainButton
                     text="continue"
                     type="button"
                     styles="ms-auto block mt-5 bg-primaryColor text-white md:py-2.5
@@ -717,7 +717,7 @@ function CheckoutPage() {
                     </div>
                   </div>
 
-                  <ShopNowBtn
+                  <MainButton
                     text="continue"
                     type="submit"
                     styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5
@@ -829,7 +829,7 @@ function CheckoutPage() {
                     </div>
                   </div>
 
-                  <ShopNowBtn
+                  <MainButton
                     text="continue"
                     type="button"
                     styles="ms-auto block mt-5 bg-primaryColor text-white md:py-2.5
@@ -900,13 +900,13 @@ function CheckoutPage() {
                   </tfoot>
                 </table>
 
-                <ShopNowBtn
+                <MainButton
                   text="confirm order"
                   type="button"
                   styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5
                   md:px-[30px] py-[7px] px-5 text-sm border-0 outline-0
                   uppercase hover:bg-thirdColor"
-                  onClick={handleConfirmOrder}
+                  onClickHandler={handleConfirmOrder}
                 />
               </div>
             ) : (
@@ -952,7 +952,7 @@ function CheckoutPage() {
                   </tfoot>
                 </table>
 
-                <ShopNowBtn
+                <MainButton
                   text="confirm order"
                   type="button"
                   styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5

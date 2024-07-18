@@ -5,6 +5,7 @@ import useRemoveProductItemFromUserWishlist from '../../hooks/useRemoveProductIt
 import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 
 import ProductDiscount from '../../components/ProductDiscount/ProductDiscount';
+import TooltipButton from '../TooltipButton/TooltipButton';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
@@ -75,28 +76,28 @@ function WishlistProductItem({ item }) {
           </span>
 
           <div className="flex flex-col items-center space-y-2 xxxs:flex-row xxxs:space-y-0">
-            <span
-              className="group/tooltip relative cursor-pointer bg-primaryColor px-[30px]
+            <TooltipButton
+              buttonStyle="group/tooltip relative cursor-pointer bg-primaryColor px-[30px]
               py-2.5 text-base leading-10 text-white duration-500 hover:bg-thirdColor
               xxxs:me-2"
-              onClick={() => handleAddProductToUserCart(item)}
+              onClickHandler={() => handleAddProductToUserCart(item)}
             >
               <HiShoppingCart />
 
               <Tooltip text="add to cart" styles="w-[120%] whitespace-nowrap" />
-            </span>
+            </TooltipButton>
 
-            <span
-              className="group/tooltip relative cursor-pointer bg-thirdColor px-[30px]
+            <TooltipButton
+              buttonStyle="group/tooltip relative cursor-pointer bg-thirdColor px-[30px]
               py-2.5 text-base leading-10 text-white duration-500 hover:bg-[#ac2925]"
-              onClick={() =>
+              onClickHandler={() =>
                 handleRemoveProductItemFromUserWishlist(item.title, item.id)
               }
             >
               <FaTrash />
 
               <Tooltip text="remove" styles="w-11/12" />
-            </span>
+            </TooltipButton>
           </div>
         </div>
       </div>

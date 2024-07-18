@@ -3,7 +3,7 @@ import { isMobileContactFooterMenuOpened } from '../../atoms/isOpened';
 import { useIsOpen } from '../../hooks/useIsOpen';
 
 import FooterDropDownMenus from '../../ui/FooterDropDownMenus/FooterDropDownMenus';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import Logo from '../../components/Logo/Logo';
 import MobileMenuHeader from '../MobileMenuHeader/MobileMenuHeader';
 import Input from '../Input/Input';
@@ -75,7 +75,7 @@ function ContactInfo() {
           />
 
           <span className="absolute right-1 top-1/2 -translate-y-1/2">
-            <ShopNowBtn text="subscribe" />
+            <MainButton text="subscribe" />
           </span>
         </form>
       </div>
@@ -116,7 +116,7 @@ function ContactInfo() {
           />
 
           <span className="absolute right-1 top-1/2 -translate-y-1/2">
-            <ShopNowBtn text="subscribe" />
+            <MainButton text="subscribe" />
           </span>
         </form>
       </FooterDropDownMenus>

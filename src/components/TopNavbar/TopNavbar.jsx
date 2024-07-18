@@ -55,6 +55,7 @@ function TopNavbar() {
         <div className="hidden sm:block">
           <span>Contact us 24/7: +02 010 940 13777</span>
         </div>
+
         <div className="hidden uppercase md:block">
           Free shipping for order over $150!
         </div>

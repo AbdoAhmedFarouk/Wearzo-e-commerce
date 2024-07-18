@@ -7,7 +7,7 @@ import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
 
 import HoveringIcons from '../HoveringIcons/HoveringIcons';
-import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
+import MainButton from '../MainButton/MainButton';
 import RatingStars from '../RatingStars/RatingStars';
 
 import { AiOutlineHeart } from 'react-icons/ai';
@@ -153,13 +153,13 @@ function ProductBox({ product }) {
           />
         </Link>
 
-        <ShopNowBtn
+        <MainButton
           text="add to cart"
           styles="invisible absolute -bottom-12 left-0 z-40 duration-300
           w-full cursor-pointer bg-primaryColor p-[5px] text-xs ease-in-out
           leading-[30px] text-white opacity-0 group-hover/box:visible hover:bg-thirdColor
           uppercase group-hover/box:bottom-0 group-hover/box:opacity-100"
-          onClick={() =>
+          onClickHandler={() =>
             currentUser?.email
               ? handleAddProductToUserCart(product)
               : handleAddProductToGlobalCart(

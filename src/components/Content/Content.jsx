@@ -88,7 +88,7 @@ function Content() {
         <NavigationBullets
           parentStyles="absolute bottom-2.5 left-1/2 z-50 flex
           -translate-x-1/2 space-x-3 md:bottom-5"
-          spanStyles="z-50 duration-500"
+          buttonStyle="z-50 duration-500"
           bulletsArr={SliderData}
           setState={setIndex}
           state={index}

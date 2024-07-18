@@ -16,7 +16,7 @@ import useUseEffectToNavigate from '../../hooks/useUseEffectToNavigate';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import Input from '../../components/Input/Input';
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
 import CustomRadioBtn from '../../components/CustomRadioBtn/CustomRadioBtn';
@@ -268,11 +268,11 @@ function SignupPage() {
                       minLength="8"
                     />
 
-                    <ShopNowBtn
+                    <MainButton
                       styles="border-none bg-primaryColor px-4 py-2.5 text-sm
                       capitalize text-white outline-0"
                       text="Show"
-                      onClick={handleShowPassword}
+                      onClickHandler={handleShowPassword}
                     />
                   </div>
 
@@ -303,11 +303,11 @@ function SignupPage() {
                     minLength="8"
                   />
 
-                  <ShopNowBtn
+                  <MainButton
                     styles="border-none bg-primaryColor px-4 py-2.5 text-sm
                     capitalize text-white outline-0"
                     text="Show"
-                    onClick={handleShowPasswordConf}
+                    onClickHandler={handleShowPasswordConf}
                   />
                 </div>
               </div>
@@ -324,7 +324,7 @@ function SignupPage() {
               />
 
               <div className="text-right">
-                <ShopNowBtn
+                <MainButton
                   isDisabled={isSignupLoading}
                   type="submit"
                   text={!isSignupLoading ? 'sign up' : 'Loading...'}
@@ -335,7 +335,7 @@ function SignupPage() {
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:bg-thirdColor'
                   }`}
-                  onClick={handleCheckingTerms}
+                  onClickHandler={handleCheckingTerms}
                 />
               </div>
             </form>

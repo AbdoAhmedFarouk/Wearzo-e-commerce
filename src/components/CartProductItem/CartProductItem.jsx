@@ -88,36 +88,36 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
               onChange={(e) => inpValueHandler(e)}
             />
 
-            <span
+            <button
               className="absolute -right-5 top-0 flex
               h-5 w-5 cursor-pointer items-center justify-center
               border border-l-0 border-fourthColor"
               onClick={handleIncrementProductQuantity}
             >
               <FiPlus />
-            </span>
+            </button>
 
-            <span
+            <button
               className="absolute -right-5 bottom-0 flex
               h-5 w-5 cursor-pointer items-center justify-center
               border border-l-0 border-fourthColor"
               onClick={handleDecrementProductQuantity}
             >
               <FiMinus />
-            </span>
+            </button>
           </div>
 
           <span className="select-none text-lg font-medium sm:ms-3 lg:m-0">
             €{itemTotalPrice}
           </span>
 
-          <span
+          <button
             className="h-4 w-4 cursor-pointer
             hover:text-thirdColor"
             onClick={() => handleRemoveProductItemFromUserCart(title, id)}
           >
             <FaTrash />
-          </span>
+          </button>
         </div>
       </div>
     </li>

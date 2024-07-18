@@ -34,10 +34,6 @@ function CheckoutDropdownPanel({
       >
         <h4 className="text-sm font-medium uppercase leading-5 xxs:text-base">
           <a>{headerText}</a>
-
-          {/* <span className="text-sm">
-          <MdKeyboardArrowDown />
-        </span> */}
         </h4>
       </MobileMenuHeader>
 

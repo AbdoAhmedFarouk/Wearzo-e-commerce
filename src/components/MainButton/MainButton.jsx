@@ -1,11 +1,11 @@
 import { PropTypes } from 'prop-types';
 
-ShopNowBtn.propTypes = {
+MainButton.propTypes = {
   styles: PropTypes.string,
   text: PropTypes.any,
   type: PropTypes.string,
   animation: PropTypes.node,
-  onClick: PropTypes.func,
+  onClickHandler: PropTypes.func,
   isDisabled: PropTypes.bool,
 };
 
@@ -14,14 +14,21 @@ text-[8px] font-normal uppercase leading-none text-white outline-0 ease-in-out
 duration-300 hover:bg-thirdColor xxxs:px-3 xxxs:py-[5px] xxxs:text-[10px]
 xxxs:leading-[16px] xs:px-5 xs:py-2 xs:text-xs lg:px-[30px] lg:py-2.5 lg:text-sm`;
 
-function ShopNowBtn({ animation, text, styles, type, onClick, isDisabled }) {
+function MainButton({
+  animation,
+  text,
+  styles,
+  type,
+  onClickHandler,
+  isDisabled,
+}) {
   return (
     <button
       className={`${animation ? animation : ''} ${
         styles ? styles : defaultStyles
       }`}
       type={type ? type : 'button'}
-      onClick={onClick && onClick}
+      onClick={onClickHandler && onClickHandler}
       disabled={isDisabled && isDisabled}
     >
       {text}
@@ -29,4 +36,4 @@ function ShopNowBtn({ animation, text, styles, type, onClick, isDisabled }) {
   );
 }
 
-export default ShopNowBtn;
+export default MainButton;

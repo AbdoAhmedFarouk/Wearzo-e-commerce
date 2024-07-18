@@ -163,13 +163,13 @@ function SearchField({ refEl }) {
         </div>
       </form>
 
-      <span
+      <button
         className="absolute right-1 top-1 cursor-pointer text-xl
         hover:text-thirdColor md:right-3 md:top-3"
         onClick={handleResetSearchBarState}
       >
         <AiOutlineClose />
-      </span>
+      </button>
     </>
   );
 }

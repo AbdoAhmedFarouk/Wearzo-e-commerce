@@ -6,7 +6,7 @@ import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMe
 import useAddProductsToGlobalCart from '../../hooks/useAddProductsToGlobalCart';
 import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 
-import ShopNowBtn from '../ShopNowBtn/ShopNowBtn';
+import MainButton from '../MainButton/MainButton';
 import RatingStars from '../RatingStars/RatingStars';
 
 import { AiOutlineHeart } from 'react-icons/ai';
@@ -73,12 +73,12 @@ function SpecialProductsCol({ product }) {
         </div>
 
         <div className="m-auto flex w-fit flex-wrap items-center sm:m-0">
-          <ShopNowBtn
+          <MainButton
             text="add to cart"
             styles="md:py-2.5 py-[5px] px-[15px] md:px-[30px] bg-primaryColor
             text-white uppercase hover:bg-thirdColor md:text-sm me-[9px]
             cursor-pointer duration-300 border-0 outline-0 text-xs leading-5"
-            onClick={() =>
+            onClickHandler={() =>
               currentUser?.email
                 ? handleAddProductToUserCart(product)
                 : handleAddProductToGlobalCart(

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 NavigationBullets.propTypes = {
   parentStyles: PropTypes.string,
   bulletsArr: PropTypes.array,
-  spanStyles: PropTypes.string,
+  buttonStyle: PropTypes.string,
   setState: PropTypes.func,
   state: PropTypes.number,
 };
@@ -11,23 +11,23 @@ NavigationBullets.propTypes = {
 function NavigationBullets({
   parentStyles,
   bulletsArr,
-  spanStyles,
+  buttonStyle,
   setState,
   state,
 }) {
   return (
     <div className={`${parentStyles ? parentStyles : ''}`}>
       {bulletsArr.map((_, index) => (
-        <span
+        <button
           key={index}
           className={`${
             state === index ? 'bg-thirdColor' : 'bg-white'
           } h-2.5 w-2.5 cursor-pointer hover:bg-thirdColor
-          ${spanStyles ? spanStyles : ''}`}
+          ${buttonStyle ? buttonStyle : ''}`}
           onClick={() => {
             setState(index);
           }}
-        ></span>
+        ></button>
       ))}
     </div>
   );

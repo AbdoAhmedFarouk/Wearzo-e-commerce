@@ -38,12 +38,12 @@ function MobileMenu() {
             >
               <span className="text-base font-medium leading-10">Menu</span>
 
-              <span
+              <button
                 className="cursor-pointer text-2xl font-normal hover:text-thirdColor"
                 onClick={handleResetMobileMenuState}
               >
                 <AiOutlineClose />
-              </span>
+              </button>
             </div>
 
             <div
@@ -126,12 +126,12 @@ function MobileMenu() {
             >
               <span className="text-base font-medium leading-10">Menu</span>
 
-              <span
+              <button
                 className="text-2xl font-normal"
                 onClick={handleResetMobileMenuState}
               >
                 <AiOutlineClose />
-              </span>
+              </button>
             </div>
 
             <div className="p-1 py-2 text-base font-medium capitalize text-secondaryColor">

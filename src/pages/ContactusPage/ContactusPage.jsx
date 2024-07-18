@@ -2,7 +2,7 @@ import SectionTag from '../../components/SectionTag/SectionTag';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Container from '../../components/Container/Container';
 import Input from '../../components/Input/Input';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 
 const inputDefaultStyles = `border-fourthColor bg-white border
 px-[15px] py-2.5 max-h-10 text-primaryColor`;
@@ -91,7 +91,7 @@ function ContactusPage() {
               </div>
 
               <div className="text-right">
-                <ShopNowBtn
+                <MainButton
                   text="send"
                   styles="border-none hover:bg-thirdColor
                   bg-primaryColor px-[30px] py-2.5 text-sm

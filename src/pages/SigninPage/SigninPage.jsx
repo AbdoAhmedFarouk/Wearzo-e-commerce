@@ -11,7 +11,7 @@ import signinError from '../../atoms/signinInpError';
 
 import SectionTag from '../../components/SectionTag/SectionTag';
 import Container from '../../components/Container/Container';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Input from '../../components/Input/Input';
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
@@ -115,10 +115,10 @@ function SigninPage() {
                     refEl={passRef}
                   />
 
-                  <ShopNowBtn
+                  <MainButton
                     styles="border-none bg-primaryColor px-4 py-2.5 text-sm capitalize
                     text-white outline-0"
-                    onClick={handleShowPassword}
+                    onClickHandler={handleShowPassword}
                     text="Show"
                   />
                 </div>
@@ -131,7 +131,7 @@ function SigninPage() {
               </div>
 
               <div className="mb-[18px]">
-                <ShopNowBtn
+                <MainButton
                   isDisabled={isSigninLoading}
                   text={isSigninLoading ? 'Loading...' : 'sign in'}
                   styles={`border-none py-2.5 text-sm

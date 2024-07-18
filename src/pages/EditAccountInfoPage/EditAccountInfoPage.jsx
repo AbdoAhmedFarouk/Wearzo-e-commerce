@@ -13,7 +13,7 @@ import SectionTag from '../../components/SectionTag/SectionTag';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Container from '../../components/Container/Container';
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import Input from '../../components/Input/Input';
 
 const inputDefaultStyles = `border-fourthColor bg-white border
@@ -243,14 +243,14 @@ function EditAccountInfoPage() {
                 className="mt-5 flex flex-col-reverse gap-5 xxs:flex-row
                 xxs:items-center xxs:justify-between xxs:gap-0"
               >
-                <ShopNowBtn
+                <MainButton
                   text="back"
                   styles="bg-primaryColor text-white md:py-2.5 md:px-[30px] duration-300
                   py-[7px] px-5 text-sm border-0 outline-0 uppercase hover:bg-thirdColor"
-                  onClick={handleNavigationSteps}
+                  onClickHandler={handleNavigationSteps}
                 />
 
-                <ShopNowBtn
+                <MainButton
                   text={!isEditInfoBtnLoading ? 'continue' : 'Loading...'}
                   type="submit"
                   styles={`bg-primaryColor text-white md:py-2.5 md:px-[30px] duration-300

@@ -8,7 +8,7 @@ import { auth, resetPassword } from '../../firebase';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import Input from '../../components/Input/Input';
 
 import { IoIosArrowBack } from 'react-icons/io';
@@ -114,7 +114,7 @@ function ForgotPasswordPage() {
                   refEl={resetPasswordInp}
                 />
 
-                <ShopNowBtn
+                <MainButton
                   isDisabled={isResetPassLoading}
                   styles={`border-none py-2.5 text-sm
                   bg-primaryColor px-5 md:px-[30px] uppercase

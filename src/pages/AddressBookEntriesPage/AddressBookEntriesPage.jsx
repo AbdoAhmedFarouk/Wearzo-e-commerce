@@ -9,7 +9,8 @@ import useUserCart from '../../hooks/useUserCart';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
+import TooltipButton from '../../components/TooltipButton/TooltipButton';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
@@ -82,17 +83,17 @@ function AddressBookEntriesPage() {
                           edit
                         </Link>
 
-                        <span
-                          className="group/tooltip relative inline-block cursor-pointer border-0
-                        bg-thirdColor px-5 py-[7px] text-sm uppercase text-white outline-0
-                        duration-300 hover:bg-[#ac2925] md:px-[30px] md:py-2.5"
-                          onClick={() =>
+                        <TooltipButton
+                          buttonStyle="group/tooltip relative inline-block cursor-pointer border-0
+                          bg-thirdColor px-5 py-[7px] text-sm uppercase text-white outline-0
+                          duration-300 hover:bg-[#ac2925] md:px-[30px] md:py-2.5"
+                          onClickHandler={() =>
                             handleDeleteAddressBookEntry(address.address)
                           }
                         >
                           delete
                           <Tooltip text="delete" styles="md:w-1/2 w-[65%]" />
-                        </span>
+                        </TooltipButton>
                       </td>
                     </tr>
                   </tbody>
@@ -107,11 +108,11 @@ function AddressBookEntriesPage() {
             </div>
           )}
 
-          <ShopNowBtn
+          <MainButton
             text="back"
             styles="bg-primaryColor text-white md:py-2.5 md:px-[30px] duration-300
             py-[7px] px-5 text-sm border-0 outline-0 uppercase hover:bg-thirdColor"
-            onClick={handleNavigateBack}
+            onClickHandler={handleNavigateBack}
           />
         </Container>
       </div>

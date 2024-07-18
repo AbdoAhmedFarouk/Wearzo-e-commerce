@@ -8,12 +8,13 @@ import useProductsReturns from '../../hooks/useProductsReturns';
 import Container from '../../components/Container/Container';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import SectionTag from '../../components/SectionTag/SectionTag';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 
 import Tooltip from '../../ui/Tooltip/Tooltip';
 
 import { HiShoppingCart } from 'react-icons/hi2';
 import { IoReturnUpBackOutline } from 'react-icons/io5';
+import TooltipButton from '../../components/TooltipButton/TooltipButton';
 
 function ConfirmedOrderInfo() {
   const navigate = useNavigate();
@@ -105,22 +106,24 @@ function ConfirmedOrderInfo() {
                     <td>€{product.price}</td>
 
                     <td className="w-[195px] whitespace-nowrap text-center">
-                      <button
-                        className="group/tooltip relative me-2 inline-block cursor-pointer bg-primaryColor
+                      <TooltipButton
+                        buttonStyle="group/tooltip relative me-2 inline-block cursor-pointer bg-primaryColor
                         px-5 py-[7px] align-middle text-base leading-10 text-white
                         duration-500 hover:bg-thirdColor md:px-[30px] md:py-2.5"
-                        onClick={() => handleAddProductToUserCart(product)}
+                        onClickHandler={() =>
+                          handleAddProductToUserCart(product)
+                        }
                       >
                         <HiShoppingCart />
 
                         <Tooltip text="reorder" styles="w-[115%] md:w-11/12" />
-                      </button>
+                      </TooltipButton>
 
-                      <button
-                        className="group/tooltip relative inline-block cursor-pointer bg-thirdColor px-5
+                      <TooltipButton
+                        buttonStyle="group/tooltip relative inline-block cursor-pointer bg-thirdColor px-5
                         py-[7px] align-middle text-base leading-10 text-white duration-500
                         hover:bg-[#ac2925] md:px-[30px] md:py-2.5"
-                        onClick={() =>
+                        onClickHandler={() =>
                           handleProductReturn({
                             productToReturn: product,
                             orderId: existingOrder.orderId,
@@ -131,7 +134,7 @@ function ConfirmedOrderInfo() {
                         <IoReturnUpBackOutline />
 
                         <Tooltip text="return" styles="w-[95%] md:w-11/12" />
-                      </button>
+                      </TooltipButton>
                     </td>
                   </tr>
                 ))}
@@ -153,13 +156,13 @@ function ConfirmedOrderInfo() {
             </table>
           </div>
 
-          <ShopNowBtn
+          <MainButton
             text="continue"
             type="button"
             styles="ms-auto block bg-primaryColor mt-5 text-white md:py-2.5
             md:px-[30px] py-[7px] px-5 text-sm border-0 outline-0 uppercase
             hover:bg-thirdColor"
-            onClick={handleNavigateToOrderHistoryPage}
+            onClickHandler={handleNavigateToOrderHistoryPage}
           />
         </Container>
       </div>

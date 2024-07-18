@@ -9,7 +9,7 @@ import { useClickEvent } from '../../hooks/useClickEvent';
 import { useKeyEvent } from '../../hooks/useKeyEvent';
 
 import newletter from '../../assets/newletter_popup.jpg';
-import ShopNowBtn from '../../components/ShopNowBtn/ShopNowBtn';
+import MainButton from '../../components/MainButton/MainButton';
 import Input from '../../components/Input/Input';
 
 import { MdClose } from 'react-icons/md';
@@ -89,7 +89,7 @@ const Overlay = () => {
                 id="modalEmailInp"
               />
 
-              <ShopNowBtn
+              <MainButton
                 text="subscribe"
                 styles="mt-[15px] md:mt-5 inline-block cursor-pointer border-0
                 bg-primaryColor md:px-[30px] md:py-[10px] text-sm py-[7px] px-5
