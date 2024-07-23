@@ -13,7 +13,7 @@ function useAddProductsToUserWishList() {
       id: product?.id,
       title: product?.title,
       price: product?.price,
-      img: product?.img,
+      image: product?.image,
       discount: product?.discount,
     };
 

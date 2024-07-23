@@ -17,10 +17,10 @@ CartProductItem.propTypes = {
   quantity: PropTypes.number,
   id: PropTypes.number,
   discount: PropTypes.number,
-  img: PropTypes.string,
+  image: PropTypes.string,
 };
 
-function CartProductItem({ title, img, price, quantity, id, discount }) {
+function CartProductItem({ title, image, price, quantity, id, discount }) {
   const itemPrice = discount ? (price - discount).toFixed(2) : price;
 
   const itemTotalPrice = discount
@@ -47,8 +47,8 @@ function CartProductItem({ title, img, price, quantity, id, discount }) {
         <div className="m-auto mb-5 sm:col-span-3 sm:mb-0">
           <img
             className="h-[100px] w-[75px] object-contain"
-            src={img}
-            alt={img}
+            src={image}
+            alt={image}
           />
         </div>
 

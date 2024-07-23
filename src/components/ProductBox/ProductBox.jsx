@@ -1,19 +1,21 @@
 import { useRecoilState } from 'recoil';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMenu';
 import useAddProductsToGlobalCart from '../../hooks/useAddProductsToGlobalCart';
 import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
 import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
+import useUserCart from '../../hooks/useUserCart';
+import useAddProductsToCompareList from '../../hooks/useAddProductsToCompareList';
 
 import HoveringIcons from '../HoveringIcons/HoveringIcons';
 import MainButton from '../MainButton/MainButton';
 import RatingStars from '../RatingStars/RatingStars';
 
+import Swal from 'sweetalert2';
+
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsShuffle, BsEye } from 'react-icons/bs';
-import Swal from 'sweetalert2';
-import useUserCart from '../../hooks/useUserCart';
 
 ProductBox.propTypes = {
   product: PropTypes.object,
@@ -23,7 +25,7 @@ function ProductBox({ product }) {
   const [addedProductToGlobalCart, setAddedProductToGlobalCart] =
     useRecoilState(addedProductToGlobalCartMenu);
 
-  const { setLoggedUsers, currentUser, checkLoggedUser } = useUserCart();
+  const { currentUser } = useUserCart();
 
   const productDiscountPercent =
     product?.discount > 0 ? (product?.discount / product?.price) * 100 : null;
@@ -32,51 +34,13 @@ function ProductBox({ product }) {
     (item) => item.id === product.id,
   );
 
-  const navigate = useNavigate();
-
   const handleAddProductToUserCart = useAddProductsToUserCart();
 
   const handleAddProductToUserWishlist = useAddProductsToUserWishList();
 
   const handleAddProductToGlobalCart = useAddProductsToGlobalCart();
 
-  const handleAddProductToComparison = (productId) => {
-    const existingProductInUserComparisonList =
-      checkLoggedUser?.comparedProducts?.find((item) => item.id === productId);
-
-    setLoggedUsers((users) => {
-      return users.map((user) =>
-        user.email === currentUser?.email
-          ? {
-              ...user,
-
-              comparedProducts: existingProductInUserComparisonList
-                ? [...user.comparedProducts]
-                : user.comparedProducts.length < 4
-                ? [...user.comparedProducts, product]
-                : [...user.comparedProducts.slice(1), product],
-            }
-          : user,
-      );
-    });
-
-    if (!existingProductInUserComparisonList) {
-      Swal.fire({
-        title:
-          'The product has been successfully added to your comparison list.',
-        text: 'Do you want to go to the comparison page ?',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, I do.',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('compare');
-        }
-      });
-    }
-  };
+  const handleAddProductToComparison = useAddProductsToCompareList();
 
   return (
     <div className="group/box relative text-center">
@@ -134,7 +98,7 @@ function ProductBox({ product }) {
           className="flex h-[30px] w-[30px] items-center justify-center
           duration-300 ease-in-out hover:text-thirdColor md:h-10
           md:w-10"
-          onClick={() => handleAddProductToComparison(product?.id)}
+          onClick={() => handleAddProductToComparison(product?.id, product)}
         >
           <BsShuffle />
         </button>
@@ -148,8 +112,8 @@ function ProductBox({ product }) {
           <img
             className="h-[300px] w-full object-contain
             md:h-[180px] lg:h-[220px] 2xl:h-[220px]"
-            src={product?.img}
-            alt={product?.img}
+            src={product?.image}
+            alt={product?.image}
           />
         </Link>
 

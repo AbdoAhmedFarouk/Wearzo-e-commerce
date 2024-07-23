@@ -88,7 +88,9 @@ function SpecialPage() {
       try {
         setIsSpecialProductsLoading(true);
         setSpecialPageError('');
-        const res = await axios.get(`http://localhost:8000/products`);
+        const res = await axios.get(
+          `https://abdoahmedfarouk.github.io/wearzo-api/database.json`,
+        );
 
         if (res.status !== 200) {
           throw new Error('error with fetching products');

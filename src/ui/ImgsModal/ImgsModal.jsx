@@ -96,7 +96,7 @@ function ImgsModal() {
           >
             <div className="bg-cover bg-center bg-no-repeat">
               <img
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover lg:w-[720px]"
                 src={imgSrc}
                 alt={imgSrc}
               />

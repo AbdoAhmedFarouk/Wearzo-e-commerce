@@ -96,8 +96,8 @@ function ProductIconInProductPage({ errorMsg }) {
           <div className="md:ms-[30px] md:h-[755px]">
             <img
               className="h-[200px] w-full object-contain xxs:h-[250px] sm:h-full"
-              src={chosenProduct?.img}
-              alt={chosenProduct?.img}
+              src={chosenProduct?.image}
+              alt={chosenProduct?.image}
               ref={imgEl}
             />
           </div>

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   isProductInProductPageLoading,
@@ -17,9 +18,6 @@ import ProductIconInProductPage from '../../components/ProductIconInProductPage/
 import ProductBoxContainer from '../../components/ProductBoxContainer/ProductBoxContainer';
 import ProductInfoInProductPage from '../../components/ProductInfoInProductPage/ProductInfoInProductPage';
 import ProductReviewsInProductPage from '../../components/ProductReviewsInProductPage/ProductReviewsInProductPage';
-import { useRef } from 'react';
-
-// import ErrorPage from '../ErrorPage/ErrorPage';
 
 function ProductPage() {
   const [chosenProduct, setChosenProduct] = useRecoilState(clickedProduct);
@@ -52,8 +50,6 @@ function ProductPage() {
     setIsRelatedProductsLoading,
     setRelatedProductsError,
   );
-
-  // if (isNaN(+id)) return <ErrorPage />;
 
   return (
     <SectionTag>

@@ -60,8 +60,8 @@ function MenuCartProductBox({ product }) {
       <Link to={`/product/${product?.id}`}>
         <img
           className="mr-[15px] h-full w-[75px] object-contain"
-          src={product?.img}
-          alt={product?.img}
+          src={product?.image}
+          alt={product?.image}
         />
       </Link>
 

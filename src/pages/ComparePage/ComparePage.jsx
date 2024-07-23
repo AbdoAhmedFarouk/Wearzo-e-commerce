@@ -46,7 +46,7 @@ function ComparePage() {
               {renderTableData('Image', (product) => (
                 <img
                   className="m-auto w-[80px]"
-                  src={product.img}
+                  src={product.image}
                   alt={product.title}
                 />
               ))}

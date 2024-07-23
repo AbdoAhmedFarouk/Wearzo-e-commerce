@@ -11,6 +11,7 @@ import useDecrementProductQuantity from '../../hooks/useDecrementProductQuantity
 import useUserCart from '../../hooks/useUserCart';
 import useInputValueHandler from '../../hooks/useInputValueHandler';
 import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
+import useAddProductsToCompareList from '../../hooks/useAddProductsToCompareList';
 
 import MainButton from '../../components/MainButton/MainButton';
 import SiteInfoRules from '../../components/SiteInfoRules/SiteInfoRules';
@@ -68,6 +69,8 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
   );
 
   const handleAddProductToUserCart = useAddProductsToUserCart();
+
+  const handleAddProductToComparison = useAddProductsToCompareList();
 
   const isProductFoundFn = () => {
     !isProductFound &&
@@ -174,6 +177,7 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
                 className="absolute right-0 top-1/2 flex h-full -translate-y-1/2
                 cursor-pointer items-center justify-center px-2 hover:text-thirdColor"
                 onClick={handleIncrementProductQuantity}
+                type="button"
               >
                 <FiPlus />
               </button>
@@ -182,6 +186,7 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
                 className="absolute left-0 top-1/2 flex h-full -translate-y-1/2
                 cursor-pointer items-center justify-center px-2 hover:text-thirdColor"
                 onClick={handleDecrementProductQuantity}
+                type="button"
               >
                 <FiMinus />
               </button>
@@ -196,7 +201,6 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
               duration-300 border-0 outline-0"
               onClickHandler={() => handleAddProductToUserCart(chosenProduct)}
             />
-
             <TooltipButton
               buttonStyle="group/tooltip relative me-[5px] flex h-10 w-10 cursor-pointer
               items-center justify-center bg-fifthColor text-center
@@ -216,7 +220,7 @@ function ProductInfoInProductPage({ urlProductId, reviewsBtnRef }) {
               justify-center bg-fifthColor text-center text-lg duration-300
               ease-in-out hover:bg-primaryColor hover:text-white"
               onClickHandler={() =>
-                handleAddProductToUserWishlist(chosenProduct)
+                handleAddProductToComparison(chosenProduct.id, chosenProduct)
               }
             >
               <BsShuffle />

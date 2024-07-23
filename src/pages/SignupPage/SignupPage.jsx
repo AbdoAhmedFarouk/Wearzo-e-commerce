@@ -271,7 +271,7 @@ function SignupPage() {
                     <MainButton
                       styles="border-none bg-primaryColor px-4 py-2.5 text-sm
                       capitalize text-white outline-0"
-                      text="Show"
+                      text={isSignupPagePassNums ? 'hide' : 'show'}
                       onClickHandler={handleShowPassword}
                     />
                   </div>
@@ -306,7 +306,7 @@ function SignupPage() {
                   <MainButton
                     styles="border-none bg-primaryColor px-4 py-2.5 text-sm
                     capitalize text-white outline-0"
-                    text="Show"
+                    text={isSignupPagePassConfNums ? 'hide' : 'show'}
                     onClickHandler={handleShowPasswordConf}
                   />
                 </div>

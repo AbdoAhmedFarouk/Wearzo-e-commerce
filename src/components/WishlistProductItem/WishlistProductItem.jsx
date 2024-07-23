@@ -38,8 +38,8 @@ function WishlistProductItem({ item }) {
         <div className="m-auto mb-5 sm:col-span-3 sm:mb-0">
           <img
             className="h-[100px] w-[75px] object-contain"
-            src={item.img}
-            alt={item.img}
+            src={item.image}
+            alt={item.image}
           />
         </div>
 

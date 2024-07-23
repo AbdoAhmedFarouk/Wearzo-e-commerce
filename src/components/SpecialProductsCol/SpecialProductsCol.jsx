@@ -36,7 +36,7 @@ function SpecialProductsCol({ product }) {
         <Link to={`/product/${product?.id}`}>
           <img
             className="aspect-square h-[250px] w-[282px] object-contain"
-            src={product?.img}
+            src={product?.image}
           />
         </Link>
       </div>

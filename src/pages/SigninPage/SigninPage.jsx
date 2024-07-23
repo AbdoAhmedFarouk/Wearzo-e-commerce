@@ -119,7 +119,7 @@ function SigninPage() {
                     styles="border-none bg-primaryColor px-4 py-2.5 text-sm capitalize
                     text-white outline-0"
                     onClickHandler={handleShowPassword}
-                    text="Show"
+                    text={isSigninPagePassNums ? 'hide' : 'show'}
                   />
                 </div>
               </div>

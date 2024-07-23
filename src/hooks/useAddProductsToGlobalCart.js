@@ -12,7 +12,7 @@ function useAddProductsToGlobalCart() {
       id: product?.id,
       title: product?.title,
       price: product?.price,
-      img: product?.img,
+      image: product?.image,
       quantity: 1,
       discount: product?.discount,
     };
