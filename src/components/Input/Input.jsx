@@ -5,7 +5,7 @@ Input.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   id: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   readOnly: PropTypes.bool,

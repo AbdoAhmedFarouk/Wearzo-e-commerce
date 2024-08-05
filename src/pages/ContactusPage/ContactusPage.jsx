@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { send } from 'emailjs-com';
+
 import SectionTag from '../../components/SectionTag/SectionTag';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import Container from '../../components/Container/Container';
@@ -8,8 +11,36 @@ const inputDefaultStyles = `border-fourthColor bg-white border
 px-[15px] py-2.5 max-h-10 text-primaryColor`;
 
 function ContactusPage() {
+  const [toSend, setToSend] = useState({
+    'contact-first-name': '',
+    'contact-last-name': '',
+    'contact-message': '',
+    reply_to: '',
+  });
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    send('service_ilh7vsm', 'contact_form', toSend, 'ORr_THHKAlYSfmWVY')
+      .then(() => {
+        setSuccessMsg('Your message has been sent successfully.');
+      })
+      .catch(() => {
+        setErrorMsg('Failed to send your message!');
+      });
+
+    setToSend({
+      'contact-first-name': '',
+      'contact-last-name': '',
+      'contact-message': '',
+      reply_to: '',
+    });
+  };
+
+  const handleChange = (e) => {
+    setToSend({ ...toSend, [e.target.name]: e.target.value });
   };
 
   return (
@@ -22,10 +53,76 @@ function ContactusPage() {
             className="m-auto w-3/4 border border-fourthColor p-[15px]
             text-center text-primaryColor"
           >
+            {errorMsg ? (
+              <p
+                className={`m-auto mb-4 w-fit rounded-[4px]
+                border-0 ${errorMsg && 'bg-red-200 px-4 py-1.5 text-red-800'}`}
+              >
+                {errorMsg && errorMsg}
+              </p>
+            ) : (
+              successMsg && (
+                <p
+                  className={`m-auto mb-4 w-fit rounded-[4px]
+                border-0 ${
+                  successMsg && 'bg-green-200 px-4 py-1.5 text-green-800'
+                }`}
+                >
+                  {successMsg && successMsg}
+                </p>
+              )
+            )}
+
             <form onSubmit={(e) => handleFormSubmit(e)}>
               <div
                 className="grid grid-cols-1 items-center
                 sm:grid-cols-10"
+              >
+                <label
+                  className="col-span-3 mb-2 text-left
+                  text-sm font-medium capitalize sm:mb-0"
+                  htmlFor="contactFirstNameInp"
+                >
+                  First name
+                </label>
+
+                <Input
+                  styles={`col-span-5 m-auto ${inputDefaultStyles}`}
+                  id="contactFirstNameInp"
+                  type="text"
+                  name="contact-first-name"
+                  required
+                  value={toSend['contact-first-name']}
+                  onChangeHandler={handleChange}
+                />
+              </div>
+
+              <div
+                className="my-5 grid grid-cols-1
+                items-center sm:grid-cols-10"
+              >
+                <label
+                  className="col-span-3 mb-2 text-left
+                  text-sm font-medium capitalize sm:mb-0"
+                  htmlFor="contactLastNameInp"
+                >
+                  Last name
+                </label>
+
+                <Input
+                  styles={`col-span-5 m-auto ${inputDefaultStyles}`}
+                  id="contactLastNameInp"
+                  type="text"
+                  name="contact-last-name"
+                  required
+                  value={toSend['contact-last-name']}
+                  onChangeHandler={handleChange}
+                />
+              </div>
+
+              <div
+                className="mb-5 grid grid-cols-1
+                items-center sm:grid-cols-10"
               >
                 <label
                   className="col-span-3 mb-2 text-left
@@ -39,33 +136,11 @@ function ContactusPage() {
                   styles={`col-span-5 m-auto ${inputDefaultStyles}`}
                   id="contactEmailInp"
                   type="email"
-                  name="email"
+                  name="reply_to"
                   required
+                  value={toSend.reply_to}
+                  onChangeHandler={handleChange}
                 />
-              </div>
-
-              <div
-                className="my-4 grid grid-cols-1 items-center
-                sm:grid-cols-10"
-              >
-                <label
-                  className="col-span-3 mb-2 text-left
-                  text-sm font-medium capitalize sm:mb-0"
-                  htmlFor="file-attachment"
-                >
-                  Attachment
-                </label>
-
-                <Input
-                  styles="col-span-5 m-auto max-h-full
-                  border border-fourthColor px-[15px] text-xs
-                  py-2.5 text-primaryColor sm:text-sm md:text-base"
-                  id="file-attachment"
-                  type="file"
-                  name="file-attachmed"
-                />
-
-                <span className="col-span-2 mt-2 text-sm sm:m-0">optional</span>
               </div>
 
               <div
@@ -82,11 +157,13 @@ function ContactusPage() {
 
                 <textarea
                   className="col-span-5 min-h-[65px] max-w-full
-                  border border-fourthColor px-[15px] py-2"
+                  border border-fourthColor px-[15px] py-2 outline-0"
                   id="msg-area-field"
-                  name="message"
+                  name="contact-message"
                   required
                   placeholder="How can we help ?"
+                  value={toSend['contact-message']}
+                  onChange={handleChange}
                 />
               </div>
 

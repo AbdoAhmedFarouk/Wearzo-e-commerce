@@ -5,12 +5,15 @@ import { currentLoggedUser } from '../../atoms/currentLoggedUser';
 import addedProductToGlobalCartMenu from '../../atoms/addedProductToGlobalCartMenu';
 import useAddProductsToGlobalCart from '../../hooks/useAddProductsToGlobalCart';
 import useAddProductsToUserCart from '../../hooks/useAddProductsToUserCart';
+import useAddProductsToUserWishList from '../../hooks/useAddProductsToUserWishlist';
+import useAddProductsToCompareList from '../../hooks/useAddProductsToCompareList';
 
 import MainButton from '../MainButton/MainButton';
 import RatingStars from '../RatingStars/RatingStars';
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsEye, BsShuffle } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 
 SpecialProductsCol.propTypes = {
   product: PropTypes.object,
@@ -29,6 +32,10 @@ function SpecialProductsCol({ product }) {
   const handleAddProductToUserCart = useAddProductsToUserCart();
 
   const handleAddProductToGlobalCart = useAddProductsToGlobalCart();
+
+  const handleAddProductToUserWishlist = useAddProductsToUserWishList();
+
+  const handleAddProductToComparison = useAddProductsToCompareList();
 
   return (
     <>
@@ -91,16 +98,28 @@ function SpecialProductsCol({ product }) {
             }
           />
 
-          <span
+          <button
             className="me-[5px] grid h-[30px] w-[30px] cursor-pointer
             place-items-center bg-fifthColor text-center text-base duration-300
             ease-in-out hover:bg-primaryColor hover:text-white md:h-10 md:w-10
             md:text-lg"
+            onClick={() => {
+              currentUser?.email
+                ? handleAddProductToUserWishlist(product)
+                : Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title:
+                      'You can not add products to wishlist unless you have logged in.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                  });
+            }}
           >
             <AiOutlineHeart />
-          </span>
+          </button>
 
-          <span
+          <button
             className="me-[5px] h-[30px] w-[30px] cursor-pointer bg-fifthColor 
             text-lg duration-300 ease-in-out hover:bg-primaryColor
             hover:text-white sm:h-10 sm:w-10"
@@ -111,15 +130,27 @@ function SpecialProductsCol({ product }) {
             >
               <BsEye />
             </Link>
-          </span>
+          </button>
 
-          <span
+          <button
             className="grid h-[30px] w-[30px] cursor-pointer place-items-center
             bg-fifthColor text-center text-lg duration-300 ease-in-out
             hover:bg-primaryColor hover:text-white sm:h-10 sm:w-10"
+            onClick={() => {
+              currentUser?.email
+                ? handleAddProductToComparison(product?.id, product)
+                : Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title:
+                      'You can not add products to the copmarison list unless you have logged in.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                  });
+            }}
           >
             <BsShuffle />
-          </span>
+          </button>
         </div>
       </div>
     </>

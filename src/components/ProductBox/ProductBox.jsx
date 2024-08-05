@@ -98,7 +98,18 @@ function ProductBox({ product }) {
           className="flex h-[30px] w-[30px] items-center justify-center
           duration-300 ease-in-out hover:text-thirdColor md:h-10
           md:w-10"
-          onClick={() => handleAddProductToComparison(product?.id, product)}
+          onClick={() => {
+            currentUser?.email
+              ? handleAddProductToComparison(product?.id, product)
+              : Swal.fire({
+                  position: 'center',
+                  icon: 'info',
+                  title:
+                    'You can not add products to the copmarison list unless you have logged in.',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+          }}
         >
           <BsShuffle />
         </button>
