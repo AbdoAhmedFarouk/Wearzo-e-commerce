@@ -9,12 +9,12 @@ import useUserCart from '../../hooks/useUserCart';
 
 import { auth, updateUserEmail } from '../../firebase';
 
-import SectionTag from '../../components/SectionTag/SectionTag';
-import PageTitle from '../../components/PageTitle/PageTitle';
 import Container from '../../components/Container/Container';
+import Input from '../../components/Input/Input';
 import LabelAndInput from '../../components/LabelAndInput/LabelAndInput';
 import MainButton from '../../components/MainButton/MainButton';
-import Input from '../../components/Input/Input';
+import PageTitle from '../../components/PageTitle/PageTitle';
+import SectionTag from '../../components/SectionTag/SectionTag';
 
 const inputDefaultStyles = `border-fourthColor bg-white border
 px-[15px] py-1.5 max-h-10 text-primaryColor h-10`;
@@ -42,22 +42,19 @@ function EditAccountInfoPage() {
 
   const parentPathName = pathname.substring(1, pathname.lastIndexOf('/'));
 
-  const handleChangeEmailAddress = () => {
-    setEditInfoErrorMsg('');
-    setEditInfoSuccessMsg('');
-    setIsEditInfoBtnLoading(true);
+  const handleChangeEmailAddress = async () => {
+    try {
+      setEditInfoErrorMsg('');
+      setEditInfoSuccessMsg('');
+      setIsEditInfoBtnLoading(true);
 
-    updateUserEmail(auth.currentUser, newEmailRef?.current?.value)
-      .then(() => {
-        setIsEditInfoBtnLoading(false);
-        setEditInfoSuccessMsg(
-          'Your Information has been updated successfully.',
-        );
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setEditInfoErrorMsg('Failed to change the email address.');
-      });
+      await updateUserEmail(auth.currentUser, newEmailRef?.current?.value);
+
+      setIsEditInfoBtnLoading(false);
+      setEditInfoSuccessMsg('Your Information has been updated successfully.');
+    } catch {
+      setEditInfoErrorMsg('Failed to change the email address.');
+    }
   };
 
   const handleFormSubmit = (e) => {
